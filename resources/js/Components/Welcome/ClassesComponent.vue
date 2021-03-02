@@ -11,7 +11,7 @@
       <!--sec-title end-->
       <div class="classes-sec">
         <div class="row classes-carousel">
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-12">
             <div class="classes-col wow fadeInUp" data-wow-duration="1000ms">
               <div class="class-thumb">
                 <img :src="`${asset_url}/img1.jpg`" alt="" class="w-100" />
@@ -37,7 +37,7 @@
             </div>
             <!--classes-col end-->
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-12">
             <div
               class="classes-col wow fadeInUp"
               data-wow-duration="1000ms"
@@ -67,7 +67,7 @@
             </div>
             <!--classes-col end-->
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-12">
             <div
               class="classes-col wow fadeInUp"
               data-wow-duration="1000ms"
@@ -97,7 +97,7 @@
             </div>
             <!--classes-col end-->
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-12">
             <div
               class="classes-col wow fadeInUp"
               data-wow-duration="1000ms"
@@ -127,7 +127,7 @@
             </div>
             <!--classes-col end-->
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-12">
             <div class="classes-col">
               <div class="class-thumb">
                 <img :src="`${asset_url}/img1.jpg`" alt="" class="w-100" />
@@ -153,7 +153,7 @@
             </div>
             <!--classes-col end-->
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-12">
             <div class="classes-col">
               <div class="class-thumb">
                 <img :src="`${asset_url}/img2.jpg`" alt="" class="w-100" />
@@ -179,7 +179,7 @@
             </div>
             <!--classes-col end-->
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-12">
             <div class="classes-col">
               <div class="class-thumb">
                 <img :src="`${asset_url}/img3.jpg`" alt="" class="w-100" />
@@ -205,7 +205,7 @@
             </div>
             <!--classes-col end-->
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-12">
             <div class="classes-col">
               <div class="class-thumb">
                 <img :src="`${asset_url}/img4.jpg`" alt="" class="w-100" />

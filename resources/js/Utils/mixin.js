@@ -6,6 +6,9 @@ const mixin = {
         app_name_short() {
             return `${process.env.MIX_APP_NAME_SHORT}`;
         },
+        app_initials() {
+            return `${process.env.MIX_APP_INITIALS}`;
+        },
         app_env() {
             return `${process.env.MIX_APP_ENV}`;
         },
