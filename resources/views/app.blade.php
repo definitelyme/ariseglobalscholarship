@@ -4,20 +4,29 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="description" content="-----" />
+        <meta name="keywords" content="scholarship,learning,aid,charity" />
+        <meta name="author" content="Brendan Ejike (@@f0rx)" />
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        {{-- <link rel="shortcut icon" href="/favicon.ico"> --}}
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+
+        <title>{{ config('app.name', 'Arise Global Scholarship') }}</title>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/private.css') }}">
 
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/bundle.min.js') }}"></script>
+        <script src="{{ asset('js/button.min.js') }}"></script>
     </head>
-    <body class="font-sans antialiased">
-        @inertia
+    <body>
+        <div class="wrapper">
+            @inertia
+        </div>
     </body>
 </html>
