@@ -69,6 +69,7 @@
             "@php artisan optimize"
         ],
         "optimize-dev": [
+            "@composer install",
             "@composer update",
             "@php artisan optimize:clear"
         ]

@@ -17,5 +17,6 @@ package-lock.json
 composer.lock
 public/css/app.css
 public/css/private.css
+public/mix-manifest.json
 public/js/app.js
-public/css/app.js.LICENSE.txt
+public/js/app.js.LICENSE.txt
