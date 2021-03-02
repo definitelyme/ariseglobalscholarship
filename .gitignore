@@ -14,6 +14,7 @@ yarn-error.log
 
 # Ignore generated files
 package-lock.json
+composer.lock
 public/css/app.css
 public/css/private.css
 public/js/app.js
