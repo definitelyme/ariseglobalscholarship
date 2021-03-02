@@ -1,12 +1,15 @@
 const path = require("path");
-// const dotenv = require("dotenv");
+const webpack = require("webpack");
 
 module.exports = {
-    // plugins: [
-    //     new webpack.DefinePlugin({
-    //         "process.env": JSON.stringify(dotenv.config().parsed),
-    //     }),
-    // ],
+    plugins: [
+        // Define Bundler Build Feature Flags
+        new webpack.DefinePlugin({
+            // Drop Options API from bundle
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false,
+        }),
+    ],
     resolve: {
         alias: {
             "@": path.resolve("resources/js"),
