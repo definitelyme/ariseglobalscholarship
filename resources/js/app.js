@@ -1,13 +1,18 @@
-require('./bootstrap');
+require("./bootstrap");
 
 // Import modules...
-import { createApp, h } from 'vue';
-import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue3';
-import { InertiaProgress } from '@inertiajs/progress';
+import { createApp, h } from "vue";
+import {
+    App as InertiaApp,
+    plugin as InertiaPlugin,
+} from "@inertiajs/inertia-vue3";
+import { InertiaProgress } from "@inertiajs/progress";
+import Mixin from "./Utils/mixin";
+import { registerComponents } from "./Utils/component-registration";
 
-const el = document.getElementById('app');
+const el = document.getElementById("app");
 
-createApp({
+const app = createApp({
     render: () =>
         h(InertiaApp, {
             initialPage: JSON.parse(el.dataset.page),
@@ -15,7 +20,14 @@ createApp({
         }),
 })
     .mixin({ methods: { route } })
-    .use(InertiaPlugin)
-    .mount(el);
+    .mixin(Mixin)
+    .use(InertiaPlugin);
 
-InertiaProgress.init({ color: '#4B5563' });
+// Register Components
+registerComponents(app);
+
+// Mount Vue Application
+app.mount(el);
+
+// Set Inertia Progress Indicator
+InertiaProgress.init({ color: "#4B5563" });
