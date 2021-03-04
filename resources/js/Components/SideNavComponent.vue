@@ -1,19 +1,60 @@
 <template>
   <div class="responsive-menu">
     <ul>
-      <li><a href="index-2.html" title="">Home</a></li>
-      <li><a href="about.html" title="">About</a></li>
-      <li><a href="events.html" title="">Events</a></li>
-      <li><a href="event-single.html" title="">Event Single</a></li>
-      <li><a href="schedule.html" title="">Schedule</a></li>
-      <li><a href="classes.html" title="">Classes</a></li>
-      <li><a href="class-single.html" title="">Classe Single</a></li>
-      <li><a href="teachers.html" title="">Teachers</a></li>
-      <li><a href="teacher-single.html" title="">Teacher Single</a></li>
-      <li><a href="blog.html" title="">Blog</a></li>
-      <li><a href="post.html" title="">Blog Single</a></li>
-      <li><a href="contacts.html" title="">Contacts</a></li>
-      <li><a href="error.html" title="">404</a></li>
+      <li>
+        <a :href="route('/')" title="" :active="route().current('/')">Home</a>
+      </li>
+
+      <li>
+        <nav-link-component
+          :href="route('scholarship./')"
+          :active="route().current().includes('apply')"
+          title=""
+          >Apply</nav-link-component
+        >
+      </li>
+
+      <li>
+        <nav-link-component
+          :href="route('scholarship.about')"
+          :active="route().current().includes('scholarship/about')"
+          title=""
+          >About Scholarship</nav-link-component
+        >
+      </li>
+
+      <li>
+        <nav-link-component
+          :href="route('/')"
+          title=""
+          :active="route().current().includes('blog')"
+          >Blog</nav-link-component
+        >
+      </li>
+
+      <li>
+        <nav-link-component
+          :href="route('about')"
+          :active="route().current().includes('about')"
+          title=""
+          >About Arise Global</nav-link-component
+        >
+      </li>
+
+      <li>
+        <nav-link-component
+          :href="route('contact')"
+          title=""
+          :active="route().current().includes('contact')"
+          >Contact Us</nav-link-component
+        >
+      </li>
+
+      <li>
+        <nav-link-component :href="route('logout')" method="post"
+          >Logout
+        </nav-link-component>
+      </li>
     </ul>
   </div>
 </template>

@@ -1,4 +1,9 @@
 const mixin = {
+    data() {
+        return {
+            //
+        };
+    },
     computed: {
         app_name() {
             return `${process.env.MIX_APP_NAME}`;
@@ -15,9 +20,6 @@ const mixin = {
         asset_url() {
             return `${process.env.MIX_ASSET_URL}`;
         },
-    },
-    mounted() {
-        // console.log(this.asset_url);
     },
 };
 

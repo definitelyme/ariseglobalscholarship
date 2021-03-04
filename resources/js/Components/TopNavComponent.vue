@@ -2,42 +2,64 @@
   <nav>
     <ul>
       <li>
-        <a class="active" href="index-2.html" title="">Home</a>
+        <nav-link-component
+          :href="route('/')"
+          title=""
+          :active="route().current('/')"
+          >Home</nav-link-component
+        >
       </li>
+
       <li>
-        <a href="about.html" title="">About</a>
-        <ul>
-          <li><a href="events.html" title="">Events</a></li>
-          <li>
-            <a href="event-single.html" title="">Event Single</a>
-          </li>
-          <li><a href="schedule.html" title="">Schedule</a></li>
-          <li><a href="error.html" title="">404</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="classes.html" title="">Classes</a>
-        <ul>
-          <li>
-            <a href="class-single.html" title="">Class Single</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="teachers.html" title="">Teachers</a>
+        <a
+          href="#"
+          title=""
+          :active="
+            route().current().includes('apply') ||
+            route().current().includes('about')
+          "
+          >Scholarship</a
+        >
         <ul>
           <li>
-            <a href="teacher-single.html" title="">Teacher Single</a>
+            <nav-link-component :href="route('scholarship./')" title=""
+              >Apply</nav-link-component
+            >
+          </li>
+          <li>
+            <nav-link-component :href="route('scholarship.about')" title=""
+              >About Scholarship</nav-link-component
+            >
           </li>
         </ul>
       </li>
+
       <li>
-        <a href="blog.html" title="">Blog</a>
-        <ul>
-          <li><a href="post.html" title="">Blog Single</a></li>
-        </ul>
+        <nav-link-component
+          :href="route('/')"
+          title=""
+          :active="route().current().includes('blog')"
+          >Blog</nav-link-component
+        >
       </li>
-      <li><a href="contacts.html" title="">Contacts</a></li>
+
+      <li>
+        <nav-link-component
+          :href="route('about')"
+          title=""
+          :active="route().current().includes('about')"
+          >About</nav-link-component
+        >
+      </li>
+
+      <li>
+        <nav-link-component
+          :href="route('contact')"
+          title=""
+          :active="route().current().includes('contact')"
+          >Contact Us</nav-link-component
+        >
+      </li>
     </ul>
   </nav>
 </template>

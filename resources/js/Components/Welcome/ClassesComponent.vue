@@ -232,11 +232,7 @@
             <!--classes-col end-->
           </div>
         </div>
-        <div class="lnk-dv text-center">
-          <a href="classes.html" title="" class="btn-default"
-            >Classes <i class="fa fa-long-arrow-alt-right"></i
-          ></a>
-        </div>
+        <custom-button-widget value="Classes" clazz="mt-5" />
       </div>
       <!--classes-sec end-->
     </div>

@@ -9,6 +9,7 @@ import {
 import { InertiaProgress } from "@inertiajs/progress";
 import Mixin from "./Utils/mixin";
 import { registerComponents } from "./Utils/component-registration";
+import mitt from "mitt";
 
 const el = document.getElementById("app");
 
@@ -25,6 +26,9 @@ const app = createApp({
 
 // Register Components
 registerComponents(app);
+
+const emitter = mitt();
+app.config.globalProperties.emitter = emitter;
 
 // Mount Vue Application
 app.mount(el);

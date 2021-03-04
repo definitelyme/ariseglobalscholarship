@@ -48,7 +48,10 @@
               <div class="contact-tt">
                 <h4>Address</h4>
                 <span
-                  ><a :href="settings.address" v-text="settings.address"></a
+                  ><a
+                    :href="settings.address"
+                    v-text="settings.address_name"
+                  ></a
                 ></span>
               </div>
             </div>
@@ -56,9 +59,10 @@
           </li>
         </ul>
         <!--contact-information end-->
-        <div class="menu-btn">
+        <div class="menu-btn" @click.prevent="emitter.emit('toggleSidebar')">
           <a href="#"
-            ><span class="bar1"></span> <span class="bar2"></span>
+            ><span class="bar1"></span>
+            <span class="bar2"></span>
             <span class="bar3"></span
           ></a>
         </div>
@@ -68,25 +72,25 @@
       <div class="navigation-bar d-flex flex-wrap align-items-center">
         <top-nav-component />
 
-        <ul class="social-links ml-auto">
-          <social-link
-            url="#"
-            klazz="fa-facebook-f"
-            link-title="Facebook"
-          ></social-link>
+        <custom-button-widget
+          value="Login"
+          alignment="end"
+          max-width="25"
+          direction=""
+          :url="route('login')"
+          v-if="user == null"
+        />
 
-          <social-link
-            url="#"
-            klazz="fa-linkedin-in"
-            link-title="LinkedIn"
-          ></social-link>
-
-          <social-link
-            url="#"
-            klazz="fab fa-instagram"
-            link-title="Instagram"
-          ></social-link>
-        </ul>
+        <custom-button-widget
+          value="Apply Now"
+          alignment="end"
+          icon=""
+          type="info"
+          max-width="25"
+          direction=""
+          :url="route('scholarship./')"
+          v-if="user != null"
+        />
       </div>
       <!--navigation-bar end-->
     </div>
@@ -95,13 +99,29 @@
 
 <script>
 export default {
+  inject: ["user"],
+
   data() {
     return {
       settings: {},
     };
   },
+
   created() {
     this.settings = JSON.parse(this.$parent.settings);
+  },
+
+  mounted() {
+    this.emitter.on("toggleSidebar", () => {
+      var status = this.$parent.isSidebarOpen;
+      this.$parent.isSidebarOpen = !status;
+
+      if (status == false) {
+        $("body").removeClass("scroll-hide");
+        $(".responsive-menu").removeClass("active");
+        $(".menu-btn").removeClass("active");
+      }
+    });
   },
 };
 </script>

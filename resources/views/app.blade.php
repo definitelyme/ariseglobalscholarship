@@ -21,12 +21,13 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <script src="{{ asset('js/bundle.min.js') }}"></script>
-        <script src="{{ asset('js/button.min.js') }}"></script>
     </head>
     <body>
         <div class="wrapper">
             @inertia
         </div>
+
+        <script src="{{ asset('js/bundle.min.js') }}"></script>
+        <script src="{{ asset('js/button.min.js') }}"></script>
     </body>
 </html>

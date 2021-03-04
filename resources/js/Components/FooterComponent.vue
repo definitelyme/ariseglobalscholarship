@@ -61,7 +61,7 @@
                       <span
                         ><a
                           :href="settings.address"
-                          v-text="settings.address"
+                          v-text="settings.address_name"
                         ></a
                       ></span>
                     </div>
