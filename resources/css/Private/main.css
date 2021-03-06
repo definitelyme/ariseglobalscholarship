@@ -15682,7 +15682,7 @@ p {
     font-size: 18.29px;
     font-weight: 500;
     font-family: Poppins, sans-serif;
-    background-color: #135e9e;
+    background-color: #3e4095;
     height: 40px;
     line-height: 40px;
     padding: 0 60px;
@@ -15692,10 +15692,10 @@ p {
 }
 .btn-default:hover {
     color: #fff;
-    background-color: #f37335;
+    background-color: #ec3237;
 }
 .btn-default:hover i {
-    color: #f37335;
+    color: #ec3237;
 }
 .btn-default i {
     background-color: #fff;
@@ -15887,7 +15887,7 @@ header .navigation-bar nav ul ul ul {
     background-image: url(./images/elements.png);
 }
 .main-section .main-title {
-    color: #f37335;
+    color: #ec3237;
     font-size: 182px;
     font-weight: 600;
     position: absolute;
@@ -15909,7 +15909,7 @@ header .navigation-bar nav ul ul ul {
 }
 .main-banner .banner-text > h2 span {
     display: inline-block;
-    color: #f37335;
+    color: #ec3237;
     position: relative;
 }
 .main-banner .banner-text > h2 span:hover:before {
@@ -15924,7 +15924,7 @@ header .navigation-bar nav ul ul ul {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #f37335;
+    background-color: #ec3237;
     opacity: 1;
     visibility: visible;
     transition: all 0.4s ease-in-out;
@@ -15984,7 +15984,7 @@ header .navigation-bar nav ul ul ul {
     transition: all 0.4s ease-in-out;
 }
 .main-banner .banner-text .search-form button:hover {
-    color: #f37335;
+    color: #ec3237;
 }
 .section-title {
     margin-bottom: 43px;
@@ -15997,7 +15997,7 @@ header .navigation-bar nav ul ul ul {
     margin-bottom: 7px;
 }
 .section-title > h2 > span {
-    color: #f37335;
+    color: #ec3237;
 }
 .section-title p {
     color: #575757;
@@ -16102,7 +16102,7 @@ header .navigation-bar nav ul ul ul {
     height: 42px;
     line-height: 42px;
     border-radius: 100px;
-    background: linear-gradient(180deg, #fdc830, #f37335);
+    background: linear-gradient(180deg, #fdc830, #ec3237);
     text-align: center;
 }
 .classes-section .classes-col .class-info {
@@ -16164,7 +16164,7 @@ header .navigation-bar nav ul ul ul {
     bottom: -20px;
     right: 20px;
     width: 40px;
-    background: linear-gradient(180deg, #fdc830, #f37335);
+    background: linear-gradient(180deg, #fdc830, #ec3237);
     z-index: 99;
     text-align: center;
     border-radius: 30px;
@@ -16413,7 +16413,7 @@ header .navigation-bar nav ul ul ul {
     margin-right: 6px;
 }
 .newsletter-section .newsletter-sec {
-    background: linear-gradient(90deg, #fdc830, #f37335);
+    background: linear-gradient(90deg, #fdc830, #ec3237);
     background-repeat: no-repeat;
     padding: 57px 100px 55px;
     border-radius: 40px;
@@ -16676,7 +16676,7 @@ footer .bottom-footer .social-links {
     font-size: 14.23px;
 }
 .pager-section .page-titlee {
-    color: #f37335;
+    color: #ec3237;
     font-size: 162.6px;
     font-weight: 600;
     opacity: 0.1;
@@ -16706,7 +16706,7 @@ footer .bottom-footer .social-links {
 }
 .about-page-content .act-inffo > span {
     text-transform: uppercase;
-    color: #f37335;
+    color: #ec3237;
     font-size: 14.23px;
     font-weight: 500;
     font-family: Poppins, sans-serif;
@@ -16788,7 +16788,7 @@ footer .bottom-footer .social-links {
 }
 .classes-page .classes-banner > span {
     display: inline-block;
-    color: #f37335;
+    color: #ec3237;
     font-size: 14.23px;
     font-weight: 500;
     text-transform: uppercase;
@@ -16839,7 +16839,7 @@ footer .bottom-footer .social-links {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #f37335;
+    background-color: #ec3237;
     opacity: 0;
     visibility: hidden;
     transition: all 0.4s ease-in-out;
@@ -16915,8 +16915,8 @@ footer .bottom-footer .social-links {
     font-family: Poppins, sans-serif;
 }
 .schedule-page .nav-tabs li a.active {
-    border-color: #f37335 !important;
-    color: #f37335;
+    border-color: #ec3237 !important;
+    color: #ec3237;
 }
 .schedule-page .schedule-content {
     display: -ms-flexbox;
@@ -16961,7 +16961,7 @@ footer .bottom-footer .social-links {
 }
 .schedule-page .schedule-content .schp-list li .mkd-info {
     padding: 41px 20px 35px;
-    background: linear-gradient(180deg, #fdc830, #f37335);
+    background: linear-gradient(180deg, #fdc830, #ec3237);
     text-align: center;
     height: 100%;
 }
@@ -17147,7 +17147,7 @@ footer .bottom-footer .social-links {
 }
 .blog-post.single blockquote > span {
     display: block;
-    color: #f37335;
+    color: #ec3237;
     font-size: 12.19px;
     font-style: italic;
     position: relative;
@@ -17265,7 +17265,7 @@ footer .bottom-footer .social-links {
     font-size: 18.29px;
 }
 .sidebar .widget-categories ul li a:hover {
-    color: #f37335;
+    color: #ec3237;
 }
 .sidebar .widget-categories ul li span {
     margin-left: auto;
@@ -17291,7 +17291,7 @@ footer .bottom-footer .social-links {
     font-weight: 500;
 }
 .sidebar .widget-posts .wd-posts .wd-post .wd-info > h3:hover {
-    color: #f37335;
+    color: #ec3237;
 }
 .sidebar .widget-posts .wd-posts .wd-post .wd-info > span {
     display: block;
@@ -17328,7 +17328,7 @@ footer .bottom-footer .social-links {
     font-weight: 500;
 }
 .sidebar .widget-comments ul li:hover {
-    color: #f37335;
+    color: #ec3237;
 }
 .sidebar .widget-comments ul li:hover a {
     color: #2b2b2b;
@@ -17364,7 +17364,7 @@ footer .bottom-footer .social-links {
     font-family: Poppins, sans-serif;
 }
 .sidebar .widget-archives ul li a:hover {
-    color: #f37335;
+    color: #ec3237;
 }
 .sidebar .widget-tags ul {
     padding: 0 20px;
@@ -17408,7 +17408,7 @@ footer .bottom-footer .social-links {
     font-size: 14px;
 }
 .sidebar .widget-calendar .mdp-calendar table tbody td.active {
-    background: linear-gradient(270deg, #fdc830, #f37335);
+    background: linear-gradient(270deg, #fdc830, #ec3237);
     color: #fff;
     border-radius: 50%;
 }
@@ -17476,7 +17476,7 @@ footer .bottom-footer .social-links {
     left: 0;
     width: 16px;
     height: 16px;
-    background: linear-gradient(270deg, #fdc830, #f37335);
+    background: linear-gradient(270deg, #fdc830, #ec3237);
     transform: translateY(-50%);
     border-radius: 50%;
 }
@@ -17595,7 +17595,7 @@ footer .bottom-footer .social-links {
 }
 .blog-section.posts-page .blog-posts .blog-post.quote-post .blog-info > span {
     display: block;
-    color: #f37335;
+    color: #ec3237;
     font-size: 12.19px;
     font-style: italic;
     position: relative;
@@ -17735,7 +17735,7 @@ footer .bottom-footer .social-links {
     top: 0;
     left: 0;
     width: 300px;
-    background-color: #f79133;
+    background-color: #3e4095;
     -ms-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
@@ -17829,7 +17829,7 @@ footer .bottom-footer .social-links {
 }
 .failed,
 .text-info {
-    background: #f37335;
+    background: #ec3237;
     padding: 10px;
     margin-bottom: 20px;
     color: #fff !important;
@@ -17860,7 +17860,7 @@ footer .bottom-footer .social-links {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #f37335;
+    color: #ec3237;
     font-size: 300px;
     font-weight: 600;
     opacity: 0.05;
@@ -17874,7 +17874,7 @@ footer .bottom-footer .social-links {
     z-index: 99;
 }
 .error-page .error-text h2 {
-    color: #f37335;
+    color: #ec3237;
     font-size: 150px;
     font-weight: 700;
     margin-bottom: 20px;
@@ -17894,7 +17894,7 @@ footer .bottom-footer .social-links {
     background: linear-gradient(270deg, #159957, #155799);
 }
 .error-page .error-text .social-icons li a:hover {
-    background: linear-gradient(180deg, #fdc830, #f37335);
+    background: linear-gradient(180deg, #fdc830, #ec3237);
 }
 .social-icons li {
     display: inline-block;
@@ -17946,7 +17946,7 @@ footer .bottom-footer .social-links {
     margin-bottom: 21px;
 }
 .teacher-col .teacher--info .social-icons li a {
-    background: linear-gradient(180deg, #fdc830, #f37335);
+    background: linear-gradient(180deg, #fdc830, #ec3237);
 }
 .search-content .blog-section {
     margin-bottom: -8px;
@@ -18153,7 +18153,7 @@ footer .bottom-footer .social-links {
     width: 50px;
     height: 50px;
     line-height: 50px;
-    background: linear-gradient(270deg, #fdc830, #f37335);
+    background: linear-gradient(270deg, #fdc830, #ec3237);
     border-radius: 50%;
     text-align: center;
 }
@@ -18275,7 +18275,7 @@ footer .bottom-footer .social-links {
 .sg-event > span {
     display: inline-block;
     color: #fff;
-    background: linear-gradient(180deg, #fdc830, #f37335);
+    background: linear-gradient(180deg, #fdc830, #ec3237);
 }
 .sg-event > span {
     width: 50px;
@@ -18359,21 +18359,21 @@ footer .bottom-footer .social-links {
     top: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(180deg, #fdc830, #f37335);
+    background: linear-gradient(180deg, #fdc830, #ec3237);
     height: 100%;
     z-index: -1;
     border-radius: 50%;
     transition: all 0.4s ease-in-out;
 }
 .teacher-single-page .teacher-coly .social-icons li a:hover:before {
-    background: linear-gradient(0deg, #fdc830, #f37335);
+    background: linear-gradient(0deg, #fdc830, #ec3237);
 }
 .teacher-single-page .teacher-content {
     padding-left: 20px;
     box-sizing: border-box;
 }
 .teacher-single-page .teacher-content > h3 {
-    color: #f37335;
+    color: #ec3237;
     font-size: 20px;
     font-style: italic;
     margin-bottom: 21px;
@@ -18551,7 +18551,7 @@ footer .bottom-footer .social-links {
     display: block;
 }
 .schedule-mobile-content .ttb-list > ul li .dd-info {
-    background: linear-gradient(180deg, #fdc830, #f37335);
+    background: linear-gradient(180deg, #fdc830, #ec3237);
     padding: 35px 20px;
 }
 .schedule-mobile-content .ttb-list > ul li .dd-info h3 {

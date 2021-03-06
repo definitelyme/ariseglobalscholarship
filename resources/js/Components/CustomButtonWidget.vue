@@ -19,7 +19,7 @@
         btnBackgroundColor.length
           ? `background-color: ${btnBackgroundColor}`
           : ''
-      }`"
+      } ${btnPadding}`"
       replace
       preserve-scroll
       >{{ value
@@ -102,6 +102,10 @@ export default {
       type: String,
       required: false,
     },
+    padding: {
+      type: String,
+      required: false,
+    },
   },
 
   computed: {
@@ -131,6 +135,13 @@ export default {
       if (this.borderRadius) {
         var actualBorderRadius = this.borderRadius.match(numberRegEx)[0];
         return `border-radius: ${actualBorderRadius}px;`;
+      }
+      return "";
+    },
+    btnPadding() {
+      if (this.padding) {
+        var actualPadding = this.padding.match(numberRegEx)[0];
+        return `padding-left: ${actualPadding}px; padding-right: ${actualPadding}px;`;
       }
       return "";
     },

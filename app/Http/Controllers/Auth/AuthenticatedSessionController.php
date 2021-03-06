@@ -54,6 +54,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        $request->session()->flash("message", "Goodbye!");
+
         return redirect('/');
     }
 }

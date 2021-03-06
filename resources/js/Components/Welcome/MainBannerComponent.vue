@@ -11,10 +11,18 @@
               tincidunt, sit amet vestibulum tortor porttitor. Cras ligula
               lacus, ullamcorper sed
             </p>
-            <form class="search-form">
-              <input type="text" name="search" placeholder="Find Anything" />
-              <button><i class="fa fa-search"></i></button>
-            </form>
+            <a :href="route('scholarship./')"
+              ><breeze-button
+                class="px-4 py-3 rounded-full bg-main hover:bg-main hover:shadow-lg hover:text-white"
+                type="button"
+              >
+                Get Started
+                <i
+                  class="fa fa-long-arrow-alt-right"
+                  style="padding-left: 10px"
+                ></i>
+              </breeze-button>
+            </a>
           </div>
         </div>
         <div class="col-lg-5 col-md-5">
@@ -30,7 +38,12 @@
 </template>
 
 <script>
+import BreezeButton from "@/Components/Button";
+
 export default {
+  components: {
+    BreezeButton,
+  },
   data() {
     return {
       //

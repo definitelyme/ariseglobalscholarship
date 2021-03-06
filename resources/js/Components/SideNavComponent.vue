@@ -51,10 +51,9 @@
       </li>
 
       <ul>
-        <li>
+        <li v-if="!user">
           <nav-link-component
             :href="route('login')"
-            v-if="!user"
             replace
             preserve-scroll
             preserve-state
@@ -62,25 +61,20 @@
           </nav-link-component>
         </li>
 
-        <li>
+        <li v-if="!user">
           <nav-link-component
             :href="route('register')"
-            v-if="!user"
             replace
             preserve-scroll
             preserve-state
-            >Register
+            >Sign Up
           </nav-link-component>
         </li>
 
-        <li>
-          <nav-link-component
-            :href="route('logout')"
-            method="post"
-            v-if="user"
-            replace
-            >Logout
-          </nav-link-component>
+        <li v-if="user">
+          <a :href="route('logout')" @click.prevent="submit">
+            <form method="POST" :action="route('logout')">Log out</form>
+          </a>
         </li>
       </ul>
     </ul>
@@ -90,10 +84,19 @@
 <script>
 export default {
   inject: ["user"],
+
   data() {
     return {
-      //
+      form: this.$inertia.form({}),
     };
+  },
+
+  methods: {
+    submit() {
+      this.form.post(this.route("logout"), {
+        onFinish: () => location.assign("/"),
+      });
+    },
   },
 
   mounted() {

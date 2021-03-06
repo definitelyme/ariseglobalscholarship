@@ -1,9 +1,4 @@
 const mixin = {
-    data() {
-        return {
-            //
-        };
-    },
     computed: {
         app_name() {
             return `${process.env.MIX_APP_NAME}`;

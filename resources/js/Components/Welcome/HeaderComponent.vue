@@ -61,9 +61,18 @@
         <!--contact-information end-->
         <div class="menu-btn" @click.prevent="emitter.emit('toggleSidebar')">
           <a href="#"
-            ><span class="bar1"></span>
-            <span class="bar2"></span>
-            <span class="bar3"></span
+            ><span
+              class="bar1"
+              :class="{ 'bg-white': $parent.isSidebarOpen }"
+            ></span>
+            <span
+              class="bar2"
+              :class="{ 'bg-white': $parent.isSidebarOpen }"
+            ></span>
+            <span
+              class="bar3"
+              :class="{ 'bg-white': $parent.isSidebarOpen }"
+            ></span
           ></a>
         </div>
         <!--menu-btn end-->
