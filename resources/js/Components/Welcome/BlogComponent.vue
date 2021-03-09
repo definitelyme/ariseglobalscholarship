@@ -15,7 +15,7 @@
           <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="blog-post">
               <div class="blog-thumbnail">
-                <img :src="`${asset_url}/blog1.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/blog1.jpg`" alt="" class="w-100" />
                 <span class="category">English</span>
               </div>
               <div class="blog-info">
@@ -23,7 +23,7 @@
                   <li><a href="#" title="">17/09/2020</a></li>
                   <li><a href="#" title="">by Admin</a></li>
                   <li>
-                    <img :src="`${asset_url}/icon13.png`" alt="" /><a
+                    <img :src="`${$asset_url}/icon13.png`" alt="" /><a
                       href="#"
                       title=""
                       >Teachers,</a
@@ -47,7 +47,7 @@
           <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="blog-post">
               <div class="blog-thumbnail">
-                <img :src="`${asset_url}/blog2.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/blog2.jpg`" alt="" class="w-100" />
                 <span class="category">English</span>
               </div>
               <div class="blog-info">
@@ -55,7 +55,7 @@
                   <li><a href="#" title="">17/09/2020</a></li>
                   <li><a href="#" title="">by Admin</a></li>
                   <li>
-                    <img :src="`${asset_url}/icon13.png`" alt="" /><a
+                    <img :src="`${$asset_url}/icon13.png`" alt="" /><a
                       href="#"
                       title=""
                       >Teachers,</a
@@ -79,7 +79,7 @@
           <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="blog-post">
               <div class="blog-thumbnail">
-                <img :src="`${asset_url}/blog3.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/blog3.jpg`" alt="" class="w-100" />
                 <span class="category">English</span>
               </div>
               <div class="blog-info">
@@ -87,7 +87,7 @@
                   <li><a href="#" title="">17/09/2020</a></li>
                   <li><a href="#" title="">by Admin</a></li>
                   <li>
-                    <img :src="`${asset_url}/icon13.png`" alt="" /><a
+                    <img :src="`${$asset_url}/icon13.png`" alt="" /><a
                       href="#"
                       title=""
                       >Teachers,</a

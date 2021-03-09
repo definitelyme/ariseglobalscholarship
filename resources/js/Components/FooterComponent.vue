@@ -6,33 +6,35 @@
           <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="widget widget-about">
               <div class="logo">
-                <inertia-link :href="route('/')" :title="app_name"
+                <inertia-link :href="route('/')" :title="$app_name"
                   ><img
-                    :src="`${asset_url}/favicon.png`"
-                    :alt="app_name"
+                    :src="`${$asset_url}/favicon.png`"
+                    :alt="$app_name"
                     height="60"
                     width="60"
                 /></inertia-link>
+
                 <div class="logo-name">
-                  <h3 v-text="app_name_short"></h3>
+                  <h3 v-text="$app_name_short"></h3>
                   <span v-text="$parent.quote"></span>
                 </div>
               </div>
+
               <p>
                 Vivamus porta efficitur nibh nec convallis. Vestibulum egestas
                 eleifend justo. Ut tellus ipsum, accumsan
               </p>
             </div>
-            <!--widget-about end-->
           </div>
           <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="widget widget-contact">
               <ul class="contact-add">
                 <li>
                   <div class="contact-info">
-                    <img :src="`${asset_url}/icon1.png`" alt="" />
+                    <img :src="`${$asset_url}/icon1.png`" alt="" />
                     <div class="contact-tt">
                       <h4>Call</h4>
+
                       <span
                         ><a
                           :href="`tel:` + settings.phone"
@@ -41,21 +43,22 @@
                       ></span>
                     </div>
                   </div>
-                  <!--contact-info end-->
                 </li>
-                <li>
+
+                <!-- <li>
                   <div class="contact-info">
-                    <img :src="`${asset_url}/icon2.png`" alt="" />
+                    <img :src="`${$asset_url}/icon2.png`" alt="" />
                     <div class="contact-tt">
                       <h4>Work Time</h4>
                       <span>Mon - Fri 8 AM - 5 PM</span>
                     </div>
                   </div>
-                  <!--contact-info end-->
-                </li>
+                </li> -->
+
                 <li>
                   <div class="contact-info">
-                    <img :src="`${asset_url}/icon3.png`" alt="" />
+                    <img :src="`${$asset_url}/icon3.png`" alt="" />
+
                     <div class="contact-tt">
                       <h4>Address</h4>
                       <span
@@ -66,37 +69,43 @@
                       ></span>
                     </div>
                   </div>
-                  <!--contact-info end-->
                 </li>
               </ul>
             </div>
             <!--widget-contact end-->
           </div>
+
           <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="widget widget-links">
               <h3 class="widget-title">Quick Links</h3>
               <ul>
-                <li><a href="about.html" title="">About Us</a></li>
-                <li><a href="classes.html" title="">Our Classes</a></li>
+                <li><a :href="route('/')" title="">Home</a></li>
+
                 <li>
-                  <a href="teachers.html" title="">School Teachers</a>
+                  <a :href="route('scholarship./')" title=""
+                    >Apply for Scholarship</a
+                  >
                 </li>
-                <li><a href="events.html" title="">Recent Events</a></li>
-                <li><a href="blog.html" title="">Our News</a></li>
-                <li><a href="schedule.html" title="">Schedule</a></li>
+
+                <li>
+                  <a :href="route('about')" title="">About</a>
+                </li>
+
+                <li><a :href="route('faq')" title="">Help</a></li>
+
+                <li><a :href="route('contact')" title="">Contact Us</a></li>
               </ul>
             </div>
-            <!--widget-links end-->
           </div>
         </div>
       </div>
-      <!--top-footer end-->
+
       <div class="bottom-footer">
         <div class="row align-items-center">
           <div class="col-lg-6 col-md-6 col-sm-6">
             <p>
               &#169; {{ new Date().getFullYear() }}
-              {{ app_name_short }}
+              {{ $app_name_short }}
             </p>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6">
@@ -129,13 +138,12 @@
 
 <script>
 export default {
+  inject: ["settings"],
+
   data() {
     return {
-      settings: {},
+      //
     };
-  },
-  created() {
-    this.settings = JSON.parse(this.$parent.settings);
   },
 };
 </script>

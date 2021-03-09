@@ -4,6 +4,8 @@ const colors = require("tailwindcss/colors");
 module.exports = {
     darkMode: "media",
 
+    // important: "#important",
+
     purge: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
@@ -17,7 +19,7 @@ module.exports = {
                 sans: ["Nunito", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                main: "#3e4095",
+                main: "#3e4095 !important",
                 accent: "#ec3237",
                 light: "#E5E5E5",
                 dark: "#333333",

@@ -27,7 +27,7 @@
         </div>
         <div class="col-lg-5 col-md-5">
           <div class="banner-img wow zoomIn" data-wow-duration="1000ms">
-            <img :src="`${asset_url}/banner-img.png`" alt="" />
+            <img :src="`${$asset_url}/banner-img.png`" alt="" />
           </div>
           <!--banner-img end-->
           <div class="elements-bg wow zoomIn" data-wow-duration="1000ms"></div>

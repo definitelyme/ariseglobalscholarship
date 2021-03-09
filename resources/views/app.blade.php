@@ -12,22 +12,21 @@
 
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 
-        <title>{{ config('app.name', 'Arise Global Scholarship') }}</title>
+        {{-- <title>{{ config('app.name', 'Arise Global Scholarship') }}</title> --}}
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ mix('css/private.css') }}">
-
-        <!-- Scripts -->
-        @routes
-        <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body>
         <div class="wrapper">
             @inertia
         </div>
 
+        <!-- Scripts -->
+        @routes
         <script src="{{ asset('js/bundle.min.js') }}"></script>
         <script src="{{ asset('js/button.min.js') }}"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>

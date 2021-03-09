@@ -6,10 +6,9 @@ import {
     App as InertiaApp,
     plugin as InertiaPlugin,
 } from "@inertiajs/inertia-vue3";
+import Helpers from "./Utils/helpers";
 import { InertiaProgress } from "@inertiajs/progress";
-import Mixin from "./Utils/mixin";
 import { registerComponents } from "./Utils/component-registration";
-import mitt from "mitt";
 
 const el = document.getElementById("app");
 
@@ -21,14 +20,11 @@ const app = createApp({
         }),
 })
     .mixin({ methods: { route } })
-    .mixin(Mixin)
+    .use(Helpers)
     .use(InertiaPlugin);
 
 // Register Components
 registerComponents(app);
-
-const emitter = mitt();
-app.config.globalProperties.emitter = emitter;
 
 // Mount Vue Application
 app.mount(el);

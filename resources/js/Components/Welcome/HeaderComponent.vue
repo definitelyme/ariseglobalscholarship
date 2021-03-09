@@ -3,23 +3,34 @@
     <div class="container">
       <div class="header-content d-flex flex-wrap align-items-center">
         <div class="logo">
-          <inertia-link :href="route('/')" :title="app_name"
+          <a :href="route('/')" :title="$app_name"
             ><img
-              :src="`${asset_url}/favicon.png`"
-              :alt="app_name"
+              :src="`${$asset_url}/favicon.png`"
+              :alt="$app_name"
               height="60"
               width="60"
-          /></inertia-link>
+          /></a>
+
           <div class="logo-name">
-            <h3 v-text="app_name_short"></h3>
+            <h3 v-text="$app_name_short"></h3>
             <span v-text="$parent.quote"></span>
           </div>
         </div>
-        <!--logo end-->
+
         <ul class="contact-add d-flex flex-wrap">
           <li>
             <div class="contact-info">
-              <img :src="`${asset_url}/icon1.png`" alt="" />
+              <!-- <img :src="`${$asset_url}/icon2.png`" alt="" />
+              <div class="contact-tt">
+                <h4>Work Time</h4>
+                <span>Mon - Fri 8 AM - 5 PM</span>
+              </div> -->
+            </div>
+          </li>
+
+          <li>
+            <div class="contact-info">
+              <img :src="`${$asset_url}/icon1.png`" alt="" />
               <div class="contact-tt">
                 <h4>Call</h4>
                 <span
@@ -30,21 +41,11 @@
                 ></span>
               </div>
             </div>
-            <!--contact-info end-->
           </li>
+
           <li>
             <div class="contact-info">
-              <img :src="`${asset_url}/icon2.png`" alt="" />
-              <div class="contact-tt">
-                <h4>Work Time</h4>
-                <span>Mon - Fri 8 AM - 5 PM</span>
-              </div>
-            </div>
-            <!--contact-info end-->
-          </li>
-          <li>
-            <div class="contact-info">
-              <img :src="`${asset_url}/icon3.png`" alt="" />
+              <img :src="`${$asset_url}/icon3.png`" alt="" />
               <div class="contact-tt">
                 <h4>Address</h4>
                 <span
@@ -55,29 +56,29 @@
                 ></span>
               </div>
             </div>
-            <!--contact-info end-->
           </li>
         </ul>
-        <!--contact-information end-->
+
         <div class="menu-btn" @click.prevent="emitter.emit('toggleSidebar')">
           <a href="#"
             ><span
               class="bar1"
-              :class="{ 'bg-white': $parent.isSidebarOpen }"
+              :class="{ 'bg-white': $parent.sidebarOpen }"
             ></span>
+
             <span
               class="bar2"
-              :class="{ 'bg-white': $parent.isSidebarOpen }"
+              :class="{ 'bg-white': $parent.sidebarOpen }"
             ></span>
+
             <span
               class="bar3"
-              :class="{ 'bg-white': $parent.isSidebarOpen }"
+              :class="{ 'bg-white': $parent.sidebarOpen }"
             ></span
           ></a>
         </div>
-        <!--menu-btn end-->
       </div>
-      <!--header-content end-->
+
       <div class="navigation-bar d-flex flex-wrap align-items-center">
         <top-nav-component />
 
@@ -101,37 +102,13 @@
           v-if="user != null"
         />
       </div>
-      <!--navigation-bar end-->
     </div>
   </header>
 </template>
 
 <script>
 export default {
-  inject: ["user"],
-
-  data() {
-    return {
-      settings: {},
-    };
-  },
-
-  created() {
-    this.settings = JSON.parse(this.$parent.settings);
-  },
-
-  mounted() {
-    this.emitter.on("toggleSidebar", () => {
-      var status = this.$parent.isSidebarOpen;
-      this.$parent.isSidebarOpen = !status;
-
-      if (status == false) {
-        $("body").removeClass("scroll-hide");
-        $(".responsive-menu").removeClass("active");
-        $(".menu-btn").removeClass("active");
-      }
-    });
-  },
+  inject: ["user", "settings"],
 };
 </script>
 

@@ -12,13 +12,13 @@
                 dolor sit
               </p>
               <h3>
-                <img :src="`${asset_url}/icon11.png`" alt="" />Call:
+                <img :src="`${$asset_url}/icon11.png`" alt="" />Call:
                 <strong>+2 342 5446 67</strong>
               </h3>
             </div>
             <!--sec-title end-->
             <div class="course-img">
-              <img :src="`${asset_url}/course-img.png`" alt="" />
+              <img :src="`${$asset_url}/course-img.png`" alt="" />
             </div>
             <!--course-img end-->
           </div>
@@ -30,7 +30,7 @@
               <div class="d-flex flex-wrap align-items-center">
                 <ul class="course-meta">
                   <li>
-                    <img :src="`${asset_url}/icon12.png`" alt="" /> 29/07/2020
+                    <img :src="`${$asset_url}/icon12.png`" alt="" /> 29/07/2020
                   </li>
                   <li>11AM to 15PM</li>
                 </ul>
@@ -43,11 +43,11 @@
               </h3>
               <div class="d-flex flex-wrap">
                 <div class="posted-by">
-                  <img :src="`${asset_url}/ico2.png`" alt="" />
+                  <img :src="`${$asset_url}/ico2.png`" alt="" />
                   <a href="#" title="">Amanda Kern</a>
                 </div>
                 <span class="locat"
-                  ><img :src="`${asset_url}/loct.png`" alt="" />43 castle road
+                  ><img :src="`${$asset_url}/loct.png`" alt="" />43 castle road
                   517 district</span
                 >
               </div>
@@ -61,7 +61,7 @@
               <div class="d-flex flex-wrap align-items-center">
                 <ul class="course-meta">
                   <li>
-                    <img :src="`${asset_url}/icon12.png`" alt="" /> 29/07/2020
+                    <img :src="`${$asset_url}/icon12.png`" alt="" /> 29/07/2020
                   </li>
                   <li>11AM to 15PM</li>
                 </ul>
@@ -72,11 +72,11 @@
               </h3>
               <div class="d-flex flex-wrap">
                 <div class="posted-by">
-                  <img :src="`${asset_url}/ico2.png`" alt="" />
+                  <img :src="`${$asset_url}/ico2.png`" alt="" />
                   <a href="#" title="">Cvita Doleschall</a>
                 </div>
                 <span class="locat"
-                  ><img :src="`${asset_url}/loct.png`" alt="" />43 castle road
+                  ><img :src="`${$asset_url}/loct.png`" alt="" />43 castle road
                   517 district</span
                 >
               </div>
@@ -90,7 +90,7 @@
               <div class="d-flex flex-wrap align-items-center">
                 <ul class="course-meta">
                   <li>
-                    <img :src="`${asset_url}/icon12.png`" alt="" /> 29/07/2020
+                    <img :src="`${$asset_url}/icon12.png`" alt="" /> 29/07/2020
                   </li>
                   <li>11AM to 15PM</li>
                 </ul>
@@ -101,11 +101,11 @@
               </h3>
               <div class="d-flex flex-wrap">
                 <div class="posted-by">
-                  <img :src="`${asset_url}/ico2.png`" alt="" />
+                  <img :src="`${$asset_url}/ico2.png`" alt="" />
                   <a href="#" title="">Helena Brauer</a>
                 </div>
                 <span class="locat"
-                  ><img :src="`${asset_url}/loct.png`" alt="" />43 castle road
+                  ><img :src="`${$asset_url}/loct.png`" alt="" />43 castle road
                   517 district</span
                 >
               </div>

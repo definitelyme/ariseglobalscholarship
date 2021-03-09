@@ -1,4 +1,6 @@
 <template>
+  <title-component after="Login"></title-component>
+
   <breeze-validation-errors class="mb-4" />
 
   <div v-if="status" class="mb-4 font-medium text-sm text-green-600">

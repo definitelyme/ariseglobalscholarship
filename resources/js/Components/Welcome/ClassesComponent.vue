@@ -14,9 +14,9 @@
           <div class="col-lg-3 col-12">
             <div class="classes-col wow fadeInUp" data-wow-duration="1000ms">
               <div class="class-thumb">
-                <img :src="`${asset_url}/img1.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/img1.jpg`" alt="" class="w-100" />
                 <a href="contacts.html" title="" class="crt-btn"
-                  ><img :src="`${asset_url}/icon10.png`" alt=""
+                  ><img :src="`${$asset_url}/icon10.png`" alt=""
                 /></a>
               </div>
               <div class="class-info">
@@ -28,7 +28,7 @@
                 <span>Mon-Fri</span> <span>10 AM - 12 AM</span>
                 <div class="d-flex flex-wrap align-items-center">
                   <div class="posted-by">
-                    <img :src="`${asset_url}/ico.png`" alt="" />
+                    <img :src="`${$asset_url}/ico.png`" alt="" />
                     <a href="#" title="">Amanda Kern</a>
                   </div>
                   <strong class="price">$45</strong>
@@ -44,9 +44,9 @@
               data-wow-delay="200ms"
             >
               <div class="class-thumb">
-                <img :src="`${asset_url}/img2.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/img2.jpg`" alt="" class="w-100" />
                 <a href="contacts.html" title="" class="crt-btn"
-                  ><img :src="`${asset_url}/icon10.png`" alt=""
+                  ><img :src="`${$asset_url}/icon10.png`" alt=""
                 /></a>
               </div>
               <div class="class-info">
@@ -58,7 +58,7 @@
                 <span>Mon-Fri</span> <span>10 AM - 12 AM</span>
                 <div class="d-flex flex-wrap align-items-center">
                   <div class="posted-by">
-                    <img :src="`${asset_url}/ico.png`" alt="" />
+                    <img :src="`${$asset_url}/ico.png`" alt="" />
                     <a href="#" title="">Gypsy Hardinge</a>
                   </div>
                   <strong class="price">$67</strong>
@@ -74,9 +74,9 @@
               data-wow-delay="400ms"
             >
               <div class="class-thumb">
-                <img :src="`${asset_url}/img3.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/img3.jpg`" alt="" class="w-100" />
                 <a href="contacts.html" title="" class="crt-btn"
-                  ><img :src="`${asset_url}/icon10.png`" alt=""
+                  ><img :src="`${$asset_url}/icon10.png`" alt=""
                 /></a>
               </div>
               <div class="class-info">
@@ -88,7 +88,7 @@
                 <span>Mon-Fri</span> <span>10 AM - 12 AM</span>
                 <div class="d-flex flex-wrap align-items-center">
                   <div class="posted-by">
-                    <img :src="`${asset_url}/ico.png`" alt="" />
+                    <img :src="`${$asset_url}/ico.png`" alt="" />
                     <a href="#" title="">Margje Jutten</a>
                   </div>
                   <strong class="price">$89</strong>
@@ -104,9 +104,9 @@
               data-wow-delay="600ms"
             >
               <div class="class-thumb">
-                <img :src="`${asset_url}/img4.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/img4.jpg`" alt="" class="w-100" />
                 <a href="contacts.html" title="" class="crt-btn"
-                  ><img :src="`${asset_url}/icon10.png`" alt=""
+                  ><img :src="`${$asset_url}/icon10.png`" alt=""
                 /></a>
               </div>
               <div class="class-info">
@@ -118,7 +118,7 @@
                 <span>Mon-Fri</span> <span>10 AM - 12 AM</span>
                 <div class="d-flex flex-wrap align-items-center">
                   <div class="posted-by">
-                    <img :src="`${asset_url}/ico.png`" alt="" />
+                    <img :src="`${$asset_url}/ico.png`" alt="" />
                     <a href="#" title="">Hubert Franck</a>
                   </div>
                   <strong class="price">$67</strong>
@@ -130,9 +130,9 @@
           <div class="col-lg-3 col-12">
             <div class="classes-col">
               <div class="class-thumb">
-                <img :src="`${asset_url}/img1.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/img1.jpg`" alt="" class="w-100" />
                 <a href="contacts.html" title="" class="crt-btn"
-                  ><img :src="`${asset_url}/icon10.png`" alt=""
+                  ><img :src="`${$asset_url}/icon10.png`" alt=""
                 /></a>
               </div>
               <div class="class-info">
@@ -144,7 +144,7 @@
                 <span>Mon-Fri</span> <span>10 AM - 12 AM</span>
                 <div class="d-flex flex-wrap align-items-center">
                   <div class="posted-by">
-                    <img :src="`${asset_url}/ico.png`" alt="" />
+                    <img :src="`${$asset_url}/ico.png`" alt="" />
                     <a href="#" title="">Amanda Kern</a>
                   </div>
                   <strong class="price">$45</strong>
@@ -156,9 +156,9 @@
           <div class="col-lg-3 col-12">
             <div class="classes-col">
               <div class="class-thumb">
-                <img :src="`${asset_url}/img2.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/img2.jpg`" alt="" class="w-100" />
                 <a href="contacts.html" title="" class="crt-btn"
-                  ><img :src="`${asset_url}/icon10.png`" alt=""
+                  ><img :src="`${$asset_url}/icon10.png`" alt=""
                 /></a>
               </div>
               <div class="class-info">
@@ -170,7 +170,7 @@
                 <span>Mon-Fri</span> <span>10 AM - 12 AM</span>
                 <div class="d-flex flex-wrap align-items-center">
                   <div class="posted-by">
-                    <img :src="`${asset_url}/ico.png`" alt="" />
+                    <img :src="`${$asset_url}/ico.png`" alt="" />
                     <a href="#" title="">Gypsy Hardinge</a>
                   </div>
                   <strong class="price">$67</strong>
@@ -182,9 +182,9 @@
           <div class="col-lg-3 col-12">
             <div class="classes-col">
               <div class="class-thumb">
-                <img :src="`${asset_url}/img3.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/img3.jpg`" alt="" class="w-100" />
                 <a href="contacts.html" title="" class="crt-btn"
-                  ><img :src="`${asset_url}/icon10.png`" alt=""
+                  ><img :src="`${$asset_url}/icon10.png`" alt=""
                 /></a>
               </div>
               <div class="class-info">
@@ -196,7 +196,7 @@
                 <span>Mon-Fri</span> <span>10 AM - 12 AM</span>
                 <div class="d-flex flex-wrap align-items-center">
                   <div class="posted-by">
-                    <img :src="`${asset_url}/ico.png`" alt="" />
+                    <img :src="`${$asset_url}/ico.png`" alt="" />
                     <a href="#" title="">Margje Jutten</a>
                   </div>
                   <strong class="price">$89</strong>
@@ -208,9 +208,9 @@
           <div class="col-lg-3 col-12">
             <div class="classes-col">
               <div class="class-thumb">
-                <img :src="`${asset_url}/img4.jpg`" alt="" class="w-100" />
+                <img :src="`${$asset_url}/img4.jpg`" alt="" class="w-100" />
                 <a href="contacts.html" title="" class="crt-btn"
-                  ><img :src="`${asset_url}/icon10.png`" alt=""
+                  ><img :src="`${$asset_url}/icon10.png`" alt=""
                 /></a>
               </div>
               <div class="class-info">
@@ -222,7 +222,7 @@
                 <span>Mon-Fri</span> <span>10 AM - 12 AM</span>
                 <div class="d-flex flex-wrap align-items-center">
                   <div class="posted-by">
-                    <img :src="`${asset_url}/ico.png`" alt="" />
+                    <img :src="`${$asset_url}/ico.png`" alt="" />
                     <a href="#" title="">Hubert Franck</a>
                   </div>
                   <strong class="price">$67</strong>

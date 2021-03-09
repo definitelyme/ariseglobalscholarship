@@ -1,4 +1,6 @@
 <template>
+  <title-component after="Sign Up"></title-component>
+
   <breeze-validation-errors class="mb-4" />
 
   <form @submit.prevent="submit">

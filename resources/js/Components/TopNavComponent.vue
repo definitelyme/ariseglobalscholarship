@@ -2,11 +2,8 @@
   <nav>
     <ul>
       <li>
-        <nav-link-component
-          :href="route('/')"
-          title=""
-          :active="route().current('/')"
-          >Home</nav-link-component
+        <a :href="route('/')" title="" :class="{ active: route().current('/') }"
+          >Home</a
         >
       </li>
 
@@ -14,50 +11,56 @@
         <a
           href="#"
           title=""
-          :active="
-            route().current().includes('apply') ||
-            route().current().includes('about')
-          "
+          :class="{
+            active:
+              route().current().includes('apply') ||
+              route().current().includes('scholarship'),
+          }"
           >Scholarship</a
         >
         <ul>
           <li>
-            <nav-link-component :href="route('scholarship./')" title=""
-              >Apply</nav-link-component
-            >
+            <a :href="route('apply./')" title="">Apply</a>
           </li>
           <li>
-            <nav-link-component :href="route('scholarship.about')" title=""
-              >About Scholarship</nav-link-component
-            >
+            <a :href="route('scholarship.about')" title="">About Scholarship</a>
           </li>
         </ul>
       </li>
 
-      <li>
-        <nav-link-component
+      <!-- <li>
+        <a
           :href="route('/')"
           title=""
-          :active="route().current().includes('blog')"
-          >Blog</nav-link-component
+          :class="{ active: route().current().includes('blog') }"
+          >Blog</a
+        >
+      </li> -->
+
+      <li>
+        <a
+          :href="route('faq')"
+          title=""
+          :class="{ active: route().current().includes('faq') }"
+          >FAQ</a
         >
       </li>
 
       <li>
-        <nav-link-component
+        <a
           :href="route('about')"
           title=""
-          :active="route().current().includes('about')"
-          >About</nav-link-component
+          :class="{ active: route().current().includes('about') }"
+          >About</a
         >
       </li>
 
       <li>
-        <nav-link-component
+        <a
           :href="route('contact')"
           title=""
-          :active="route().current().includes('contact')"
-          >Contact Us</nav-link-component
+          :class="{ active: route().current().includes('contact') }"
+          >Contact Us</a
         >
       </li>
     </ul>
