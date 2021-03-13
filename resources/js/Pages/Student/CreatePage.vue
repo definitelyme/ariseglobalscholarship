@@ -236,7 +236,7 @@
               </div>
 
               <div
-                class="col-span-12 sm:col-span-5 md:col-span-5 lg:col-span-5"
+                class="col-span-12 sm:col-span-5 md:col-span-5 lg:col-span-5 relative"
               >
                 <label
                   for="marital_status"
@@ -244,7 +244,7 @@
                   >Marital Status</label
                 >
 
-                <input
+                <!-- <input
                   class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   type="text"
                   name="marital_status"
@@ -252,8 +252,17 @@
                   pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                   maxlength="11"
                   required
-                />
-                <!-- <select-component></select-component> -->
+                /> -->
+                <select-component
+                  :options="[
+                    'Single',
+                    'Married',
+                    'Divorced',
+                    'Widowed',
+                    'Seperated',
+                  ]"
+                  select-first
+                ></select-component>
               </div>
             </div>
 
