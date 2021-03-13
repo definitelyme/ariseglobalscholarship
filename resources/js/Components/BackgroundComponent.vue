@@ -6,6 +6,7 @@
           <!--banner-img end-->
           <div
             class="elements-bg wow zoomIn"
+            :class="{ hidden: bannerHidden }"
             data-wow-duration="1000ms"
             style="
               visibility: visible;
@@ -18,3 +19,15 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  props: {
+    bannerHidden: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+};
+</script>

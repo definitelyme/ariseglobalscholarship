@@ -20,7 +20,7 @@
         >
         <ul>
           <li>
-            <a :href="route('apply./')" title="">Apply</a>
+            <a :href="route('scholarship.apply')" title="">Apply</a>
           </li>
           <li>
             <a :href="route('scholarship.about')" title="">About Scholarship</a>

@@ -59,7 +59,7 @@
           </li>
         </ul>
 
-        <div class="menu-btn" @click.prevent="emitter.emit('toggleSidebar')">
+        <div class="menu-btn" @click.prevent="emitter.emit($events.sidebar)">
           <a href="#"
             ><span
               class="bar1"
@@ -91,16 +91,75 @@
           v-if="user == null"
         />
 
-        <custom-button-widget
-          value="Apply Now"
-          alignment="end"
-          icon=""
-          type="info"
-          max-width="25"
-          direction=""
-          :url="route('scholarship./')"
+        <div
+          class="hidden sm:inline text-right"
+          style="flex: 0 0 25%; max-width: 25%"
           v-if="user != null"
-        />
+        >
+          <dropdown align="right" ref="headerDropdown">
+            <template #trigger>
+              <span class="inline-flex rounded-md">
+                <button
+                  type="button"
+                  class="max-w-sm bg-gray-800 rounded-full flex items-center text-sm"
+                  id="user-menu"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                >
+                  <span class="sr-only">Open user menu</span>
+
+                  <img
+                    class="h-8 w-8 rounded-full"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt=""
+                  />
+                </button>
+              </span>
+
+              <span class="inline-flex rounded-md h-8 w-8 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -6 30 30"
+                  fill="currentColor"
+                >
+                  <path
+                    v-show="!showingNavigationDropdown"
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+
+                  <path
+                    v-show="showingNavigationDropdown"
+                    fill-rule="evenodd"
+                    d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </template>
+
+            <template #content>
+              <dropdown-link
+                :href="route('dashboard')"
+                :replace="true"
+                :preserve-state="true"
+                as="button"
+              >
+                Dashboard
+              </dropdown-link>
+
+              <a
+                class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                :href="route('logout')"
+                type="button"
+                @click.prevent="submit"
+              >
+                <form method="POST" :action="route('logout')">Log out</form>
+              </a>
+            </template>
+          </dropdown>
+        </div>
       </div>
     </div>
   </header>
@@ -109,6 +168,28 @@
 <script>
 export default {
   inject: ["user", "settings"],
+
+  data() {
+    return {
+      form: this.$inertia.form({}),
+      showingNavigationDropdown: false,
+    };
+  },
+
+  methods: {
+    submit() {
+      this.form.post(this.route("logout"), {
+        onFinish: () => location.assign("/"),
+      });
+    },
+  },
+
+  mounted() {
+    this.emitter.on(
+      this.$events.profileDropdown,
+      (data) => (this.showingNavigationDropdown = data || false)
+    );
+  },
 };
 </script>
 

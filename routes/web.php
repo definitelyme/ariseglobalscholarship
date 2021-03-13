@@ -16,27 +16,38 @@ Route::get('/dashboard', function () {
 require __DIR__ . '/auth.php';
 
 Route::prefix("/v1/scholarship")->group(function () {
-    Route::get('/apply', [ScholarshipController::class, 'create'])->name("apply./")->middleware('auth');
+    Route::get('/apply', [ScholarshipController::class, 'create'])
+        ->name("scholarship.apply")
+        ->middleware('auth');
 });
 
 Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship")->group(function () {
-    Route::get('/', [ScholarshipController::class, 'index'])->name("/");
+    Route::get('/', [ScholarshipController::class, 'index'])
+        ->name("/");
 
-    Route::get('/applications', [ScholarshipController::class, 'index'])->name("index");
+    Route::get('/applications', [ScholarshipController::class, 'index'])
+        ->name("index");
 
-    Route::post('/application/store', [ScholarshipController::class, 'store'])->name("store");
+    Route::post('/application/store', [ScholarshipController::class, 'store'])
+        ->name("store");
 
-    Route::get('/{user}/application', [ScholarshipController::class, 'show'])->name("show");
+    Route::get('/{user}/application', [ScholarshipController::class, 'show'])
+        ->name("show");
 
-    Route::get('/{user}/application/edit', [ScholarshipController::class, 'edit'])->name("edit");
+    Route::get('/{user}/application/edit', [ScholarshipController::class, 'edit'])
+        ->name("edit");
 
-    Route::put('/{user}/application', [ScholarshipController::class, 'update'])->name("update");
+    Route::put('/{user}/application', [ScholarshipController::class, 'update'])
+        ->name("update");
 
-    Route::delete('/{user}/application', [ScholarshipController::class, 'delete'])->name("delete");
+    Route::delete('/{user}/application', [ScholarshipController::class, 'delete'])
+        ->name("delete");
 
-    Route::delete('/{user}/application/destroy', [ScholarshipController::class, 'destroy'])->name("destroy");
+    Route::delete('/{user}/application/destroy', [ScholarshipController::class, 'destroy'])
+        ->name("destroy");
 
-    Route::get('/about', [ScholarshipController::class, 'about'])->name("about");
+    Route::get('/about', [ScholarshipController::class, 'about'])
+        ->name("about");
 });
 
 Route::prefix("/center")->group(function () {

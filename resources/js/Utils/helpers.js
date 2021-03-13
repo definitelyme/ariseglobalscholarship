@@ -25,6 +25,12 @@ Inertia.on("navigate", (event) => {
 
 export default {
     install: (app, options) => {
+        app.config.globalProperties.$events = {
+            sidebar: "toggleSidebar",
+            closeSidebar: "closeSidebar",
+            profileDropdown: "toggleProfileDropdown",
+        };
+
         app.config.globalProperties.$titleCase = (string) => {
             var sentence = string.toLowerCase().split(" ");
 
@@ -42,8 +48,8 @@ export default {
             };
 
             var expression = exp || "-";
-            var regex = new RegExp(RegExp.quote(expression), "g");
             var joiner = glue || "";
+            var regex = new RegExp(RegExp.quote(expression), "g");
 
             let string = str.replace(regex, joiner);
             return string;

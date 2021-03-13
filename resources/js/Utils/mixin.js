@@ -1,11 +1,14 @@
 const mixin = {
     data() {
         return {
-            sidebarOpen: false,
+            // $sidebarOpen: false,
         };
     },
 
     computed: {
+        $app_url() {
+            return `${process.env.MIX_APP_URL}`;
+        },
         $app_name() {
             return `${process.env.MIX_APP_NAME}`;
         },

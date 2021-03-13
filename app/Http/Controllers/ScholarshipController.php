@@ -13,7 +13,7 @@ class ScholarshipController extends Controller
      */
     public function about()
     {
-        return inertia("Student/About");
+        return inertia("Student/AboutPage");
     }
 
     /**
@@ -23,7 +23,7 @@ class ScholarshipController extends Controller
      */
     public function index()
     {
-        return inertia("Student/Index");
+        return inertia("Student/IndexPage");
     }
 
     /**
@@ -33,7 +33,7 @@ class ScholarshipController extends Controller
      */
     public function create()
     {
-        return inertia("Student/Create");
+        return inertia("Student/CreatePage");
     }
 
     /**
@@ -56,7 +56,7 @@ class ScholarshipController extends Controller
      */
     public function show($id)
     {
-        return inertia("Student/Show");
+        return inertia("Student/ShowPage");
     }
 
     /**
@@ -67,7 +67,7 @@ class ScholarshipController extends Controller
      */
     public function edit($id)
     {
-        return inertia("Student/Edit");
+        return inertia("Student/EditPage");
     }
 
     /**

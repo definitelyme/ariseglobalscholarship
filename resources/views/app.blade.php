@@ -26,7 +26,7 @@
         <!-- Scripts -->
         @routes
         <script src="{{ asset('js/bundle.min.js') }}"></script>
-        <script src="{{ asset('js/button.min.js') }}"></script>
+        {{-- <script src="{{ asset('js/button.min.js') }}"></script> --}}
         <script src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>

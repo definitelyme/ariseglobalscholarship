@@ -5,25 +5,25 @@
         v-for="(menu, index) in menus"
         :key="index"
         :class="{
-          'bg-white': menu.isActive,
-          'px-2': menu.isActive,
-          'p-1': menu.isActive,
-          'rounded-md': menu.isActive,
+          'bg-white': route().current(menu.name),
+          'px-2': route().current(menu.name),
+          'p-1': route().current(menu.name),
+          'rounded-md': route().current(menu.name),
         }"
       >
         <a
-          :href="menu.href"
+          :href="route(menu.name)"
           :title="menu.title"
           v-text="menu.title"
-          v-if="!menu.isActive"
+          v-if="!route().current(menu.name)"
         ></a>
 
         <span
           v-else
           v-text="menu.title"
           :class="{
-            active: menu.isActive,
-            'text-main': menu.isActive,
+            active: route().current(menu.name),
+            'text-main': route().current(menu.name),
           }"
         ></span>
       </li>
@@ -75,41 +75,32 @@ export default {
       menus: [
         {
           title: "Home",
-          href: route("/"),
-          isActive:
-            route().current().includes("/") &&
-            !route().current().includes("apply") &&
-            !route().current().includes("scholarship/about"),
+          name: "/",
         },
 
         {
           title: "Apply",
-          href: route("apply./"),
-          isActive: route().current().includes("apply"),
+          name: "scholarship.apply",
         },
 
         {
           title: "About Scholarship",
-          href: route("scholarship.about"),
-          isActive: route().current().includes("scholarship/about"),
+          name: "scholarship.about",
         },
 
         {
           title: "FAQ",
-          href: route("faq"),
-          isActive: route().current().includes("faq"),
+          name: "faq",
         },
 
         {
           title: "About Us",
-          href: route("about"),
-          isActive: route().current().includes("about"),
+          name: "about",
         },
 
         {
           title: "Contact Us",
-          href: route("contact"),
-          isActive: route().current().includes("contact"),
+          name: "contact",
         },
       ],
     };
