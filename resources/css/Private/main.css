@@ -16003,7 +16003,7 @@ header .navigation-bar nav ul ul ul {
     color: #575757;
     font-size: 14.23px;
     line-height: 22.35px;
-    max-width: auto;
+    max-width: fit-content;
     margin: 20px auto;
 }
 .about-us-section {
@@ -16752,7 +16752,7 @@ footer .bottom-footer .social-links {
 }
 .benifit-section .section-title p {
     margin-bottom: 48px;
-    max-width: 460px;
+    max-width: fit-content;
     margin: inherit;
 }
 .benifit-section .about-us-section .about-sec .row .col-lg-6:nth-child(2),

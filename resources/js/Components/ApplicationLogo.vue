@@ -1,7 +1,7 @@
 <template>
   <img
     :src="`${$asset_url}/favicon.png`"
-    :alt="$app_name_short"
+    :alt="`Logo`"
     :title="$app_name_short"
     width="47"
     height="47"

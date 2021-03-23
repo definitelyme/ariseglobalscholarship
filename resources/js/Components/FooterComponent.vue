@@ -16,10 +16,12 @@
                 </div>
               </div>
 
-              <p>
-                Vivamus porta efficitur nibh nec convallis. Vestibulum egestas
-                eleifend justo. Ut tellus ipsum, accumsan
-              </p>
+              <p
+                v-html="settings.description_short"
+                :style="{
+                  'text-align': $detector.isMobile ? 'justify' : 'left',
+                }"
+              ></p>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 col-sm-6">

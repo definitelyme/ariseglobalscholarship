@@ -6,9 +6,12 @@ import {
     App as InertiaApp,
     plugin as InertiaPlugin,
 } from "@inertiajs/inertia-vue3";
-import Helpers from "./Utils/helpers";
 import { InertiaProgress } from "@inertiajs/progress";
 import { registerComponents } from "./Utils/component-registration";
+// import VueScreen from "vue-screen";
+
+// Plugins...
+import Helpers from "./Utils/helpers";
 import VueTheMask from "vue-the-mask";
 
 const el = document.getElementById("app");
@@ -23,6 +26,7 @@ const app = createApp({
     .mixin({ methods: { route } })
     .use(Helpers)
     .use(VueTheMask)
+    // .use(VueScreen)
     .use(InertiaPlugin);
 
 // Register Components

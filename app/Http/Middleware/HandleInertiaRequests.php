@@ -40,13 +40,17 @@ class HandleInertiaRequests extends Middleware
             'breadcrumbs' => $request->segments(),
             'settings' => [
                 'show_quote' => true,
-                'phone' => setting('site.phone'),
+                'phone' => setting('site.phone_number'),
                 'phone_styled' => setting('site.phone_styled'),
-                'email' => setting('site.email'),
+                'email' => setting('site.email_address'),
                 'address' => setting('site.address'),
                 'address_url' => setting('site.address_url'),
                 'description' => setting('site.description'),
+                'description_short' => setting('site.description_short'),
                 'home_about' => setting('site.home_about'),
+                'eligibility_1' => setting('site.scholarship_eligibility_1'),
+                'eligibility_2' => setting('site.scholarship_eligibility_2'),
+                'requirements' => setting('site.scholarship_requirements'),
             ],
         ]);
     }

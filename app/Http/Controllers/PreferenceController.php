@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use Illuminate\Http\Request;
 
 class PreferenceController extends Controller
@@ -57,6 +58,7 @@ class PreferenceController extends Controller
      */
     public function faq()
     {
-        return inertia("FAQ");
+        $faqs = Faq::all();
+        return inertia("FAQ", ['faqs' => $faqs]);
     }
 }

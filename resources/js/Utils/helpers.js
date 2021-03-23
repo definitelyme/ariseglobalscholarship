@@ -2,20 +2,13 @@ import { Inertia } from "@inertiajs/inertia";
 import Mixin from "./mixin";
 import mitt from "mitt";
 
+import DeviceDetector from "mobile-device-detect";
+
 const emitter = mitt();
 
 window.onerror = () => {
     emitter.emit("error", () => location.reload());
 };
-
-// window.onpopstate = (event) => {
-//     console.log(
-//         "location: " +
-//             document.location +
-//             ", state: " +
-//             JSON.stringify(event.state)
-//     );
-// };
 
 Inertia.on("navigate", (event) => {
     emitter.on("error", async () => {
@@ -30,6 +23,8 @@ export default {
             closeSidebar: "closeSidebar",
             profileDropdown: "toggleProfileDropdown",
         };
+
+        app.config.globalProperties.$detector = DeviceDetector;
 
         app.config.globalProperties.$titleCase = (string) => {
             var sentence = string.toLowerCase().split(" ");

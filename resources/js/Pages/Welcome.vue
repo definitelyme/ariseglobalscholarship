@@ -15,9 +15,7 @@
 
     <about-us-component />
     <eligibility-component />
-    <!-- <teachers-component /> -->
-    <!-- <find-course-component /> -->
-    <!-- <blog-component /> -->
+    <requirement-component />
     <news-letter-component />
     <footer-component />
   </div>
