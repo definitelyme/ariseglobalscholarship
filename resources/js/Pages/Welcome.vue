@@ -14,7 +14,7 @@
     </div>
 
     <about-us-component />
-    <!-- <classes-component /> -->
+    <eligibility-component />
     <!-- <teachers-component /> -->
     <!-- <find-course-component /> -->
     <!-- <blog-component /> -->

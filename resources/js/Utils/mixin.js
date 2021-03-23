@@ -1,7 +1,9 @@
 const mixin = {
     data() {
         return {
-            // $sidebarOpen: false,
+            // Do not delete this.
+            // HeaderComponent.vue(menu) depends on it
+            _sidebarOpen: false,
         };
     },
 

@@ -40,11 +40,13 @@ class HandleInertiaRequests extends Middleware
             'breadcrumbs' => $request->segments(),
             'settings' => [
                 'show_quote' => true,
-                'phone' => '+2348145108025',
-                'phone_styled' => '+234 814 510 8025',
-                'email' => 'ariseglobalscholarship@gmail.com',
-                'address' => '',
-                'address_name' => '34 Congress Road'
+                'phone' => setting('site.phone'),
+                'phone_styled' => setting('site.phone_styled'),
+                'email' => setting('site.email'),
+                'address' => setting('site.address'),
+                'address_url' => setting('site.address_url'),
+                'description' => setting('site.description'),
+                'home_about' => setting('site.home_about'),
             ],
         ]);
     }

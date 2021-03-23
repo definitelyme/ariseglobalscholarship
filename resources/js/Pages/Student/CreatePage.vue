@@ -99,22 +99,6 @@
 
               <div class="col-span-12 sm:col-span-6 md:col-span-4">
                 <label
-                  for="first_name"
-                  class="block text-sm font-medium text-gray-700"
-                  >Middle Name</label
-                >
-                <input
-                  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  type="text"
-                  name="middle_name"
-                  id="middle_name"
-                  autocomplete="given-name"
-                  required
-                />
-              </div>
-
-              <div class="col-span-12 sm:col-span-6 md:col-span-4">
-                <label
                   for="last_name"
                   class="block text-sm font-medium text-gray-700"
                   >Surname</label
@@ -125,6 +109,22 @@
                   name="last_name"
                   id="last_name"
                   autocomplete="family-name"
+                  required
+                />
+              </div>
+
+              <div class="col-span-12 sm:col-span-6 md:col-span-4">
+                <label
+                  for="other_names"
+                  class="block text-sm font-medium text-gray-700"
+                  >Other Names</label
+                >
+                <input
+                  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  type="text"
+                  name="other_names"
+                  id="other_names"
+                  autocomplete="given-name"
                   required
                 />
               </div>

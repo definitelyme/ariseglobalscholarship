@@ -3,5 +3,7 @@
     :src="`${$asset_url}/favicon.png`"
     :alt="$app_name_short"
     :title="$app_name_short"
+    width="47"
+    height="47"
   />
 </template>

@@ -4,13 +4,8 @@
       <div class="row align-items-center">
         <div class="col-lg-7 col-md-7">
           <div class="banner-text wow fadeInLeft" data-wow-duration="1000ms">
-            <h2>The Smarter Way to Learn <span>Anything</span></h2>
-            <p>
-              Mauris malesuada enim eget blandit gravida. Duis hendrerit cursus
-              turpis, id mollis est rutrum nec. Sed interdum nisi id libero
-              tincidunt, sit amet vestibulum tortor porttitor. Cras ligula
-              lacus, ullamcorper sed
-            </p>
+            <h2>{{ $app_name_short }} <span>Scholarship</span></h2>
+            <p v-text="settings.description"></p>
             <a :href="route('scholarship./')"
               ><breeze-button
                 class="px-4 py-3 rounded-full bg-main hover:bg-main hover:shadow-lg hover:text-white"
@@ -41,6 +36,8 @@
 import BreezeButton from "@/Components/Button";
 
 export default {
+  inject: ["user", "settings"],
+
   components: {
     BreezeButton,
   },

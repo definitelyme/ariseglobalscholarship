@@ -3,13 +3,9 @@
     <div class="container">
       <div class="header-content d-flex flex-wrap align-items-center">
         <div class="logo">
-          <a :href="route('/')" :title="$app_name"
-            ><img
-              :src="`${$asset_url}/favicon.png`"
-              :alt="$app_name"
-              height="60"
-              width="60"
-          /></a>
+          <a :href="route('/')" :title="$app_name">
+            <application-logo />
+          </a>
 
           <div class="logo-name">
             <h3 v-text="$app_name_short"></h3>
@@ -49,10 +45,7 @@
               <div class="contact-tt">
                 <h4>Address</h4>
                 <span
-                  ><a
-                    :href="settings.address"
-                    v-text="settings.address_name"
-                  ></a
+                  ><a :href="settings.address_url" v-text="settings.address"></a
                 ></span>
               </div>
             </div>
@@ -63,17 +56,17 @@
           <a href="#"
             ><span
               class="bar1"
-              :class="{ 'bg-white': $parent.sidebarOpen }"
+              :class="{ 'bg-white': $parent._sidebarOpen }"
             ></span>
 
             <span
               class="bar2"
-              :class="{ 'bg-white': $parent.sidebarOpen }"
+              :class="{ 'bg-white': $parent._sidebarOpen }"
             ></span>
 
             <span
               class="bar3"
-              :class="{ 'bg-white': $parent.sidebarOpen }"
+              :class="{ 'bg-white': $parent._sidebarOpen }"
             ></span
           ></a>
         </div>
@@ -181,6 +174,9 @@ export default {
       this.form.post(this.route("logout"), {
         onFinish: () => location.assign("/"),
       });
+    },
+    log() {
+      console.log("Hello printing!");
     },
   },
 

@@ -15557,7 +15557,7 @@ video {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
+    /* font: inherit; */
     vertical-align: baseline;
 }
 article,
@@ -16003,11 +16003,11 @@ header .navigation-bar nav ul ul ul {
     color: #575757;
     font-size: 14.23px;
     line-height: 22.35px;
-    max-width: 430px;
-    margin: 0 auto;
+    max-width: auto;
+    margin: 20px auto;
 }
 .about-us-section {
-    padding: 124px 0 100px;
+    padding: 124px 0 30px;
 }
 .about-us-section .about-sec {
     margin-bottom: 65px;
@@ -17740,7 +17740,7 @@ footer .bottom-footer .social-links {
     -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     height: 100%;
-    padding: 50px;
+    padding: 50px 85px 50px 30px;
     opacity: 0;
     transform: translateX(-100%);
     visibility: hidden;
@@ -18596,7 +18596,7 @@ footer .bottom-footer .social-links {
         line-height: 72px;
     }
     .about-us-section {
-        padding: 35px 0 100px;
+        padding: 35px 0 30px;
     }
     .classes-section {
         padding-bottom: 50px;
@@ -18767,7 +18767,7 @@ footer .bottom-footer .social-links {
         margin-bottom: -50px;
     }
     .about-us-section {
-        padding: 70px 0 100px;
+        padding: 70px 0 30px;
     }
     .menu-btn {
         display: block;

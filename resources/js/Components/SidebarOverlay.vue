@@ -17,7 +17,7 @@ export default {
   mounted() {
     this.emitter.on(this.$events.closeSidebar, (isOpen) => {
       this.isSidebarOpen = isOpen;
-      this.$parent.sidebarOpen = this.isSidebarOpen;
+      this.$parent._sidebarOpen = this.isSidebarOpen;
 
       $("body").removeClass("scroll-hide");
       $(".responsive-menu").removeClass("active");
@@ -27,7 +27,7 @@ export default {
     this.emitter.on(this.$events.sidebar, () => {
       var status = this.isSidebarOpen;
       this.isSidebarOpen = !status;
-      this.$parent.sidebarOpen = this.isSidebarOpen;
+      this.$parent._sidebarOpen = this.isSidebarOpen;
 
       if (status == false) {
         $("body").removeClass("scroll-hide");

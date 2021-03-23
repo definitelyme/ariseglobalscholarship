@@ -7,11 +7,7 @@
             <div class="widget widget-about">
               <div class="logo">
                 <inertia-link :href="route('/')" :title="$app_name"
-                  ><img
-                    :src="`${$asset_url}/favicon.png`"
-                    :alt="$app_name"
-                    height="60"
-                    width="60"
+                  ><application-logo
                 /></inertia-link>
 
                 <div class="logo-name">
@@ -63,8 +59,8 @@
                       <h4>Address</h4>
                       <span
                         ><a
-                          :href="settings.address"
-                          v-text="settings.address_name"
+                          :href="settings.address_url"
+                          v-text="settings.address"
                         ></a
                       ></span>
                     </div>
