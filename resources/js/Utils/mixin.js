@@ -31,6 +31,19 @@ const mixin = {
         },
     },
 
+    // provide() {
+    //     return {
+    //         user:
+    //             typeof this.$attrs.auth != "undefined"
+    //                 ? this.$attrs.auth.user
+    //                 : null,
+    //         settings:
+    //             typeof this.$attrs.settings != "undefined"
+    //                 ? this.$attrs.settings.user
+    //                 : null,
+    //     };
+    // },
+
     methods: {
         $visit({
             url,

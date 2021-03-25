@@ -10,7 +10,7 @@
 
       <main-banner-component />
 
-      <h2 class="main-title" v-text="app_initials"></h2>
+      <h2 class="main-title" v-text="$attrs.settings.app_initials"></h2>
     </div>
 
     <about-us-component />
