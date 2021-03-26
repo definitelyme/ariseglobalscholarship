@@ -1,4 +1,4 @@
-name: Build production files
+name: Relase CI/CD
 on:
   push:
     branches:
@@ -14,10 +14,11 @@ on:
 
 jobs:
   build:
-    name: Run "npm run prod"
+    name: Run CLI Tasks
     env:
-      APP_NAME: "Arise Global Scholarship"
+      APP_NAME: "Arise Global website"
       APP_SLUG: "ariseglobalscholarship"
+      APP_URL: "https://ariseglobalscholarship.org/"
       APP_HOST: ${{ secrets.FLOATING_IP }}
       APP_USERNAME: ${{ secrets.USERNAME }}
       APP_PASSWORD: ${{ secrets.PASSWORD }}
@@ -37,7 +38,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Execute remote SSH commands using password
+      - name: Execute remote SSH commands using private key
         uses: appleboy/ssh-action@master
         with:
           host: ${{ env.APP_HOST }}
@@ -46,11 +47,12 @@ jobs:
           port: ${{ env.APP_PORT }}
           passphrase: ${{ env.APP_PASSWORD }}
           command_timeout: ${{ env.COMMAND_TIMEOUT }}
+          debug: true
           script: |
             cd /var/www/${{ env.APP_SLUG }}/
             git pull
             composer run-script optimize-prod
-            npm run production
+            npm run prod
 
       - name: Bump version and push tag
         id: bump_tag
@@ -66,6 +68,7 @@ jobs:
           name: ${{ env.APP_NAME }}-${{ steps.bump_tag.outputs.new_version }}
           tag: ${{ steps.bump_tag.outputs.new_tag }}
           token: ${{ env.GITHUB_TOKEN }}
+          body: A new release of ${{ env.APP_NAME }} is available! Click ${{ env.APP_URL }} to view.
           allowUpdates: true
           omitName: false
           omitBody: false
