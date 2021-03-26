@@ -43,9 +43,9 @@ jobs:
           username: ${{ env.APP_USERNAME }}
           key: ${{ env.APP_PRIVATE_KEY }}
           port: ${{ env.APP_PORT }}
-          passphrase: ${{ env.APP_PASSWORD }}
+          passphrase: ${{ env.APP_KEY_PASSPHRASE }}
           script: |
-            whoami
+            cd /var/www/${{ env.APP_SLUG }}/
             ls -al
 
       - name: Bump version and push tag
