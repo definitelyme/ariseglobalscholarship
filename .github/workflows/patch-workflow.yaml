@@ -1,0 +1,74 @@
+name: Relase CI/CD
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - dev
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  build:
+    name: Run CLI Tasks
+    env:
+      APP_NAME: "Arise Global website"
+      APP_SLUG: "ariseglobalscholarship"
+      APP_URL: "https://ariseglobalscholarship.org/"
+      APP_HOST: ${{ secrets.FLOATING_IP }}
+      APP_USERNAME: ${{ secrets.USERNAME }}
+      APP_PASSWORD: ${{ secrets.PASSWORD }}
+      APP_PORT: ${{ secrets.PORT }}
+      APP_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      APP_KEY_PASSPHRASE: ${{ secrets.KEY_PASSPHRASE }}
+      COMMAND_TIMEOUT: ${{ secrets.COMMAND_TIMEOUT }}
+      RELEASE_TYPE: patch
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    outputs:
+      bump_tag: ${{ steps.bump_tag.outputs.new_tag }}
+      bump_tag_version: ${{ steps.bump_tag.outputs.new_version }}
+    steps:
+      - name: Fetch Repo HEAD
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Execute remote SSH commands using private key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.APP_HOST }}
+          username: ${{ env.APP_USERNAME }}
+          key: ${{ env.APP_PRIVATE_KEY }}
+          port: ${{ env.APP_PORT }}
+          passphrase: ${{ env.APP_PASSWORD }}
+          command_timeout: ${{ env.COMMAND_TIMEOUT }}
+          debug: true
+          script: |
+            cd /var/www/${{ env.APP_SLUG }}/
+            git pull
+            composer run-script optimize-prod
+            npm run prod
+
+      - name: Bump version and push tag
+        id: bump_tag
+        uses: mathieudutour/github-tag-action@v4.5
+        with:
+          release_branches: .*
+          github_token: ${{ env.GITHUB_TOKEN }}
+
+      - name: Push new version to Release Tags
+        uses: ncipollo/release-action@v1
+        with:
+          # artifacts: "build/app/outputs/apk/prod/release/*.apk,build/app/outputs/apk/release/*.apk,build/app/outputs/apk/*"
+          name: ${{ env.APP_NAME }}-${{ steps.bump_tag.outputs.new_version }}
+          tag: ${{ steps.bump_tag.outputs.new_tag }}
+          token: ${{ env.GITHUB_TOKEN }}
+          body: A new release of ${{ env.APP_NAME }} is available! Click ${{ env.APP_URL }} to view.
+          allowUpdates: true
+          omitName: false
+          omitBody: false
