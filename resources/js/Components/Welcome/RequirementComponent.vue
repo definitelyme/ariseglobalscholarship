@@ -5,7 +5,7 @@
   >
     <div class="container">
       <div class="section-title text-center">
-        <h2>What are the <span>requirements</span> to apply?</h2>
+        <h3>What are the <span>requirements</span> to apply?</h3>
 
         <div class="container">
           <div class="row custom-list">

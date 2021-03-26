@@ -20,7 +20,7 @@
 
     <requirement-component />
 
-    <faq />
+    <faq-tabs :questions="$attrs.faqs" :with-title="true" />
 
     <news-letter-component />
 
