@@ -50,7 +50,16 @@ jobs:
           debug: true
           script: |
             cd /var/www/${{ env.APP_SLUG }}/
-            git pull
+            git pull origin dev
+            git merge HEAD &> /dev/null
+            result=$?
+            if [ $result -ne 0 ]
+            then
+                echo "Merge in progress.."
+                grep -lr '<<<<<<<' . | xargs git checkout --ours
+            else
+                echo "Already up to date! Merge not in progress."
+            fi
             composer run-script optimize-prod
             npm run prod
 
