@@ -46,7 +46,8 @@ jobs:
           passphrase: ${{ env.APP_KEY_PASSPHRASE }}
           script: |
             cd /var/www/${{ env.APP_SLUG }}/
-            ls -al
+            composer run-script optimize-prod
+            npm run production
 
       - name: Bump version and push tag
         id: bump_tag
@@ -55,7 +56,7 @@ jobs:
           release_branches: .*
           github_token: ${{ env.GITHUB_TOKEN }}
 
-      - name: Push APK to Release Tags
+      - name: Push new version to Release Tags
         uses: ncipollo/release-action@v1
         with:
           # artifacts: "build/app/outputs/apk/prod/release/*.apk,build/app/outputs/apk/release/*.apk,build/app/outputs/apk/*"
