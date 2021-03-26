@@ -24,6 +24,7 @@ jobs:
       APP_PORT: ${{ secrets.PORT }}
       APP_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       APP_KEY_PASSPHRASE: ${{ secrets.KEY_PASSPHRASE }}
+      COMMAND_TIMEOUT: ${{ secrets.COMMAND_TIMEOUT }}
       RELEASE_TYPE: patch
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
@@ -43,9 +44,11 @@ jobs:
           username: ${{ env.APP_USERNAME }}
           key: ${{ env.APP_PRIVATE_KEY }}
           port: ${{ env.APP_PORT }}
-          passphrase: ${{ env.APP_KEY_PASSPHRASE }}
+          passphrase: ${{ env.APP_PASSWORD }}
+          command_timeout: ${{ env.COMMAND_TIMEOUT }}
           script: |
             cd /var/www/${{ env.APP_SLUG }}/
+            git pull
             composer run-script optimize-prod
             npm run production
 
