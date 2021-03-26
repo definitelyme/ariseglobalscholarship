@@ -1,4 +1,4 @@
-name: Relase CI/CD
+name: Release CI/CD
 on:
   push:
     branches:
