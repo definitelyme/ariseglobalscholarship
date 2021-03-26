@@ -5,7 +5,7 @@
   >
     <div class="container">
       <div class="section-title text-center">
-        <h2 style="padding-bottom: 25px">Eligibility</h2>
+        <h2 style="padding-bottom: 25px">Eligibility Requirements</h2>
 
         <div class="container">
           <div class="row custom-list">
