@@ -24,9 +24,17 @@ jobs:
       APP_PORT: ${{ secrets.PORT }}
       APP_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       RELEASE_TYPE: patch
-      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
+    outputs:
+      bump_tag: ${{ steps.bump_tag.outputs.new_tag }}
+      bump_tag_version: ${{ steps.bump_tag.outputs.new_version }}
     steps:
+      - name: Fetch Repo HEAD
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Execute remote SSH commands using password
         uses: appleboy/ssh-action@master
         with:
@@ -37,3 +45,21 @@ jobs:
           script: |
             whoami
             ls -al
+
+      - name: Bump version and push tag
+        id: bump_tag
+        uses: mathieudutour/github-tag-action@v4.5
+        with:
+          release_branches: .*
+          github_token: ${{ env.GITHUB_TOKEN }}
+
+      - name: Push APK to Release Tags
+        uses: ncipollo/release-action@v1
+        with:
+          # artifacts: "build/app/outputs/apk/prod/release/*.apk,build/app/outputs/apk/release/*.apk,build/app/outputs/apk/*"
+          name: ${{ env.APP_NAME }}-${{ steps.bump_tag.outputs.new_version }}
+          tag: ${{ steps.bump_tag.outputs.new_tag }}
+          token: ${{ env.GITHUB_TOKEN }}
+          allowUpdates: true
+          omitName: false
+          omitBody: false
