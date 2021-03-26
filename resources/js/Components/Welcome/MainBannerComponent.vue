@@ -8,7 +8,7 @@
             <p v-text="settings.description"></p>
             <a :href="route('scholarship./')"
               ><breeze-button
-                class="px-4 py-3 rounded-full bg-main hover:bg-main hover:shadow-lg hover:text-white"
+                class="px-4 py-3 rounded-full bg-main-600 hover:bg-main-400 hover:shadow-lg hover:text-white"
                 type="button"
               >
                 Get Started

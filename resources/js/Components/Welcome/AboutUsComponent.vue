@@ -7,7 +7,7 @@
         <span v-html="settings.home_about"></span>
       </div>
 
-      <home-benefits-component />
+      <!-- <home-benefits-component /> -->
     </div>
   </section>
 </template>

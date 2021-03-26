@@ -1,7 +1,7 @@
 <template>
   <teleport to="head">
     <title>
-      {{ `${$before || $app_name_short} ${seperator} ${after}` }}
+      {{ `${before || $app_name_short} ${seperator} ${after}` }}
     </title>
   </teleport>
 </template>
