@@ -23,6 +23,7 @@ jobs:
       APP_PASSWORD: ${{ secrets.PASSWORD }}
       APP_PORT: ${{ secrets.PORT }}
       APP_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      APP_KEY_PASSPHRASE: ${{ secrets.KEY_PASSPHRASE }}
       RELEASE_TYPE: patch
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
@@ -42,6 +43,7 @@ jobs:
           username: ${{ env.APP_USERNAME }}
           key: ${{ env.APP_PRIVATE_KEY }}
           port: ${{ env.APP_PORT }}
+          passphrase: ${{ env.APP_PASSWORD }}
           script: |
             whoami
             ls -al
