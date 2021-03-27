@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,7 +19,7 @@ class HomeController extends Controller
         return Inertia::render("Welcome", [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'quote' => "Keep Learning..",
+            'faqs' => Faq::all(),
         ]);
     }
 
