@@ -11,11 +11,7 @@
     />
   </dl>
 
-  <section
-    class="about-us-section"
-    style="padding-top: 0px; padding-bottom: 0px"
-    v-if="withTitle"
-  >
+  <section class="about-us-section py-0" v-if="withTitle">
     <div class="container">
       <div class="section-title text-center">
         <h3 class="sm:pb-2 md:pb-4 lg:pb-6 xl:pb-6">
@@ -30,6 +26,7 @@
             :key="index"
             v-show="question.hidden == 0"
             :question="question"
+            :with-title="withTitle"
           />
         </dl>
       </div>
