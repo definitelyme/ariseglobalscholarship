@@ -2,7 +2,7 @@
   <section class="about-us-section" style="padding-bottom: 0px">
     <div class="container">
       <div class="section-title text-center">
-        <h2>About the <span>Scholarship</span></h2>
+        <h3>About the <span>Scholarship</span></h3>
 
         <span v-html="settings.home_about"></span>
       </div>
