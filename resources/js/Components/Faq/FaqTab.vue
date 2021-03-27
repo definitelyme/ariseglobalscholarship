@@ -7,7 +7,7 @@
       <dt class="question">
         <div class="flex justify-between">
           <div
-            class="text-indigo-800 font-semibold text-justify break-words"
+            class="text-indigo-800 font-semibold text-left break-words"
             v-text="question.title"
           ></div>
           <div class="ml-4">
@@ -17,7 +17,7 @@
         </div>
       </dt>
       <dd
-        class="answer mt-2 leading-snug text-gray-600"
+        class="answer mt-2 leading-snug text-gray-600 text-justify"
         :class="{ hidden: !active }"
         v-html="question.body"
       ></dd>

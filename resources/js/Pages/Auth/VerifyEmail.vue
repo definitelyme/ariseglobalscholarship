@@ -7,6 +7,10 @@
     receive the email, we will gladly send you another.
   </div>
 
+  <div class="mb-2">
+    <em class="text-gray-500">Hint: You may need to check your Spam folder!</em>
+  </div>
+
   <div
     class="mb-4 font-medium text-sm text-green-600"
     v-if="verificationLinkSent"

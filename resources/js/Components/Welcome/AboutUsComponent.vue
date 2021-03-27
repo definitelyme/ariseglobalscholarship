@@ -1,5 +1,5 @@
 <template>
-  <section class="about-us-section" style="padding-bottom: 0px">
+  <section class="about-us-section pb-0">
     <div class="container">
       <div class="section-title text-center">
         <h3>About the <span>Scholarship</span></h3>

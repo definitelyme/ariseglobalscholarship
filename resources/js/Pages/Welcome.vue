@@ -22,7 +22,7 @@
 
     <faq-tabs :questions="$attrs.faqs" :with-title="true" />
 
-    <news-letter-component />
+    <!-- <news-letter-component /> -->
 
     <footer-component />
   </div>

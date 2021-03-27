@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="about-us-section"
-    style="padding-top: 0px; padding-bottom: 0px"
-  >
+  <section class="about-us-section py-0">
     <div class="container">
       <div class="section-title text-center">
         <h3>What are the <span>requirements</span> to apply?</h3>
@@ -14,7 +11,7 @@
         </div>
       </div>
 
-      <home-gallery-component v-if="$detector.isMobile" />
+      <!-- <home-gallery-component v-if="$detector.isMobile" /> -->
     </div>
   </section>
 </template>
