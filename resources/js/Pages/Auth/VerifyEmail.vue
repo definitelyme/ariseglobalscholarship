@@ -8,7 +8,9 @@
   </div>
 
   <div class="mb-2">
-    <em class="text-gray-500">Hint: You may need to check your Spam folder!</em>
+    <em class="text-gray-500 text-sm"
+      >PS: You may need to check your Spam folder!</em
+    >
   </div>
 
   <div
