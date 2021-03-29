@@ -1,6 +1,6 @@
 <template>
   <button
-    @click.prevent="isDropdownVisible = !isDropdownVisible"
+    @click.prevent="collapse"
     type="button"
     aria-haspopup="listbox"
     aria-expanded="true"
@@ -8,15 +8,15 @@
     class="relative w-full bg-white border border-gray-300 rounded-lg shadow-sm pl-3 pr-10 py-2"
     :class="`text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`"
   >
-    <span class="flex items-center">
-      <span class="block truncate" v-text="selected.value"> </span>
+    <span class="flex items-center text-gray-700">
+      <span class="block truncate" v-text="selected"> </span>
     </span>
 
     <span
       class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
     >
       <svg
-        class="h-5 w-5 text-gray-400"
+        class="h-5 w-5 text-gray-700"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
@@ -31,11 +31,11 @@
     </span>
   </button>
 
-  <!--  -->
+  <!-- Dropdown starts here -->
 
   <div
     class="absolute mt-1 w-full rounded-md bg-white shadow-lg"
-    :class="{ hidden: !isDropdownVisible }"
+    :class="{ hidden: !isDropdownVisible, 'z-40': isDropdownVisible }"
   >
     <ul
       tabindex="-1"
@@ -55,6 +55,7 @@
           'cursor-default': option.isSelected,
           'cursor-pointer': !option.isSelected,
         }"
+        @click="itemSelected(option)"
       >
         <div class="flex items-center">
           <span
@@ -68,14 +69,12 @@
           </span>
         </div>
 
-        <!--
-            Checkmark, only display for selected option.
-
-            Highlighted: "text-white", Not Highlighted: "text-indigo-600"
-          -->
         <span
           class="absolute inset-y-0 right-0 flex items-center pr-4"
-          :class="{ hidden: !option.isSelected }"
+          :class="{
+            hidden: !option.isSelected,
+            'text-indigo-600': option.isSelected,
+          }"
         >
           <svg
             class="h-5 w-5"
@@ -86,14 +85,12 @@
           >
             <path
               fill-rule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
               clip-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
             />
           </svg>
         </span>
       </li>
-
-      <!-- More items... -->
     </ul>
   </div>
 </template>
@@ -105,28 +102,57 @@ export default {
     return {
       isDropdownVisible: false,
       items: [],
-      selected: {
-        value: "-- Select --",
-      },
     };
   },
 
+  computed: {
+    selected() {
+      let initial = { value: "---  Select  ---" };
+
+      return typeof this.items == "undefined" ||
+        this.items == null ||
+        !this.items.length
+        ? initial.value
+        : (this.items.find((e) => e.isSelected) || initial).value;
+    },
+  },
+
   props: {
-    selectFirst: {
-      type: Boolean,
-      required: false,
-      default: () => false,
-    },
-
-    value: {
-      type: String,
-      required: false,
-    },
-
     options: {
       type: Array,
       required: true,
       default: () => [],
+    },
+  },
+
+  methods: {
+    itemSelected(item) {
+      // Close dropdown
+      this.isDropdownVisible = false;
+
+      // Re-map items
+      this.items = this.items.map((e) => {
+        // Assign each object to temp object
+        var temp = Object.assign({}, e);
+        // Change value
+        temp.isSelected = e.value == item.value;
+        // return modified object
+        return temp;
+      });
+
+      //   // Remove overlay
+      //   this.$emitter.emit(this.$events.toggleFullOverlay, {
+      //     visible: this.isDropdownVisible,
+      //   });
+    },
+
+    collapse() {
+      this.isDropdownVisible = !this.isDropdownVisible;
+      //   if (this.isDropdownVisible)
+      //     this.$emitter.emit(this.$events.toggleFullOverlay, {
+      //       //   background: "bg-transparent",
+      //       zIndex: "z-30",
+      //     });
     },
   },
 
@@ -137,8 +163,6 @@ export default {
         isSelected: this.selectFirst ? this.options[0] == i : false,
       }));
     }
-
-    this.selected = this.selectFirst ? this.items[0] : this.selected;
   },
 };
 </script>

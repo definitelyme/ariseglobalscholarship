@@ -22,6 +22,7 @@ export default {
             sidebar: "toggleSidebar",
             closeSidebar: "closeSidebar",
             profileDropdown: "toggleProfileDropdown",
+            toggleFullOverlay: "toggleOverlay",
         };
 
         app.config.globalProperties.$detector = DeviceDetector;
@@ -35,6 +36,16 @@ export default {
             }
 
             return sentence.join(" ");
+        };
+
+        app.config.globalProperties.$find = (array, predicate, ctx) => {
+            var result = null;
+            array.some((el, i) => {
+                return predicate.call(ctx, el, i, array)
+                    ? ((result = el), true)
+                    : false;
+            });
+            return result;
         };
 
         app.config.globalProperties.$replace = (str, glue, exp) => {
@@ -74,7 +85,10 @@ export default {
             return str;
         };
 
+        // Deprecated!! Will be removed later use $emitter instead
         app.config.globalProperties.emitter = emitter;
+
+        app.config.globalProperties.$emitter = emitter;
 
         app.mixin(Mixin);
     },

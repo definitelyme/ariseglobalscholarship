@@ -1,6 +1,8 @@
 <template>
   <title-component after="Dashboard"></title-component>
 
+  <overlay />
+
   <div class="min-h-screen bg-gray-100">
     <nav class="bg-gray-800">
       <authenticated-desktop-view></authenticated-desktop-view>
