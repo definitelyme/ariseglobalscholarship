@@ -1,31 +1,25 @@
 <template>
-  <div class="grid grid-cols-12 gap-3" :class="[height]">
-    <div class="md:hidden col-span-4" />
-
-    <div
-      class="col-span-4 self-center md:col-start-10 md:col-span-3 lg:col-start-12 lg:col-span-2 xl:col-start-12 xl:col-span-2"
-    >
+  <div class="grid grid-cols-12 gap-3">
+    <div class="col-span-4" />
+    <div class="col-span-4" />
+    <div class="col-span-4 justify-self-end" @click.prevent="performAction">
       <button
-        type="button"
-        class="inline-flex px-2.5 py-2 w-full bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase content-center place-content-center"
-        :class="`tracking-widest bg-main-600 hover:bg-main-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-main-500 active:bg-main-700 transition ease-in-out duration-150`"
-        @click.prevent="performAction"
+        class="p-0 w-16 h-16 md:w-12 md:h-12 bg-main-500 rounded-full hover:bg-main-600 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
       >
-        Next
         <svg
-          viewBox="0 0 20 30"
-          class="h-4 w-7 pl-1 icon icon-arrow-right"
-          aria-hidden="true"
-          fill="currentColor"
+          viewBox="0 0 30 30"
+          enable-background="new 0 0 20 20"
+          class="w-7 h-7 inline-block"
         >
           <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            fill="#FFFFFF"
             d="M5.975 17.504l14.287.001-6.367 6.366L16.021 26l10.004-10.003L16.029 6l-2.128 2.129 6.367 6.366H5.977z"
           />
         </svg>
       </button>
     </div>
-
-    <div class="md:hidden col-span-4" />
   </div>
 </template>
 
@@ -35,12 +29,13 @@ export default {
 
   emits: ["tab-changed"],
 
+  data() {
+    return {
+      current: this.currentTab,
+    };
+  },
+
   props: {
-    height: {
-      type: String,
-      required: false,
-      default: "h-20",
-    },
     onClick: {
       type: Function,
       required: false,
@@ -58,6 +53,12 @@ export default {
 
       this.onClick();
     },
+  },
+
+  created() {
+    this.$emitter.on(this.$events.applicationTabChanged, (incoming) => {
+      this.current = incoming;
+    });
   },
 };
 </script>

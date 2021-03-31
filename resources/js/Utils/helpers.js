@@ -110,6 +110,7 @@ const utils = {
             onSelectionChanged: "selection-changed-event",
             toggleDashboardMenu: "toggle-dashboard-menu",
             toggleDashboardTabMenu: "toggle-dashboard-tab-menu",
+            applicationTabChanged: "application-tab-changed",
         };
 
         app.config.globalProperties.$detector = DeviceDetector;

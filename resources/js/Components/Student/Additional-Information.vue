@@ -1,5 +1,6 @@
 <template>
-  <h3>Nationality Details</h3>
+  <create-page-subtitle> Nationality Details </create-page-subtitle>
+
   <!--  -->
   <div class="grid grid-cols-12 gap-2 md:gap-2 lg:gap-3 xl:gap-3">
     <div class="col-span-12 md:col-span-6 lg:col-span-3 relative self-end">
@@ -73,7 +74,10 @@
   <hr />
   <br class="md:block" />
 
-  <h3>Next of Kin Details</h3>
+  <create-page-subtitle :show-divider="false">
+    Next of Kin Details
+  </create-page-subtitle>
+
   <!--  -->
   <div class="grid grid-cols-12 gap-2 md:gap-2 lg:gap-3 xl:gap-3">
     <div class="col-span-12 md:col-span-6 lg:col-span-3 self-end">
@@ -155,18 +159,21 @@
   <hr />
   <br class="md:block" />
 
-  <h3>Other Details</h3>
+  <create-page-subtitle :show-divider="false">
+    Other Details
+  </create-page-subtitle>
   <!--  -->
   <div class="grid grid-cols-12 gap-2 md:gap-2 lg:gap-3 xl:gap-3">
     <div class="col-span-12 md:col-span-6 lg:col-span-3 self-end">
       <label
         for="bursary"
         class="block md:inline-flex text-sm font-medium text-gray-700"
-        >Are You On a Scholarship/Bursary?
+        >I am currently on a Scholarship/Bursary
       </label>
 
       <input
-        class="md:inline-flex rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        class="md:inline-flex rounded md:ml-4 border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        :class="`w-5 h-5 md:w-4 md:h-4 cursor-pointer`"
         type="checkbox"
         name="bursary"
         id="bursary"

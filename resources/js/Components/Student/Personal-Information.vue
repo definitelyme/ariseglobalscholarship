@@ -1,5 +1,5 @@
 <template>
-  <h3>Basic Personal Information</h3>
+  <create-page-subtitle> Basic Personal Information </create-page-subtitle>
   <!--  -->
   <div class="grid grid-cols-12 gap-3">
     <div class="col-span-12 sm:col-span-6 md:col-span-4">
@@ -191,12 +191,12 @@
   <hr />
   <br class="md:block" />
 
-  <h3>Residential Details</h3>
+  <create-page-subtitle> Residential Details </create-page-subtitle>
 
   <div class="grid grid-cols-12 gap-3">
     <div class="col-span-12 sm:col-span-7 md:col-span-7">
       <label for="home_address" class="block text-sm font-medium text-gray-700">
-        Home Address
+        Street Address
       </label>
 
       <div class="mt-1">
@@ -222,7 +222,7 @@
   <div class="grid grid-cols-12 gap-2 md:gap-2 lg:gap-3 xl:gap-3">
     <div class="col-span-12 md:col-span-3 lg:col-span-3 relative self-end">
       <label for="country" class="text-sm font-medium text-gray-700"
-        >Country</label
+        >Country / Region</label
       >
       <select-component
         :options="['Nigeria']"
@@ -236,7 +236,7 @@
 
     <div class="col-span-12 md:col-span-3 lg:col-span-3 relative self-end">
       <label for="state" class="text-sm font-medium text-gray-700"
-        >State of Residence</label
+        >State / Province</label
       >
       <select-component
         :options="states"
@@ -277,34 +277,6 @@
         required
       />
     </div>
-  </div>
-
-  <div class="grid grid-cols-12 gap-3 pb-10">
-    <div class="md:hidden col-span-4" />
-
-    <div
-      class="col-span-4 md:col-start-10 md:col-span-3 lg:col-start-11 lg:col-span-2"
-    >
-      <button
-        type="button"
-        class="inline-flex px-2.5 py-2 w-full bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase content-center place-content-center"
-        :class="`tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150`"
-      >
-        Next
-        <svg
-          viewBox="0 0 32 32"
-          class="h-5 w-5 pl-1 icon icon-arrow-right"
-          aria-hidden="true"
-          fill="currentColor"
-        >
-          <path
-            d="M5.975 17.504l14.287.001-6.367 6.366L16.021 26l10.004-10.003L16.029 6l-2.128 2.129 6.367 6.366H5.977z"
-          />
-        </svg>
-      </button>
-    </div>
-
-    <div class="md:hidden col-span-4" />
   </div>
 </template>
 
