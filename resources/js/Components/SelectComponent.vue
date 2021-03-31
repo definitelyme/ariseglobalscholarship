@@ -76,6 +76,9 @@ export default {
     selected() {
       this.$emit(this.$events.onSelectionChanged, this.selected);
     },
+    options() {
+      this.mapOptionsToItems();
+    },
   },
 
   props: {
@@ -104,6 +107,12 @@ export default {
   },
 
   methods: {
+    mapOptionsToItems() {
+      this.items = this.options.map((i) => ({
+        value: i,
+        isSelected: this.selectFirst ? this.options[0] == i : false,
+      }));
+    },
     collapse() {
       this.isDropdownVisible = !this.isDropdownVisible;
       //   if (this.isDropdownVisible)
@@ -116,10 +125,7 @@ export default {
 
   mounted() {
     if (this.options && this.options.length) {
-      this.items = this.options.map((i) => ({
-        value: i,
-        isSelected: this.selectFirst ? this.options[0] == i : false,
-      }));
+      this.mapOptionsToItems();
     }
   },
 };

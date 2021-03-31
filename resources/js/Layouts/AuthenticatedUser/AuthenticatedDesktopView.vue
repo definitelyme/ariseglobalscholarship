@@ -1,12 +1,71 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <div class="flex items-center">
+  <div class="max-w-7xl mx-auto px-5 md:px-6 lg:px-8 py-2">
+    <div
+      class="grid grid-cols-12 gap-2 md:flex items-center justify-between h-16 md:h-auto"
+    >
+      <div class="col-span-4 -mr-2 flex md:hidden">
+        <button
+          type="button"
+          class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          @click.prevent="
+            emitter.emit(
+              $events.toggleDashboardMenu,
+              !$parent.showingNavigationDropdown
+            )
+          "
+        >
+          <span class="sr-only">Open main menu</span>
+
+          <svg
+            class="h-6 w-6"
+            :class="{
+              block: !$parent.showingNavigationDropdown,
+              hidden: $parent.showingNavigationDropdown,
+            }"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+          <svg
+            class="h-6 w-6"
+            :class="{
+              block: $parent.showingNavigationDropdown,
+              hidden: !$parent.showingNavigationDropdown,
+            }"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="col-span-4 md:flex place-self-center justify-self-center">
         <div class="flex-shrink-0">
           <a :href="route('/')">
-            <breeze-application-logo class="block h-10 w-auto" />
+            <breeze-application-logo class="block h-16 md:h-10 w-auto" />
           </a>
         </div>
+
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
@@ -30,6 +89,61 @@
           </div>
         </div>
       </div>
+
+      <div class="col-span-4 -mr-2 flex md:hidden justify-self-end">
+        <button
+          type="button"
+          class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          @click.prevent="
+            emitter.emit(
+              $events.toggleDashboardTabMenu,
+              !$parent.showingTabMenuDropdown
+            )
+          "
+        >
+          <span class="sr-only">Open tab menu</span>
+
+          <svg
+            :class="{
+              block: !$parent.showingTabMenuDropdown,
+              hidden: $parent.showingTabMenuDropdown,
+            }"
+            class="h-8 w-8 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 32 32"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M16.003 18.626l7.081-7.081L25 13.46l-8.997 8.998-9.003-9 1.917-1.916z"
+              clip-rule="evenodd"
+            />
+          </svg>
+
+          <svg
+            :class="{
+              block: $parent.showingTabMenuDropdown,
+              hidden: !$parent.showingTabMenuDropdown,
+            }"
+            class="h-8 w-8 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 32 32"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M15.997 13.374l-7.081 7.081L7 18.54l8.997-8.998 9.003 9-1.916 1.916z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Show only on desktop -->
       <div class="hidden md:block">
         <div class="ml-4 flex items-center md:ml-6">
           <button
@@ -65,7 +179,7 @@
                 aria-haspopup="true"
                 @click.prevent="
                   emitter.emit(
-                    'toggle-dashboard-menu',
+                    $events.toggleDashboardMenu,
                     !$parent.showingNavigationDropdown
                   )
                 "
@@ -114,61 +228,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="-mr-2 flex md:hidden">
-        <button
-          type="button"
-          class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-          @click.prevent="
-            emitter.emit(
-              'toggle-dashboard-menu',
-              !$parent.showingNavigationDropdown
-            )
-          "
-        >
-          <span class="sr-only">Open main menu</span>
-
-          <svg
-            class="h-6 w-6"
-            :class="{
-              block: !$parent.showingNavigationDropdown,
-              hidden: $parent.showingNavigationDropdown,
-            }"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-          <svg
-            class="h-6 w-6"
-            :class="{
-              block: $parent.showingNavigationDropdown,
-              hidden: !$parent.showingNavigationDropdown,
-            }"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
       </div>
     </div>
   </div>

@@ -7,13 +7,16 @@
     <nav class="bg-gray-800">
       <authenticated-desktop-view></authenticated-desktop-view>
       <authenticated-mobile-view></authenticated-mobile-view>
+      <top-nav-mobile></top-nav-mobile>
     </nav>
 
     <!-- Page Heading -->
     <header
       class="bg-white shadow-inner"
       v-if="$slots.header"
-      @click="showingNavigationDropdown = false"
+      @click="
+        (showingNavigationDropdown = false), (showingTabMenuDropdown = false)
+      "
     >
       <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
         <slot name="header" />
@@ -21,7 +24,11 @@
     </header>
 
     <!-- Page Content -->
-    <main @click="showingNavigationDropdown = false">
+    <main
+      @click="
+        (showingNavigationDropdown = false), (showingTabMenuDropdown = false)
+      "
+    >
       <slot />
     </main>
   </div>
@@ -33,7 +40,8 @@ export default {
     return {
       authForm: this.$inertia.form({}),
       showingNavigationDropdown: false,
-      form: null,
+      showingTabMenuDropdown: false,
+      //   form: null,
     };
   },
 
@@ -46,18 +54,21 @@ export default {
   },
 
   mounted() {
-    this.emitter.on("toggle-dashboard-menu", (state) => {
+    this.$emitter.on(this.$events.toggleDashboardMenu, (state) => {
       this.showingNavigationDropdown = state || !this.showingNavigationDropdown;
+      // Hide Tab Menu
+      this.showingTabMenuDropdown = false;
+    });
+
+    this.$emitter.on(this.$events.toggleDashboardTabMenu, (state) => {
+      this.showingTabMenuDropdown = state || !this.showingTabMenuDropdown;
+      // Hide Main Menu
+      this.showingNavigationDropdown = false;
     });
   },
 
   created() {
-    if (typeof this.$parent.form !== "undefined") {
-      // This stuff here is technically wrooong,
-      // but it's my own version of 2-way binding
-      //   this.form = this.$parent.form;
-      //   this.$parent.form = this.form;
-    }
+    //
   },
 };
 </script>

@@ -19,13 +19,37 @@ Inertia.on("navigate", (event) => {
 });
 
 const titleCase = (string) => {
-    var sentence = string.toLowerCase().split(" ");
+    // Step 1. Lowercase the string
+    string = string.toLowerCase();
+    // str = "I'm a little tea pot".toLowerCase();
+    // str = "i'm a little tea pot";
 
-    for (var i = 0; i < sentence.length; i++) {
-        sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    // Step 2. Split the string into an array of strings
+    string = string.split(" ");
+    // str = "i'm a little tea pot".split(' ');
+    // str = ["i'm", "a", "little", "tea", "pot"];
+
+    // Step 3. Create the FOR loop
+    for (var i = 0; i < string.length; i++) {
+        string[i] = string[i].charAt(0).toUpperCase() + string[i].slice(1);
+        /* Here string.length = 5
+            1st iteration: str[0] = str[0].charAt(0).toUpperCase() + str[0].slice(1);
+                        str[0] = "i'm".charAt(0).toUpperCase()  + "i'm".slice(1);
+                        str[0] = "I"                            + "'m";
+                        str[0] = "I'm";
+            2nd iteration: str[1] = str[1].charAt(0).toUpperCase() + str[1].slice(1);
+                        str[1] = "a".charAt(0).toUpperCase()    + "a".slice(1);
+                        str[1] = "A"                            + "";
+                        str[1] = "A";
+            3rd iteration: str[2] = str[2].charAt(0).toUpperCase()   + str[2].slice(1);
+                        str[2] = "little".charAt(0).toUpperCase() + "little".slice(1);
+                        str[2] = "L"                              + "ittle";
+                        str[2] = "Little";
+            ...
+        */
     }
-
-    return sentence.join(" ");
+    // Step 4. Return the output
+    return string.join(" "); // ["I'm", "A", "Little", "Tea", "Pot"].join(' ') => "I'm A Little Tea Pot"
 };
 
 const find = (array, predicate, ctx) => {
@@ -72,6 +96,10 @@ const replace = (str, glue, exp) => {
     return string;
 };
 
+const logger = (msg) => {
+    console.log(msg);
+};
+
 const utils = {
     install: (app, options) => {
         app.config.globalProperties.$events = {
@@ -80,6 +108,8 @@ const utils = {
             profileDropdown: "toggleProfileDropdown",
             toggleFullOverlay: "toggleOverlay",
             onSelectionChanged: "selection-changed-event",
+            toggleDashboardMenu: "toggle-dashboard-menu",
+            toggleDashboardTabMenu: "toggle-dashboard-tab-menu",
         };
 
         app.config.globalProperties.$detector = DeviceDetector;
@@ -93,6 +123,8 @@ const utils = {
         app.config.globalProperties.$replace = replace;
 
         app.config.globalProperties.$slugify = slugify;
+
+        app.config.globalProperties.$logger = logger;
 
         // Deprecated!! Will be removed later use $emitter instead
         app.config.globalProperties.emitter = emitter;

@@ -12,7 +12,13 @@
         name="first_name"
         id="first_name"
         :value="firstName"
-        @input="$emit('update:firstName', $event.target.value)"
+        @input="
+          $emitValue(
+            'update:firstName',
+            $event.target.value,
+            firstNameModifiers
+          )
+        "
         autocomplete="given-name"
         required
       />
@@ -28,7 +34,9 @@
         name="last_name"
         id="last_name"
         :value="lastName"
-        @input="$emit('update:lastName', $event.target.value)"
+        @input="
+          $emitValue('update:lastName', $event.target.value, lastNameModifiers)
+        "
         autocomplete="family-name"
         required
       />
@@ -44,7 +52,13 @@
         name="other_names"
         id="other_names"
         :value="otherNames"
-        @input="$emit('update:otherNames', $event.target.value)"
+        @input="
+          $emitValue(
+            'update:otherNames',
+            $event.target.value,
+            otherNamesModifiers
+          )
+        "
         autocomplete="given-name"
         required
       />
@@ -60,7 +74,7 @@
         name="email_address"
         id="email_address"
         :value="email"
-        @input="$emit('update:email', $event.target.value)"
+        @input="$emitValue('update:email', $event.target.value, emailModifiers)"
         autocomplete="email"
         required
       />
@@ -86,7 +100,9 @@
           maxlength="14"
           v-mask="'(###) ### ####'"
           :value="phone"
-          @input="$emit('update:phone', $event.target.value)"
+          @input="
+            $emitValue('update:phone', $event.target.value, phoneModifiers)
+          "
           required
         />
       </div>
@@ -106,7 +122,7 @@
         autocomplete="date_of_birth"
         pattern="\d{4}-\d{2}-\d{2}"
         :value="dob"
-        @input="$emit('update:dob', $event.target.value)"
+        @input="$emitValue('update:dob', $event.target.value, dobModifiers)"
         required
       />
     </div>
@@ -121,8 +137,10 @@
             name="gender"
             type="radio"
             class="focus:ring-main-400 self-center h-4 w-4 text-main-600 border-gray-300"
-            :value="gender"
-            @input="$emit('update:gender', $event.target.value)"
+            value="male"
+            @click="
+              $emitValue('update:gender', $event.target.value, genderModifiers)
+            "
           />
 
           <label for="male" class="flex h-full items-center">
@@ -138,8 +156,10 @@
             name="gender"
             type="radio"
             class="focus:ring-main-400 self-center h-4 w-4 text-main-600 border-gray-300"
-            :value="gender"
-            @input="$emit('update:gender', $event.target.value)"
+            value="female"
+            @click="
+              $emitValue('update:gender', $event.target.value, genderModifiers)
+            "
           />
 
           <label for="female" class="flex h-full items-center">
@@ -159,7 +179,9 @@
       <select-component
         :options="['Single', 'Married', 'Divorced', 'Widowed', 'Seperated']"
         :value="maritalStatus"
-        @selection-changed-event="$emit('update:maritalStatus', $event)"
+        @selection-changed-event="
+          $emitValue('update:maritalStatus', $event, maritalStatusModifiers)
+        "
       ></select-component>
     </div>
   </div>
@@ -181,11 +203,13 @@
         <textarea
           id="home_address"
           name="home_address"
-          rows="2"
+          rows="3"
           class="text-gray-700 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
           placeholder="No 36. Melburn Street"
           :value="address"
-          @input="$emit('update:address', $event.target.value)"
+          @input="
+            $emitValue('update:address', $event.target.value, addressModifiers)
+          "
           required
         ></textarea>
       </div>
@@ -195,40 +219,62 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-12 gap-2 md:gap-2.5 lg:gap-4 xl:gap-5">
-    <div class="col-span-12 md:col-span-4 lg:col-span-3 relative self-end">
+  <div class="grid grid-cols-12 gap-2 md:gap-2 lg:gap-3 xl:gap-3">
+    <div class="col-span-12 md:col-span-3 lg:col-span-3 relative self-end">
       <label for="country" class="text-sm font-medium text-gray-700"
-        >Country of Residence</label
+        >Country</label
       >
       <select-component
         :options="['Nigeria']"
         :value="country"
-        @selection-changed-event="$emit('update:country', $event)"
+        @selection-changed-event="
+          $emitValue('update:country', $event, countryModifiers)
+        "
         select-first
       />
     </div>
 
-    <div class="col-span-12 md:col-span-4 lg:col-span-3 relative self-end">
+    <div class="col-span-12 md:col-span-3 lg:col-span-3 relative self-end">
       <label for="state" class="text-sm font-medium text-gray-700"
         >State of Residence</label
       >
       <select-component
         :options="states"
         :value="state"
-        @selection-changed-event="$emit('update:state', $event)"
+        @selection-changed-event="
+          $emitValue('update:state', $event, stateModifiers)
+        "
         positioned
       />
     </div>
 
-    <div class="col-span-12 md:col-span-4 lg:col-span-3 relative self-end">
+    <div class="col-span-12 md:col-span-3 lg:col-span-3 relative self-end">
       <label for="local_govt" class="text-sm font-medium text-gray-700"
         >Local Govt. of Residence</label
       >
       <select-component
         :options="localGovtAreas"
         :value="localGovtArea"
-        @selection-changed-event="$emit('update:localGovtArea', $event)"
+        @selection-changed-event="
+          $emitValue('update:localGovtArea', $event, localGovtAreaModifiers)
+        "
         positioned
+      />
+    </div>
+
+    <div class="col-span-12 md:col-span-3 lg:col-span-3 self-end">
+      <label for="city" class="block text-sm font-medium text-gray-700"
+        >City</label
+      >
+      <input
+        class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+        type="text"
+        name="city"
+        id="city"
+        :value="city"
+        @input="$emitValue('update:city', $event.target.value, cityModifiers)"
+        autocomplete="city"
+        required
       />
     </div>
   </div>
@@ -241,7 +287,7 @@
     >
       <button
         type="button"
-        class="inline-flex px-2.5 py-2 w-full bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase"
+        class="inline-flex px-2.5 py-2 w-full bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase content-center place-content-center"
         :class="`tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150`"
       >
         Next
@@ -267,7 +313,7 @@ export default {
   data() {
     return {
       states: this.$Province.getStates().names,
-      localGovtAreas: [],
+      localGovtAreas: new Array(),
     };
   },
 
@@ -275,15 +321,9 @@ export default {
     state() {
       // Auto-sync list of Local govts.
       try {
-        console.log(`New selected state: ${this.state}`);
-        console.log(`Count: ${this.localGovtAreas.length}`);
-        console.log(this.localGovtArea);
-
-        this.localGovtsAreas = this.$Province
+        this.localGovtAreas = this.$Province
           .getLocalGovt(this.state)
           .map((v) => v.name);
-        console.log("After the ===================");
-        console.log(this.$Province.getLocalGovt(this.state).map((v) => v.name));
       } catch (_) {
         return [];
       }
@@ -292,17 +332,31 @@ export default {
 
   props: {
     firstName: String,
+    firstNameModifiers: Object,
     lastName: String,
+    lastNameModifiers: Object,
     otherNames: String,
+    otherNamesModifiers: Object,
     email: String,
+    emailModifiers: Object,
     phone: String,
+    phoneModifiers: Object,
     dob: String,
+    dobModifiers: Object,
     gender: String,
+    genderModifiers: Object,
     maritalStatus: String,
+    maritalStatusModifiers: Object,
     address: String,
+    addressModifiers: Object,
     country: String,
+    countryModifiers: Object,
     state: String,
+    stateModifiers: Object,
     localGovtArea: String,
+    localGovtAreaModifiers: Object,
+    city: String,
+    cityModifiers: Object,
   },
 
   emits: [
@@ -318,11 +372,11 @@ export default {
     "update:country",
     "update:state",
     "update:localGovtArea",
+    "update:city",
   ],
 
   created() {
-    // Init List of States
-    // this.states = this.$Province.getStates().names;
+    // console.log(this.countryModifiers);
   },
 };
 </script>
