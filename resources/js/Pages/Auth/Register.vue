@@ -65,7 +65,7 @@
       </inertia-link>
 
       <breeze-button
-        class="ml-4 bg-accent hover:bg-main hover:shadow-lg hover:text-white"
+        class="bg-main-600 hover:bg-main-800 hover:shadow-lg hover:text-main"
         :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
       >

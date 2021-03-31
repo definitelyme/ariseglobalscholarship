@@ -46,6 +46,7 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             'show_quote' => true,
+            'quote' => 'Keep Learning..',
 
             'app_name' => setting('site.title'),
             'app_name_short' => setting('site.name_short'),

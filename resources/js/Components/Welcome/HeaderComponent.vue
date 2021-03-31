@@ -9,7 +9,7 @@
 
           <div class="logo-name">
             <h3 v-text="$app_name_short"></h3>
-            <span v-text="$parent.quote"></span>
+            <span v-text="settings.quote"></span>
           </div>
         </div>
 
