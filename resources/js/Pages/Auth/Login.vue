@@ -58,9 +58,7 @@
       </breeze-button>
     </div>
 
-    <div
-      class="flex item-center justify-center mt-10 md:block md:mt-4 lg:block"
-    >
+    <div class="flex item-center justify-center mt-10 md:block md:mt-4 lg:block">
       <breeze-button
         class="bg-main-600 hover:bg-main-800 hover:shadow-lg hover:text-main"
         type="button"

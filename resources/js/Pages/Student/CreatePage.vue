@@ -7,26 +7,23 @@
 
       <div class="flex bg-gray-100">
         <div
-          class="md:m-2 flex flex-col md:w-64 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0 shadow-sm sm:rounded-md"
+          class="h-screen md:m-2 flex flex-col md:w-64 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0 shadow-sm sm:rounded-md"
         >
-          <nav
-            :class="{ block: open, hidden: !open }"
-            class="flex-grow md:block mt-3 px-4 pb-4 md:pb-0 md:overflow-y-auto"
-          >
+          <nav class="flex-grow md:block pt-3.5 px-4 md:overflow-y-auto">
             <span
               v-for="(item, index) in tabs"
               :key="index"
-              @click.prevent="switchTab($slugify(item))"
+              @click.prevent="currentTab = item"
             >
               <a
                 class="block px-4 py-2 my-1 text-sm font-semibold text-gray-900 rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                 href="#"
                 :id="$slugify(item)"
                 :class="{
-                  'bg-gray-200': selectedTab == $slugify(item),
-                  'dark-mode:bg-gray-700': selectedTab == $slugify(item),
-                  'bg-transparent': selectedTab != $slugify(item),
-                  'dark-mode:bg-transparent': selectedTab != $slugify(item),
+                  'bg-gray-200': currentTab == $slugify(item),
+                  'dark-mode:bg-gray-700': currentTab == $slugify(item),
+                  'bg-transparent': currentTab != $slugify(item),
+                  'dark-mode:bg-transparent': currentTab != $slugify(item),
                 }"
                 v-text="item"
               ></a>
@@ -36,42 +33,35 @@
           </nav>
         </div>
 
-        <div class="flex flex-col w-full h-full sm:rounded-md">
-          <div class="flex-1 shadow-sm sm:rounded-md sm:overflow-hidden md:m-2">
-            <div class="px-6 py-6 md:px-4 bg-white space-y-6">
-              <template v-if="selectedTab == $slugify(tabs[0])">
-                <personal-info />
-              </template>
-              <!--  -->
-              <template v-if="selectedTab == $slugify(tabs[1])">
-                <additional-info />
-              </template>
-              <!--  -->
-              <template v-if="selectedTab == $slugify(tabs[2])">
-                <passport-photograph />
-              </template>
-              <!--  -->
-              <template v-if="selectedTab == $slugify(tabs[3])">
-                <secondary-level />
-              </template>
-              <!--  -->
-              <template v-if="selectedTab == $slugify(tabs[4])">
-                <undergraduate-level />
-              </template>
-              <!--  -->
-              <template v-if="selectedTab == $slugify(tabs[5])">
-                <post-graduate-level />
-              </template>
-              <!--  -->
-              <template v-if="selectedTab == $slugify(tabs[6])">
-                <o-level-result />
-              </template>
-              <!--  -->
-              <template v-if="selectedTab == $slugify(tabs[7])">
-                <documents />
-              </template>
+        <div class="flex flex-col sm:rounded-md w-screen">
+          <form @submit.prevent="submit">
+            <div
+              class="flex-1 shadow-sm sm:rounded-md sm:overflow-hidden md:m-2"
+            >
+              <div
+                class="px-6 py-6 md:px-4 md:pt-5 bg-white space-y-6 h-screen"
+              >
+                <keep-alive>
+                  <component
+                    :is="currentTabComponent"
+                    v-model:first-name="form.firstName"
+                    v-model:lastName="form.lastName"
+                    v-model:other-names="form.otherNames"
+                    v-model:email="form.email"
+                    v-model:phone="form.phone"
+                    v-model:dob="form.dob"
+                    v-model:gender="form.gender"
+                    v-model:marital-status="form.maritalStatus"
+                    v-model:address="form.address"
+                    v-model:country="form.country"
+                    v-model:state="form.state"
+                    v-model:localGovtArea="form.localGovtArea"
+                  >
+                  </component>
+                </keep-alive>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -84,7 +74,7 @@ import BreezeAuthenticatedLayout from "@/Layouts/Authenticated";
 export default {
   data() {
     return {
-      selectedTab: null,
+      currentTab: "Personal Information",
       tabs: [
         "Personal Information",
         "Additional Information",
@@ -92,14 +82,32 @@ export default {
         "Secondary Level",
         "Undergraduate Level",
         "Post Graduate Level",
-        "O Level Result,",
+        "O Level Result",
         "Documents",
       ],
+      form: this.$inertia.form({
+        firstName: "",
+        lastName: "",
+        otherNames: "",
+        email: "",
+        phone: "",
+        dob: "",
+        gender: "",
+        maritalStatus: "",
+        address: "",
+        country: "",
+        state: "",
+        localGovtArea: "",
+        city: "",
+      }),
     };
   },
 
   computed: {
-    //
+    status: String,
+    currentTabComponent() {
+      return this.currentTab.split(" ").join("--").toLowerCase();
+    },
   },
 
   components: {
@@ -107,8 +115,16 @@ export default {
   },
 
   methods: {
-    switchTab(tab) {
-      this.selectedTab = tab;
+    submit() {
+      console.log(this.form);
+      //   this.form
+      //     .transform((data) => ({
+      //       ...data,
+      //       remember: this.form.remember ? "on" : "",
+      //     }))
+      //     .post(this.route("login"), {
+      //       onFinish: () => this.form.reset("password"),
+      //     });
     },
   },
 
@@ -120,8 +136,14 @@ export default {
     };
   },
 
-  mounted() {
-    this.selectedTab = this.$slugify(this.tabs[0]);
+  created() {
+    this.$reactive({
+      author: "Vue Team",
+      year: "2020",
+      title: "Vue 3 Guide",
+      description: "You are reading this book right now ;)",
+      price: "free",
+    });
   },
 };
 </script>
