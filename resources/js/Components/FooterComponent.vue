@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="pt-14">
     <div class="container">
       <div class="top-footer">
         <div class="row">
@@ -70,7 +70,6 @@
                 </li>
               </ul>
             </div>
-            <!--widget-contact end-->
           </div>
 
           <div class="col-lg-4 col-md-6 col-sm-6">
@@ -129,7 +128,6 @@
           </div>
         </div>
       </div>
-      <!--bottom-footer end-->
     </div>
   </footer>
 </template>

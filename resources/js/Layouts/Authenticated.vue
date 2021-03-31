@@ -1,7 +1,9 @@
 <template>
   <title-component after="Dashboard"></title-component>
 
-  <div class="min-h-screen bg-gray-100">
+  <overlay />
+
+  <div class="min-h-screen min-w-full bg-gray-100">
     <nav class="bg-gray-800">
       <authenticated-desktop-view></authenticated-desktop-view>
       <authenticated-mobile-view></authenticated-mobile-view>
@@ -31,6 +33,7 @@ export default {
     return {
       authForm: this.$inertia.form({}),
       showingNavigationDropdown: false,
+      form: null,
     };
   },
 
@@ -46,6 +49,15 @@ export default {
     this.emitter.on("toggle-dashboard-menu", (state) => {
       this.showingNavigationDropdown = state || !this.showingNavigationDropdown;
     });
+  },
+
+  created() {
+    if (typeof this.$parent.form !== "undefined") {
+      // This stuff here is technically wrooong,
+      // but it's my own version of 2-way binding
+      //   this.form = this.$parent.form;
+      //   this.$parent.form = this.form;
+    }
   },
 };
 </script>
