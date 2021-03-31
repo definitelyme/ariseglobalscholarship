@@ -21,6 +21,7 @@
         >Application Status</a
       >
     </div>
+
     <div class="pt-4 pb-3 border-t border-gray-700">
       <div class="flex items-center px-4">
         <div class="flex-shrink-0">
@@ -30,6 +31,7 @@
             alt=""
           />
         </div>
+
         <div class="ml-3">
           <div class="text-base font-medium leading-none text-white">
             {{ $page.props.auth.user.name }}
@@ -38,6 +40,7 @@
             {{ $page.props.auth.user.email }}
           </div>
         </div>
+
         <button
           class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
         >
@@ -60,6 +63,7 @@
           </svg>
         </button>
       </div>
+
       <div class="mt-3 px-2 space-y-1">
         <a
           href="#"

@@ -6,8 +6,8 @@
         :key="index"
         :class="{
           'bg-white': route().current(menu.name),
-          'px-2': route().current(menu.name),
-          'p-1': route().current(menu.name),
+          'px-3.5': route().current(menu.name),
+          'p-2.5': route().current(menu.name),
           'rounded-md': route().current(menu.name),
         }"
       >
@@ -21,6 +21,7 @@
         <span
           v-else
           v-text="menu.title"
+          class="text-gray-700"
           :class="{
             active: route().current(menu.name),
             'text-main': route().current(menu.name),
@@ -127,7 +128,11 @@ export default {
 
 <style>
 ul.side-nav-links > li:nth-last-child(2) {
-  margin-bottom: 0px !important;
+  /* margin-bottom: 0px !important; */
+}
+
+.auth-section > li:nth-child(2) {
+  margin-top: 30px;
 }
 
 hr.rounded {

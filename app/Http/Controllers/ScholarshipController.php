@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class ScholarshipController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verified');
+    }
+
     /**
      * Display the specified resource.
      *

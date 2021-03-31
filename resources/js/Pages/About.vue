@@ -66,7 +66,7 @@
 
   <about-benefits-component />
 
-  <news-letter-component />
+  <!-- <news-letter-component /> -->
 
   <footer-component />
 </template>
