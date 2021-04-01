@@ -97,7 +97,7 @@ import BreezeAuthenticatedLayout from "@/Layouts/Authenticated";
 export default {
   data() {
     return {
-      currentTab: "Passport Photograph",
+      currentTab: "Personal Information",
       tabs: [
         "Personal Information",
         "Additional Information",
