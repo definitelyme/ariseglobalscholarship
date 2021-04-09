@@ -56,7 +56,7 @@
     <div class="flex items-center justify-end mt-4">
       <inertia-link
         :href="route('login')"
-        class="underline text-sm text-gray-600 hover:text-gray-900"
+        class="underline text-sm text-gray-600 hover:text-gray-900 mr-3"
         replace
         preserve-scroll
         preserve-state
