@@ -3,7 +3,7 @@
     <background-component />
 
     <div
-      class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0"
+      class="min-h-screen flex flex-col sm:justify-center items-center pt-6 px-6 md:px-0 sm:pt-2"
     >
       <div>
         <a :href="route('/')">

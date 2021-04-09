@@ -6,7 +6,7 @@
           <div class="banner-text wow fadeInLeft" data-wow-duration="1000ms">
             <h2>{{ $app_name_short }} <span>Scholarship</span></h2>
             <p v-text="settings.description"></p>
-            <a :href="route('scholarship./')"
+            <a :href="route('scholarship.apply')"
               ><breeze-button
                 class="px-4 py-3 rounded-full bg-main-600 hover:bg-main-400 hover:shadow-lg hover:text-white"
                 type="button"
@@ -22,7 +22,7 @@
         </div>
         <div class="col-lg-5 col-md-5">
           <div class="banner-img wow zoomIn" data-wow-duration="1000ms">
-            <img :src="`${$asset_url}/banner-img.png`" alt="" />
+            <!-- <img :src="`${$asset_url}/banner-img.png`" alt="" /> -->
           </div>
           <!--banner-img end-->
           <div class="elements-bg wow zoomIn" data-wow-duration="1000ms"></div>
