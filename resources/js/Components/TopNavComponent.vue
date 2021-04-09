@@ -23,7 +23,10 @@
             <a :href="route('scholarship.apply')" title="">Apply</a>
           </li>
           <li>
-            <a :href="route('scholarship.about')" title="">About Scholarship</a>
+            <a :href="route('scholarship.about')" title="">Eligibility</a>
+          </li>
+          <li>
+            <a :href="route('scholarship.about')" title="">Requirements</a>
           </li>
         </ul>
       </li>
