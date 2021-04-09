@@ -59,38 +59,45 @@
         </button>
       </div>
 
-      <div class="col-span-4 md:flex place-self-center justify-self-center">
+      <div
+        class="col-span-4 md:flex place-self-center justify-self-center justify-center"
+      >
         <div class="flex-shrink-0">
           <a :href="route('/')">
             <breeze-application-logo class="block h-16 md:h-10 w-auto" />
           </a>
         </div>
 
-        <div class="hidden md:block">
-          <div class="ml-10 flex items-baseline space-x-4">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        <div class="hidden md:block h-16 md:h-10">
+          <div
+            class="ml-10 flex space-x-4 items-center content-center justify-center justify-self-center"
+          >
             <a
-              class="px-3 py-2 rounded-md text-sm font-medium"
-              :href="route('dashboard')"
+              class="px-3 py-2.5 rounded-md text-sm font-medium"
+              v-for="(menu, index) in menus"
+              :key="index"
+              :href="
+                menu.param != null
+                  ? route(menu.name, menu.param)
+                  : route(menu.name)
+              "
+              :title="menu.title"
+              v-text="menu.title"
               :class="{
-                'bg-gray-900 text-white': route().current('dashboard'),
-                'text-gray-300 hover:bg-gray-700 hover:text-white': route().current(
-                  'dashboard'
+                'bg-gray-900 text-white': route().current(menu.name),
+                'text-gray-300 hover:bg-gray-700 hover:text-white': !route().current(
+                  menu.name
                 ),
               }"
-              >Dashboard</a
-            >
-
-            <a
-              href="#"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >Application Status</a
-            >
+            ></a>
           </div>
         </div>
       </div>
 
-      <div class="col-span-4 -mr-2 flex md:hidden justify-self-end">
+      <div
+        class="col-span-4 -mr-2 flex md:hidden justify-self-end"
+        v-show="route().current('scholarship.apply')"
+      >
         <button
           type="button"
           class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -186,9 +193,9 @@
               >
                 <span class="sr-only">Open user menu</span>
                 <img
-                  class="h-8 w-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt=""
+                  class="h-10 w-10 rounded-full"
+                  :src="`${$asset_url}/user.png`"
+                  :alt="user.name"
                 />
               </button>
             </div>
@@ -238,6 +245,8 @@ import BreezeApplicationLogo from "@/Components/ApplicationLogo";
 import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
 export default {
+  inject: ["user"],
+
   components: {
     BreezeApplicationLogo,
     BreezeResponsiveNavLink,
@@ -245,7 +254,25 @@ export default {
 
   data() {
     return {
-      //
+      menus: [
+        {
+          title: "Dashboard",
+          name: "dashboard",
+          param: null,
+        },
+
+        {
+          title: "Apply",
+          name: "scholarship.apply",
+          param: null,
+        },
+
+        {
+          title: "Status",
+          name: "scholarship.show",
+          param: this.user,
+        },
+      ],
     };
   },
 };

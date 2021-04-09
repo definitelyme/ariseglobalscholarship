@@ -18,7 +18,7 @@
         v-for="(tab, index) in tabs"
         :key="index"
         v-text="tab"
-        @click.prevent="$emitter.emit($events.applicationTabChanged, tab)"
+        @click.prevent="tabChanged(tab)"
       ></a>
     </div>
   </div>
@@ -29,5 +29,12 @@ export default {
   inject: ["tabs", "isActiveTab", "currentTab", "currentTabComponent"],
 
   emits: ["application-tab-changed"],
+
+  methods: {
+    tabChanged(tab) {
+      this.$parent.showingTabMenuDropdown = false;
+      this.$emitter.emit(this.$events.applicationTabChanged, tab);
+    },
+  },
 };
 </script>

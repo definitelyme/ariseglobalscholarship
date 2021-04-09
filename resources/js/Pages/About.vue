@@ -16,10 +16,7 @@
             <div class="section-title">
               <h2>Welcome to<br /><span v-text="$app_name_short"></span></h2>
               <p class="mw-100">
-                Morbi vel augue et metus pellentesque lacinia eu non odio. Sed
-                id purus urna. Maecenas ultrices ligula a nisi dictum tristique.
-                Suspendisse potenti. Curabitur egestas ultrices sem, eu
-                vestibulum leo sagittis et.
+                {{ $attrs.settings.description }}
               </p>
               <a href="classes.html" title="" class="btn-default"
                 >Get Started <i class="fa fa-long-arrow-alt-right"></i

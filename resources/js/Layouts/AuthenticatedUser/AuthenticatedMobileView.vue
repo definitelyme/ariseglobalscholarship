@@ -8,18 +8,22 @@
     }"
   >
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
       <a
-        href="#"
-        class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-        >Dashboard</a
-      >
-
-      <a
-        href="#"
-        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-        >Application Status</a
-      >
+        class="block px-3 py-2 rounded-md text-base font-medium"
+        v-for="(menu, index) in menus"
+        :key="index"
+        :href="
+          menu.param != null ? route(menu.name, menu.param) : route(menu.name)
+        "
+        :title="menu.title"
+        v-text="menu.title"
+        :class="{
+          'bg-gray-900 text-white': route().current(menu.name),
+          'text-gray-300 hover:bg-gray-700 hover:text-white': !route().current(
+            menu.name
+          ),
+        }"
+      ></a>
     </div>
 
     <div class="pt-4 pb-3 border-t border-gray-700">
@@ -94,6 +98,8 @@ import BreezeApplicationLogo from "@/Components/ApplicationLogo";
 import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
 export default {
+  inject: ["user"],
+
   components: {
     BreezeApplicationLogo,
     BreezeResponsiveNavLink,
@@ -101,7 +107,25 @@ export default {
 
   data() {
     return {
-      //
+      menus: [
+        {
+          title: "Dashboard",
+          name: "dashboard",
+          param: null,
+        },
+
+        {
+          title: "Apply",
+          name: "scholarship.apply",
+          param: null,
+        },
+
+        {
+          title: "Status",
+          name: "scholarship.show",
+          param: this.user,
+        },
+      ],
     };
   },
 };
