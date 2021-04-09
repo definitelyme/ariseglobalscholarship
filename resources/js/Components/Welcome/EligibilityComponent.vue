@@ -1,16 +1,14 @@
 <template>
-  <section
-    class="about-us-section"
-    style="padding-top: 0px; padding-bottom: 0px"
-  >
+  <section class="about-us-section py-0">
     <div class="container">
       <div class="section-title text-center">
-        <h2 style="padding-bottom: 25px">Eligibility Requirements</h2>
+        <h3 style="padding-bottom: 25px">Eligibility</h3>
 
         <div class="container">
           <div class="row custom-list">
             <div
-              class="col-lg-6 col-md-12 col-sm-12"
+              class="col-md-12 col-sm-12"
+              :class="`col-lg-6`"
               v-html="settings.eligibility_1"
               style="counter-reset: my-awesome-counter 0"
             ></div>
@@ -51,6 +49,10 @@ export default {
         .replace("</ol>", "")
         .match(/<li(.*?)>.*?<\/li>/g);
     },
+  },
+
+  mounted() {
+    console.log(this.settings.eligibility_2);
   },
 };
 </script>
