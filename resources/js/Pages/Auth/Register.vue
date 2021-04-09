@@ -56,7 +56,7 @@
     <div class="flex items-center justify-end mt-4">
       <inertia-link
         :href="route('login')"
-        class="underline text-sm text-gray-600 hover:text-gray-900"
+        class="underline text-sm text-gray-600 hover:text-gray-900 mr-3"
         replace
         preserve-scroll
         preserve-state
@@ -65,7 +65,7 @@
       </inertia-link>
 
       <breeze-button
-        class="ml-4 bg-accent hover:bg-main hover:shadow-lg hover:text-white"
+        class="bg-main-600 hover:bg-main-800 hover:shadow-lg hover:text-main"
         :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
       >
