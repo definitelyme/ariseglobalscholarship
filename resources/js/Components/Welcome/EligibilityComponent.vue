@@ -7,7 +7,8 @@
         <div class="container">
           <div class="row custom-list">
             <div
-              class="col-lg-6 col-md-12 col-sm-12"
+              class="col-md-12 col-sm-12"
+              :class="`col-lg-6`"
               v-html="settings.eligibility_1"
               style="counter-reset: my-awesome-counter 0"
             ></div>
@@ -48,6 +49,10 @@ export default {
         .replace("</ol>", "")
         .match(/<li(.*?)>.*?<\/li>/g);
     },
+  },
+
+  mounted() {
+    console.log(this.settings.eligibility_2);
   },
 };
 </script>

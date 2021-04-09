@@ -115,13 +115,13 @@ export default {
         },
 
         {
-          title: "Apply",
+          title: "Apply for Scholarship",
           name: "scholarship.apply",
           param: null,
         },
 
         {
-          title: "Status",
+          title: "Application Status",
           name: "scholarship.show",
           param: this.user,
         },

@@ -70,10 +70,10 @@ export default {
         "Personal Information",
         "Additional Information",
         "Passport Photograph",
-        "Secondary Level",
+        // "Secondary Level",
         "Undergraduate Level",
-        "Post Graduate Level",
-        "O Level Result",
+        // "Post Graduate Level",
+        // "O Level Result",
         "Documents",
       ],
     };
