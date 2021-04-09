@@ -16,7 +16,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::prefix("/v1/scholarship")->group(function () {
+Route::prefix("/scholarship/get-started")->group(function () {
     Route::get('/apply', [ScholarshipController::class, 'create'])
         ->name("scholarship.apply")
         ->middleware('auth');
@@ -51,7 +51,7 @@ Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarsh
         ->name("about");
 });
 
-Route::prefix("/center")->group(function () {
+Route::prefix("/support")->group(function () {
     Route::get('/', function () {
         return redirect()->route('/');
     });

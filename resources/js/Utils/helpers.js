@@ -3,6 +3,7 @@ import Mixin from "./mixin";
 import mitt from "mitt";
 import Province from "./regional/index";
 import { reactive, toRefs } from "vue";
+import kLists from "./lists";
 
 import DeviceDetector from "mobile-device-detect";
 
@@ -111,11 +112,17 @@ const utils = {
             toggleDashboardMenu: "toggle-dashboard-menu",
             toggleDashboardTabMenu: "toggle-dashboard-tab-menu",
             applicationTabChanged: "application-tab-changed",
+            switchNextTab: "switch-next-tab",
+            switchPrevTab: "switch-prev-tab",
+            closeModal: "close-modal",
+            openModal: "open-modal",
         };
 
         app.config.globalProperties.$detector = DeviceDetector;
 
         app.config.globalProperties.$Province = Province;
+
+        app.config.globalProperties.$kLists = kLists;
 
         app.config.globalProperties.$titleCase = titleCase;
 

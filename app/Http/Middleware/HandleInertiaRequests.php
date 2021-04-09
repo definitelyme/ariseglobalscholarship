@@ -66,6 +66,8 @@ class HandleInertiaRequests extends Middleware
             'eligibility_1' => setting('site.scholarship_eligibility_1'),
             'eligibility_2' => setting('site.scholarship_eligibility_2'),
             'requirements' => setting('site.scholarship_requirements'),
+            'max_passport_size' => setting('site.max_passport_size'),
+            'max_upload_size' => setting('site.max_upload_size'),
         ];
     }
 }

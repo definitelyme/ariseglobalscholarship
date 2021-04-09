@@ -39,52 +39,19 @@
         </div>
 
         <div class="flex flex-col sm:rounded-md w-screen">
-          <form @submit.prevent="submit">
-            <div
-              class="flex-1 shadow-sm sm:rounded-md sm:overflow-hidden md:m-2"
-            >
-              <div
-                class="px-6 py-6 md:px-4 md:pt-5 bg-white space-y-4 h-screen overflow-y-auto no-scrollbar"
-                :class="`border-indigo-500 border-solid border-t md:border-transparent md:border-none`"
-              >
-                <keep-alive>
-                  <component
-                    :is="currentTabComponent"
-                    v-model:firstName.capitalize.no-whitespace="form.firstName"
-                    v-model:lastName.capitalize.no-whitespace="form.lastName"
-                    v-model:otherNames.capitalize.no-whitespace="
-                      form.otherNames
-                    "
-                    v-model:email.no-whitespace="form.email"
-                    v-model:phone.unmask-phone.no-whitespace="form.phone"
-                    v-model:dob.no-whitespace="form.dob"
-                    v-model:gender.no-whitespace="form.gender"
-                    v-model:marital-status.no-whitespace="form.maritalStatus"
-                    v-model:address.sentence="form.address.label"
-                    v-model:country="form.address.country"
-                    v-model:state="form.address.state"
-                    v-model:localGovtArea="form.address.localGovtArea"
-                    v-model:city.capitalize.no-whitespace="form.address.city"
-                    v-model:originCountry="form.origin.country"
-                    v-model:originState="form.origin.state"
-                    v-model:originLocalGovtArea="form.origin.localGovtArea"
-                    v-model:originHometown.capitalize.no-whitespace="
-                      form.origin.hometown
-                    "
-                    v-model:kinName.capitalize.no-whitespace="form.kin.name"
-                    v-model:kinPhone.unmask-phone.no-whitespace="form.kin.phone"
-                    v-model:kinRelationship.capitalize.no-whitespace="
-                      form.kin.relationship
-                    "
-                    v-model:bursary="form.other.bursary"
-                  >
-                  </component>
-                </keep-alive>
-
-                <student-footer-area />
-              </div>
-            </div>
-          </form>
+          <div class="flex-1 shadow-sm sm:rounded-md sm:overflow-hidden md:m-2">
+            <keep-alive>
+              <component :is="currentTabComponent">
+                <template #footer>
+                  <student-footer-area>
+                    <template #second>
+                      <breeze-button type="submit"> Update </breeze-button>
+                    </template>
+                  </student-footer-area>
+                </template>
+              </component>
+            </keep-alive>
+          </div>
         </div>
       </div>
     </div>
@@ -93,6 +60,7 @@
 
 <script>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated";
+import BreezeButton from "@/Components/Button";
 
 export default {
   data() {
@@ -108,37 +76,6 @@ export default {
         "O Level Result",
         "Documents",
       ],
-      form: this.$inertia.form({
-        firstName: "",
-        lastName: "",
-        otherNames: "",
-        email: "",
-        phone: "",
-        dob: "",
-        gender: "",
-        maritalStatus: "",
-        address: {
-          label: "",
-          country: "",
-          state: "",
-          localGovtArea: "",
-          city: "",
-        },
-        origin: {
-          country: "",
-          state: "",
-          localGovtArea: "",
-          hometown: "",
-        },
-        kin: {
-          name: "",
-          phone: "",
-          relationship: "",
-        },
-        other: {
-          bursary: false,
-        },
-      }),
     };
   },
 
@@ -152,6 +89,7 @@ export default {
 
   components: {
     BreezeAuthenticatedLayout,
+    BreezeButton,
   },
 
   methods: {
@@ -159,18 +97,6 @@ export default {
       return (
         this.currentTabComponent == item.split(" ").join("--").toLowerCase()
       );
-    },
-
-    submit() {
-      console.log(this.form);
-      //   this.form
-      //     .transform((data) => ({
-      //       ...data,
-      //       remember: this.form.remember ? "on" : "",
-      //     }))
-      //     .post(this.route("login"), {
-      //       onFinish: () => this.form.reset("password"),
-      //     });
     },
   },
 
@@ -189,6 +115,14 @@ export default {
   mounted() {
     this.$emitter.on(this.$events.applicationTabChanged, (incoming) => {
       this.currentTab = incoming;
+    });
+
+    this.$emitter.on(this.$events.switchNextTab, () => {
+      let index = this.tabs.findIndex((v) => v === this.currentTab);
+      let next = this.tabs[index + 1];
+
+      if (index != this.tabs.length - 1)
+        this.$emitter.emit(this.$events.applicationTabChanged, next);
     });
   },
 };
