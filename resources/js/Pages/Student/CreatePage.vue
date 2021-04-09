@@ -65,7 +65,7 @@ import BreezeButton from "@/Components/Button";
 export default {
   data() {
     return {
-      currentTab: "Personal Information",
+      currentTab: "Undergraduate Level",
       tabs: [
         "Personal Information",
         "Additional Information",
