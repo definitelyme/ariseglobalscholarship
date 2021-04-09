@@ -69,7 +69,7 @@
                   class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-5"
                 >
                   <inertia-link
-                    :href="route('scholarship.edit', user)"
+                    href="#"
                     class="text-indigo-600 hover:text-indigo-900"
                     as="button"
                     preserve-scroll
@@ -80,7 +80,7 @@
                       ></path></svg
                   ></inertia-link>
                   <inertia-link
-                    :href="route('scholarship.delete', user)"
+                    href="#"
                     class="text-red-600 hover:text-red-900"
                     as="button"
                     preserve-scroll
