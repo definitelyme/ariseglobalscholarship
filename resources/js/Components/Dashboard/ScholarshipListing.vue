@@ -80,7 +80,7 @@
                       ></path></svg
                   ></inertia-link>
                   <inertia-link
-                    :href="route('scholarship.edit', user)"
+                    :href="route('scholarship.delete', user)"
                     class="text-red-600 hover:text-red-900"
                     as="button"
                     preserve-scroll
