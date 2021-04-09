@@ -48,7 +48,7 @@
 
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-gray-900">
-                    Arise Global Scholarship
+                    Arise Global Scholarship 1.0
                   </div>
                   <div class="text-sm text-gray-500"><em>Under Review</em></div>
                 </td>

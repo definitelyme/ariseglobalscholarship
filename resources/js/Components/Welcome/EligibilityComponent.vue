@@ -8,7 +8,7 @@
           <div class="row custom-list">
             <div
               class="col-md-12 col-sm-12"
-              :class="`col-lg-6`"
+              :class="{ 'col-lg-6': hasEligibility2 }"
               v-html="settings.eligibility_1"
               style="counter-reset: my-awesome-counter 0"
             ></div>
@@ -49,10 +49,14 @@ export default {
         .replace("</ol>", "")
         .match(/<li(.*?)>.*?<\/li>/g);
     },
+
+    hasEligibility2() {
+      return this.settings.eligibility_2 != null;
+    },
   },
 
   mounted() {
-    console.log(this.settings.eligibility_2);
+    console.log();
   },
 };
 </script>
