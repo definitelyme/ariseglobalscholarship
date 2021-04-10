@@ -55,8 +55,7 @@ jobs:
             result=$?
             if [ $result -ne 0 ]
             then
-                echo "Merge in progress.."
-                grep -lr '<<<<<<<' . | xargs git checkout --ours
+                echo "Merge in progress..\nPlease resolve Merge HEAD!"
             else
                 echo "Already up to date! Merge not in progress."
             fi
