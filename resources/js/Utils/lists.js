@@ -1,7 +1,9 @@
 const kLists = {
-    years: (start) => {
+    years: (start, end) => {
         if (typeof start !== "number") start = 1990;
-        let currentYear = new Date().getFullYear(),
+        if (typeof start !== "number" || end == null)
+            end = new Date().getFullYear();
+        let currentYear = end,
             years = [];
         start = start || 1980;
         while (start <= currentYear) {

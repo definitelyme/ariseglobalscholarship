@@ -11,12 +11,15 @@
         <label for="first_name" class="block text-sm font-medium text-gray-700"
           >First Name</label
         >
+        <!-- v-model="form.firstName" -->
         <input
           class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           type="text"
           name="first_name"
           id="first_name"
-          v-model="form.firstName"
+          v-reactive="form.firstName"
+          v-click-outside="logger"
+          @hello="$logger('Bro was called')"
           autocomplete="given-name"
           required
         />
@@ -48,7 +51,6 @@
           id="other_names"
           v-model="form.otherNames"
           autocomplete="given-name"
-          required
         />
       </div>
 
@@ -99,10 +101,14 @@
 
     <div class="grid grid-cols-12 gap-3">
       <div class="col-span-12 sm:col-span-4 md:col-span-4 lg:col-span-4">
-        <label for="dob" class="block text-sm font-medium text-gray-700"
+        <label
+          for="dob"
+          class="block text-sm font-medium text-gray-700"
+          v-if="!$detector.isSafari"
           >Date of Birth</label
         >
         <input
+          v-if="!$detector.isSafari"
           class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           type="date"
           name="dob"
@@ -112,6 +118,35 @@
           v-model="form.dob"
           required
         />
+
+        <!--  -->
+
+        <label
+          for="age"
+          class="block text-sm font-medium text-gray-700"
+          v-if="$detector.isSafari"
+          >Age</label
+        >
+        <span v-if="$detector.isSafari"
+          ><select
+            id="age"
+            name="age"
+            class="w-full border bg-white rounded-md px-3 py-2 text-gray-700 outline-none"
+            aria-required=""
+            required
+            v-model="form.age"
+          >
+            <option selected :value="null" disabled>
+              -- Select your age --
+            </option>
+            <option
+              v-for="age in 100"
+              :key="age"
+              :value="age"
+              v-show="age > 20"
+              v-text="age"
+            ></option></select
+        ></span>
       </div>
 
       <div class="col-span-12 sm:col-span-3 md:col-span-4 lg:col-span-3 block">
@@ -126,6 +161,7 @@
               class="focus:ring-main-400 self-center h-4 w-4 text-main-600 border-gray-300"
               value="male"
               @input="form.gender = $event.target.value"
+              required
             />
 
             <label for="male" class="flex h-full items-center">
@@ -143,6 +179,7 @@
               class="focus:ring-main-400 self-center h-4 w-4 text-main-600 border-gray-300"
               value="female"
               @input="form.gender = $event.target.value"
+              required
             />
 
             <label for="female" class="flex h-full items-center">
@@ -261,17 +298,20 @@
 
 <script>
 export default {
+  inject: ["user"],
+
   data() {
     return {
       states: this.$Province.getStates().names,
       localGovtAreas: [],
       form: this.$inertia.form({
-        firstName: "",
-        lastName: "",
+        firstName: this.user.first_name,
+        lastName: this.user.last_name,
         otherNames: "",
-        email: "",
+        email: this.user.email,
         phone: "",
         dob: "",
+        age: "",
         gender: "",
         maritalStatus: "",
         address: "",
@@ -284,6 +324,9 @@ export default {
   },
 
   methods: {
+    logger() {
+      console.log("jellmckn");
+    },
     createOrUpdate() {
       this.form
         .transform((data) => ({

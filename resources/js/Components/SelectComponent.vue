@@ -62,7 +62,7 @@ export default {
 
   computed: {
     selected() {
-      let initial = { value: "---  Select  ---" };
+      let initial = { value: "--  Select  --" };
 
       return typeof this.items == "undefined" ||
         this.items == null ||

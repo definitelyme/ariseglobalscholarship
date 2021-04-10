@@ -52,6 +52,32 @@
         class="flex col-span-12 md:col-span-12 lg:col-span-7 items-center space-x-5"
       >
         <label
+          for="year_of_admission"
+          class="flex-1 text-sm font-medium text-gray-700 inline-flex"
+          >Year of Admission</label
+        >
+
+        <select
+          class="flex-1 border bg-white rounded-md px-3 py-2 text-gray-700 outline-none inline-flex"
+          name="year_of_admission"
+          v-model="form.yearOfAdmission"
+        >
+          <option selected :value="null" disabled>-- Select --</option>
+          <option
+            class="py-1 text-gray-700"
+            v-for="(year, index) in $kLists.years(2014)"
+            :key="index"
+            v-text="year"
+          ></option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-2 md:gap-2 lg:gap-3 xl:gap-3">
+      <div
+        class="flex col-span-12 md:col-span-12 lg:col-span-7 items-center space-x-5"
+      >
+        <label
           for="course_duration"
           class="flex-1 text-sm font-medium text-gray-700 inline-flex"
           >Course Duration</label
@@ -117,7 +143,9 @@
           <option selected :value="null" disabled>-- Select --</option>
           <option
             class="py-1 text-gray-700"
-            v-for="(year, index) in $kLists.years().reverse()"
+            v-for="(year, index) in $kLists
+              .years(new Date().getFullYear(), 2028)
+              .reverse()"
             :key="index"
             v-text="year"
           ></option>
@@ -137,6 +165,7 @@ export default {
         courseOfStudy: null,
         courseDuration: null,
         currentLevel: null,
+        yearOfAdmission: null,
         expectedDateOfGraduation: null,
       }),
     };

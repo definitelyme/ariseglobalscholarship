@@ -4,6 +4,7 @@ import mitt from "mitt";
 import Province from "./regional/index";
 import { reactive, toRefs } from "vue";
 import kLists from "./lists";
+import directives from "./directives";
 
 import DeviceDetector from "mobile-device-detect";
 
@@ -135,13 +136,25 @@ const utils = {
         app.config.globalProperties.$logger = logger;
 
         // Deprecated!! Will be removed later use $emitter instead
-        app.config.globalProperties.emitter = emitter;
+        // app.config.globalProperties.emitter = emitter;
 
         app.config.globalProperties.$emitter = emitter;
+
+        app.config.globalProperties.$on = (type, handler) =>
+            emitter.on(type, handler);
+
+        app.config.globalProperties.$off = (type, handler) =>
+            emitter.off(type, handler);
 
         app.config.globalProperties.$reactive = reactive;
 
         app.config.globalProperties.$toRefs = toRefs;
+
+        directives.clickOutside(app);
+
+        directives.reactive(app);
+
+        directives.switchColor(app);
 
         app.mixin(Mixin);
     },
