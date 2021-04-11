@@ -1,6 +1,6 @@
 <template>
   <input
-    class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+    :class="clazz"
     :type="type"
     :name="name"
     :id="id"
@@ -21,6 +21,13 @@
 export default {
   props: {
     value: String,
+
+    clazz: {
+      type: String,
+      required: false,
+      default: () =>
+        "text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md",
+    },
 
     modelName: String,
 
