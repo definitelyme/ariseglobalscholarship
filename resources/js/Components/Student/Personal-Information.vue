@@ -11,17 +11,13 @@
         <label for="first_name" class="block text-sm font-medium text-gray-700"
           >First Name</label
         >
-        <!-- v-model="form.firstName" -->
-        <input
-          class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-          type="text"
+        <input-field
+          v-model:firstName.trim.capitalize="form.firstName"
+          :value="form.firstName"
           name="first_name"
           id="first_name"
-          v-reactive="form.firstName"
-          v-click-outside="logger"
-          @hello="$logger('Bro was called')"
           autocomplete="given-name"
-          required
+          model-name="firstName"
         />
       </div>
 
@@ -29,14 +25,14 @@
         <label for="last_name" class="block text-sm font-medium text-gray-700"
           >Surname</label
         >
-        <input
-          class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-          type="text"
+
+        <input-field
+          v-model:lastName.trim.capitalize="form.lastName"
+          :value="form.lastName"
           name="last_name"
           id="last_name"
-          v-model="form.lastName"
           autocomplete="family-name"
-          required
+          model-name="lastName"
         />
       </div>
 
@@ -44,13 +40,14 @@
         <label for="other_names" class="block text-sm font-medium text-gray-700"
           >Other Names</label
         >
-        <input
-          class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-          type="text"
+
+        <input-field
+          v-model:otherNames.trim.capitalize="form.otherNames"
+          :value="form.otherNames"
           name="other_names"
           id="other_names"
-          v-model="form.otherNames"
           autocomplete="given-name"
+          model-name="otherNames"
         />
       </div>
 
@@ -60,14 +57,13 @@
           class="block text-sm font-medium text-gray-700"
           >Email address</label
         >
-        <input
-          class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-          type="text"
+        <input-field
+          v-model:email.trim.no-whitespace="form.email"
+          :value="form.email"
           name="email_address"
           id="email_address"
-          v-model="form.email"
           autocomplete="email"
-          required
+          model-name="email"
         />
       </div>
 
@@ -83,16 +79,18 @@
           >
             +234
           </span>
-          <input
-            class="text-gray-700 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+
+          <input-field
+            v-model:phone.unmask-phone.no-whitespace="form.phone"
+            :value="form.phone"
             type="tel"
             name="phone"
             id="phone_number"
             autocomplete="phone"
+            model-name="phone"
             pattern="\([0-9]{3}\) [0-9]{3} [0-9]{4}"
             maxlength="14"
             v-mask="'(###) ### ####'"
-            v-model="form.phone"
             required
           />
         </div>
@@ -107,13 +105,16 @@
           v-if="!$detector.isSafari"
           >Date of Birth</label
         >
-        <input
+
+        <input-field
+          v-model:dob.no-whitespace="form.dob"
+          :value="form.dob"
+          model-name="dob"
           v-if="!$detector.isSafari"
-          class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           type="date"
           name="dob"
           id="dob"
-          autocomplete="date_of_birth"
+          autocomplete="birthday"
           pattern="\d{4}-\d{2}-\d{2}"
           v-model="form.dob"
           required
@@ -133,8 +134,8 @@
             name="age"
             class="w-full border bg-white rounded-md px-3 py-2 text-gray-700 outline-none"
             aria-required=""
-            required
             v-model="form.age"
+            required
           >
             <option selected :value="null" disabled>
               -- Select your age --
@@ -230,7 +231,6 @@
             class="text-gray-700 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
             placeholder="No 36. Melburn Street"
             v-model="form.address"
-            required
           ></textarea>
         </div>
         <!-- <p class="mt-2 text-sm text-gray-500">
@@ -280,14 +280,15 @@
         <label for="city" class="block text-sm font-medium text-gray-700"
           >City</label
         >
-        <input
+        <input-field
+          v-model:city.capitalize.no-whitespace="form.city"
+          :value="form.city"
+          model-name="city"
           class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
           type="text"
           name="city"
           id="city"
-          v-model="form.city"
           autocomplete="city"
-          required
         />
       </div>
     </div>
@@ -324,16 +325,19 @@ export default {
   },
 
   methods: {
-    logger() {
-      console.log("jellmckn");
-    },
     createOrUpdate() {
+      this.form.phone = `+234${this.form.phone}`;
+      this.form.age =
+        this.form.age == null || this.form.age == ""
+          ? this.$calculateAge(this.form.dob)
+          : this.form.age;
+
       this.form
         .transform((data) => ({
           ...data,
         }))
         .put(this.route(`scholarship.update`, this.user), {
-          onFinish: () => this.form.reset(),
+          onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
         });
     },
   },
@@ -351,7 +355,9 @@ export default {
   },
 
   created() {
-    // console.log(this.countryModifiers);
+    this.$on(this.$events.tester, (data) => {
+      console.log("received event!");
+    });
   },
 };
 </script>

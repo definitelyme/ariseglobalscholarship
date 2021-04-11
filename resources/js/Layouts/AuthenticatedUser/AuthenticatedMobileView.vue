@@ -32,7 +32,7 @@
           <img
             class="h-10 w-10 rounded-full"
             :src="`${$asset_url}/user.png`"
-            :alt="user.name"
+            :alt="user.first_name"
           />
         </div>
 

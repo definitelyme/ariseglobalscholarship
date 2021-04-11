@@ -178,7 +178,7 @@ export default {
           ...data,
         }))
         .put(this.route(`scholarship.update`, this.user), {
-          onFinish: () => this.form.reset(),
+          onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
         });
     },
   },

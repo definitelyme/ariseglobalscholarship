@@ -52,21 +52,30 @@
           </li>
         </ul>
 
-        <div class="menu-btn" @click.prevent="emitter.emit($events.sidebar)">
+        <div class="menu-btn" @click.prevent="$emitter.emit($events.sidebar)">
           <a href="#"
             ><span
               class="bar1"
-              :class="{ 'bg-white': $parent._sidebarOpen }"
+              :class="{
+                'bg-white': $parent._sidebarOpen,
+                'bg-main-500': !$parent._sidebarOpen,
+              }"
             ></span>
 
             <span
               class="bar2"
-              :class="{ 'bg-white': $parent._sidebarOpen }"
+              :class="{
+                'bg-white': $parent._sidebarOpen,
+                'bg-main-500': !$parent._sidebarOpen,
+              }"
             ></span>
 
             <span
               class="bar3"
-              :class="{ 'bg-white': $parent._sidebarOpen }"
+              :class="{
+                'bg-white': $parent._sidebarOpen,
+                'bg-main-500': !$parent._sidebarOpen,
+              }"
             ></span
           ></a>
         </div>
@@ -104,7 +113,7 @@
                   <img
                     class="h-8 w-8 rounded-full"
                     :src="`${$asset_url}/user.png`"
-                    :alt="user.name"
+                    :alt="user.first_name"
                   />
                 </button>
               </span>
@@ -181,7 +190,7 @@ export default {
   },
 
   mounted() {
-    this.emitter.on(
+    this.$emitter.on(
       this.$events.profileDropdown,
       (data) => (this.showingNavigationDropdown = data || false)
     );

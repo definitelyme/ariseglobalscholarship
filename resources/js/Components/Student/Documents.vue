@@ -7,7 +7,7 @@
     <create-page-subtitle> Documents Upload </create-page-subtitle>
 
     <h4 class="text-gray-700 text-lg md:text-base">
-      Upload supporting documents to a ensure valid application
+      Upload supporting documents to ensure a valid application
       <em>
         <h5 class="text-gray-700 text-sm">
           Documents are expected to be either JPEG, MS Word (*.doc or *.docx) or
@@ -17,3 +17,31 @@
     </h4>
   </form>
 </template>
+
+<script>
+export default {
+  inject: ["user"],
+
+  data() {
+    return {
+      form: this.$inertia.form({}),
+    };
+  },
+
+  methods: {
+    createOrUpdate() {
+      this.form
+        .transform((data) => ({
+          ...data,
+        }))
+        .put(this.route(`scholarship.update`, this.user), {
+          onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+        });
+    },
+  },
+
+  mounted() {
+    //
+  },
+};
+</script>

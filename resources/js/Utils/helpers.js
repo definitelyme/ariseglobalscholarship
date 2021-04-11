@@ -64,6 +64,13 @@ const find = (array, predicate, ctx) => {
     return result;
 };
 
+const calculateAge = (birthday) => {
+    if (typeof birthday == "string") birthday = new Date(Date.parse(birthday));
+    var ageDiffMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDiffMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+};
+
 const slugify = (str, seperator) => {
     const sep = seperator || "-";
     str = str.replace(/^\s+|\s+$/g, ""); // trim
@@ -105,6 +112,7 @@ const logger = (msg) => {
 const utils = {
     install: (app, options) => {
         app.config.globalProperties.$events = {
+            tester: "tester",
             sidebar: "toggleSidebar",
             closeSidebar: "closeSidebar",
             profileDropdown: "toggleProfileDropdown",
@@ -134,6 +142,8 @@ const utils = {
         app.config.globalProperties.$slugify = slugify;
 
         app.config.globalProperties.$logger = logger;
+
+        app.config.globalProperties.$calculateAge = calculateAge;
 
         // Deprecated!! Will be removed later use $emitter instead
         // app.config.globalProperties.emitter = emitter;

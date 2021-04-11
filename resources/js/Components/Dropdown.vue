@@ -51,7 +51,7 @@ export default {
 
   watch: {
     open() {
-      this.emitter.emit(this.$events.profileDropdown, this.open);
+      this.$emitter.emit(this.$events.profileDropdown, this.open);
     },
   },
 

@@ -118,13 +118,13 @@ export default {
   methods: {
     createOrUpdate() {
       console.log(this.image);
-      //   this.form
-      //     .transform((data) => ({
-      //       ...data,
-      //     }))
-      //     .put(this.route(`scholarship.update`, this.user), {
-      //       onFinish: () => this.form.reset(),
-      //     });
+      // this.form
+      //   .transform((data) => ({
+      //     ...data,
+      //   }))
+      //   .put(this.route(`scholarship.update`, this.user), {
+      //     onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+      //   });
     },
 
     selectPhoto() {

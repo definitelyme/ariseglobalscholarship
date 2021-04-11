@@ -1,22 +1,30 @@
 export default {
     reactive(app) {
         app.directive("reactive", {
+            //E.G: v-reactive:form:firstName:email.lastName="form.firstName"
             beforeMount(el, binding, vNode, oldVnode) {
-                // console.log(el);
                 // Set the value of the element to incoming
                 el.value = binding.value;
             },
-            beforeUpdate(el, binding, vNode, oldVnode) {
-                el.value = binding.value;
-                console.log(binding);
-                console.log(binding.instance.$emit);
-                binding.instance.$emit("hello");
-            },
             updated(el, binding, vNode, oldVnode) {
-                el.value = binding.value;
+                // binding.instance.$emit("input", el.value);
                 console.log(binding);
+                // binding.instance["form"]["firstName"] = "Solomon";
+
+                const handler = (e) => {
+                    // el.value = e.data;
+                    binding.instance.$emit("update:firstName", e.data);
+                    binding.instance.$emit("update", e.data);
+                };
+
+                el.addEventListener("input", handler);
+
+                // console.log(el);
+                // binding.instance.$emitter.emit(
+                //     binding.instance.$events.tester,
+                //     el.value
+                // );
             },
-            beforeUnmount(el, binding) {},
         });
     },
 
@@ -26,7 +34,7 @@ export default {
                 // Provided expression must evaluate to a function.
                 if (typeof binding.value !== "function") {
                     const compName = binding.instance.name;
-                    let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a Function!`;
+                    let warn = `[Vue-click-outside:] provided expression '${binding.value}' is not a Function!`;
                     if (compName) {
                         warn += `Found in component '${compName}'`;
                     }

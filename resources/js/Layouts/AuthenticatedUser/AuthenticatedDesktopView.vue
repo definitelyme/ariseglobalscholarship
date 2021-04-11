@@ -10,7 +10,7 @@
           aria-controls="mobile-menu"
           aria-expanded="false"
           @click.prevent="
-            emitter.emit(
+            $emitter.emit(
               $events.toggleDashboardMenu,
               !$parent.showingNavigationDropdown
             )
@@ -104,7 +104,7 @@
           aria-controls="mobile-menu"
           aria-expanded="false"
           @click.prevent="
-            emitter.emit(
+            $emitter.emit(
               $events.toggleDashboardTabMenu,
               !$parent.showingTabMenuDropdown
             )
@@ -185,7 +185,7 @@
                 aria-expanded="false"
                 aria-haspopup="true"
                 @click.prevent="
-                  emitter.emit(
+                  $emitter.emit(
                     $events.toggleDashboardMenu,
                     !$parent.showingNavigationDropdown
                   )
@@ -195,7 +195,7 @@
                 <img
                   class="h-10 w-10 rounded-full"
                   :src="`${$asset_url}/user.png`"
-                  :alt="user.name"
+                  :alt="user.first_name"
                 />
               </button>
             </div>

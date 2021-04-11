@@ -61,7 +61,10 @@ const mixin = {
                     val = this.$titleCase(val);
                 }
             }
-            this.$emit(event, val);
+
+            if (typeof event == "string") this.$emit(event, val);
+
+            return event;
         },
         $visit({
             url,

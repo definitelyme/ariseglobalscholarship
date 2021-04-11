@@ -1,6 +1,7 @@
 <template>
   <button
-    @click.prevent="collapse"
+    @click.prevent="toggle"
+    v-click-outside="close"
     type="button"
     aria-haspopup="listbox"
     aria-expanded="true"
@@ -113,13 +114,16 @@ export default {
         isSelected: this.selectFirst ? this.options[0] == i : false,
       }));
     },
-    collapse() {
+    toggle() {
       this.isDropdownVisible = !this.isDropdownVisible;
       //   if (this.isDropdownVisible)
       //     this.$emitter.emit(this.$events.toggleFullOverlay, {
       //       //   background: "bg-transparent",
       //       zIndex: "z-30",
       //     });
+    },
+    close() {
+      this.isDropdownVisible = false;
     },
   },
 
