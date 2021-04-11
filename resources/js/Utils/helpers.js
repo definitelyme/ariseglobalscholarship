@@ -1,6 +1,10 @@
 import { Inertia } from "@inertiajs/inertia";
 import Mixin from "./mixin";
 import mitt from "mitt";
+import Province from "./regional/index";
+import { reactive, toRefs } from "vue";
+import kLists from "./lists";
+import directives from "./directives";
 
 import DeviceDetector from "mobile-device-detect";
 
@@ -16,66 +20,154 @@ Inertia.on("navigate", (event) => {
     });
 });
 
-export default {
+const titleCase = (string) => {
+    // Step 1. Lowercase the string
+    string = string.toLowerCase();
+    // str = "I'm a little tea pot".toLowerCase();
+    // str = "i'm a little tea pot";
+
+    // Step 2. Split the string into an array of strings
+    string = string.split(" ");
+    // str = "i'm a little tea pot".split(' ');
+    // str = ["i'm", "a", "little", "tea", "pot"];
+
+    // Step 3. Create the FOR loop
+    for (var i = 0; i < string.length; i++) {
+        string[i] = string[i].charAt(0).toUpperCase() + string[i].slice(1);
+        /* Here string.length = 5
+            1st iteration: str[0] = str[0].charAt(0).toUpperCase() + str[0].slice(1);
+                        str[0] = "i'm".charAt(0).toUpperCase()  + "i'm".slice(1);
+                        str[0] = "I"                            + "'m";
+                        str[0] = "I'm";
+            2nd iteration: str[1] = str[1].charAt(0).toUpperCase() + str[1].slice(1);
+                        str[1] = "a".charAt(0).toUpperCase()    + "a".slice(1);
+                        str[1] = "A"                            + "";
+                        str[1] = "A";
+            3rd iteration: str[2] = str[2].charAt(0).toUpperCase()   + str[2].slice(1);
+                        str[2] = "little".charAt(0).toUpperCase() + "little".slice(1);
+                        str[2] = "L"                              + "ittle";
+                        str[2] = "Little";
+            ...
+        */
+    }
+    // Step 4. Return the output
+    return string.join(" "); // ["I'm", "A", "Little", "Tea", "Pot"].join(' ') => "I'm A Little Tea Pot"
+};
+
+const find = (array, predicate, ctx) => {
+    var result = null;
+    array.some((el, i) => {
+        return predicate.call(ctx, el, i, array)
+            ? ((result = el), true)
+            : false;
+    });
+    return result;
+};
+
+const calculateAge = (birthday) => {
+    if (typeof birthday == "string") birthday = new Date(Date.parse(birthday));
+    var ageDiffMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDiffMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+};
+
+const slugify = (str, seperator) => {
+    const sep = seperator || "-";
+    str = str.replace(/^\s+|\s+$/g, ""); // trim
+    str = str.toLowerCase();
+
+    // remove accents, swap ñ for n, etc
+    var from = "åàáãäâèéëêìíïîòóöôùúüûñç·/_,:;";
+    var to = "aaaaaaeeeeiiiioooouuuunc------";
+
+    for (var i = 0, l = from.length; i < l; i++) {
+        str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+    }
+
+    str = str
+        .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+        .replace(/\s+/g, sep) // collapse whitespace and replace by -
+        .replace(/-+/g, "-"); // collapse dashes
+
+    return str;
+};
+
+const replace = (str, glue, exp) => {
+    RegExp.quote = function (str) {
+        return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+    };
+
+    var expression = exp || "-";
+    var joiner = glue || "";
+    var regex = new RegExp(RegExp.quote(expression), "g");
+
+    let string = str.replace(regex, joiner);
+    return string;
+};
+
+const logger = (msg) => {
+    console.log(msg);
+};
+
+const utils = {
     install: (app, options) => {
         app.config.globalProperties.$events = {
+            tester: "tester",
             sidebar: "toggleSidebar",
             closeSidebar: "closeSidebar",
             profileDropdown: "toggleProfileDropdown",
+            toggleFullOverlay: "toggleOverlay",
+            onSelectionChanged: "selection-changed-event",
+            toggleDashboardMenu: "toggle-dashboard-menu",
+            toggleDashboardTabMenu: "toggle-dashboard-tab-menu",
+            applicationTabChanged: "application-tab-changed",
+            switchNextTab: "switch-next-tab",
+            switchPrevTab: "switch-prev-tab",
+            closeModal: "close-modal",
+            openModal: "open-modal",
         };
 
         app.config.globalProperties.$detector = DeviceDetector;
 
-        app.config.globalProperties.$titleCase = (string) => {
-            var sentence = string.toLowerCase().split(" ");
+        app.config.globalProperties.$Province = Province;
 
-            for (var i = 0; i < sentence.length; i++) {
-                sentence[i] =
-                    sentence[i][0].toUpperCase() + sentence[i].slice(1);
-            }
+        app.config.globalProperties.$kLists = kLists;
 
-            return sentence.join(" ");
-        };
+        app.config.globalProperties.$titleCase = titleCase;
 
-        app.config.globalProperties.$replace = (str, glue, exp) => {
-            RegExp.quote = function (str) {
-                return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
-            };
+        app.config.globalProperties.$find = find;
 
-            var expression = exp || "-";
-            var joiner = glue || "";
-            var regex = new RegExp(RegExp.quote(expression), "g");
+        app.config.globalProperties.$replace = replace;
 
-            let string = str.replace(regex, joiner);
-            return string;
-        };
+        app.config.globalProperties.$slugify = slugify;
 
-        app.config.globalProperties.$slugify = (str, seperator) => {
-            const sep = seperator || "-";
-            str = str.replace(/^\s+|\s+$/g, ""); // trim
-            str = str.toLowerCase();
+        app.config.globalProperties.$logger = logger;
 
-            // remove accents, swap ñ for n, etc
-            var from = "åàáãäâèéëêìíïîòóöôùúüûñç·/_,:;";
-            var to = "aaaaaaeeeeiiiioooouuuunc------";
+        app.config.globalProperties.$calculateAge = calculateAge;
 
-            for (var i = 0, l = from.length; i < l; i++) {
-                str = str.replace(
-                    new RegExp(from.charAt(i), "g"),
-                    to.charAt(i)
-                );
-            }
+        // Deprecated!! Will be removed later use $emitter instead
+        // app.config.globalProperties.emitter = emitter;
 
-            str = str
-                .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
-                .replace(/\s+/g, sep) // collapse whitespace and replace by -
-                .replace(/-+/g, "-"); // collapse dashes
+        app.config.globalProperties.$emitter = emitter;
 
-            return str;
-        };
+        app.config.globalProperties.$on = (type, handler) =>
+            emitter.on(type, handler);
 
-        app.config.globalProperties.emitter = emitter;
+        app.config.globalProperties.$off = (type, handler) =>
+            emitter.off(type, handler);
+
+        app.config.globalProperties.$reactive = reactive;
+
+        app.config.globalProperties.$toRefs = toRefs;
+
+        directives.clickOutside(app);
+
+        directives.reactive(app);
+
+        directives.switchColor(app);
 
         app.mixin(Mixin);
     },
 };
+
+export { titleCase, find, slugify, replace, emitter, utils };
