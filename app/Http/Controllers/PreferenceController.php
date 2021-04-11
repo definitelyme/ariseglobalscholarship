@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class PreferenceController extends Controller
 {
+    public const STATUS_KEY = 'status';
+    public const MESSAGE_KEY = 'message';
+
     /**
      * Display the specified resource.
      *
@@ -14,7 +17,10 @@ class PreferenceController extends Controller
      */
     public function contactForm()
     {
-        return inertia("Contact");
+        return inertia("Contact", [
+            PreferenceController::STATUS_KEY => session(PreferenceController::STATUS_KEY),
+            PreferenceController::MESSAGE_KEY => session(PreferenceController::MESSAGE_KEY),
+        ]);
     }
 
     /**
@@ -25,8 +31,11 @@ class PreferenceController extends Controller
      */
     public function sendEmail(Request $request)
     {
-        dd($request->all());
-        return redirect()->route('/');
+        // Send Email here "name", "email", "message"
+        return back()->with([
+            PreferenceController::STATUS_KEY => 'contact-email-sent',
+            PreferenceController::MESSAGE_KEY => "Thanks! We received your e-mail.",
+        ]);
     }
 
     /**

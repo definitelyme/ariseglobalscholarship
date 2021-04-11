@@ -11,7 +11,7 @@ import { registerComponents } from "./Utils/component-registration";
 // import VueScreen from "vue-screen";
 
 // Plugins...
-import Helpers from "./Utils/helpers";
+import { utils } from "./Utils/helpers";
 import VueTheMask from "vue-the-mask";
 
 const el = document.getElementById("app");
@@ -24,7 +24,7 @@ const app = createApp({
         }),
 })
     .mixin({ methods: { route } })
-    .use(Helpers)
+    .use(utils)
     .use(VueTheMask)
     // .use(VueScreen)
     .use(InertiaPlugin);

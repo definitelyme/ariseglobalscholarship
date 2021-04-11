@@ -14,7 +14,7 @@
 
   <faq-tabs :questions="$attrs.faqs" />
 
-  <news-letter-component />
+  <!-- <news-letter-component /> -->
 
   <footer-component />
 </template>
