@@ -43,9 +43,20 @@
             <keep-alive>
               <component :is="currentTabComponent">
                 <template #footer>
-                  <student-footer-area>
+                  <student-footer-area
+                    :is-first-tab="currentTab == tabs[0]"
+                    :is-last-tab="currentTab == tabs[tabs.length - 1]"
+                  >
                     <template #second>
-                      <breeze-button type="submit"> Update </breeze-button>
+                      <breeze-button
+                        type="submit"
+                        v-text="
+                          currentTab == tabs[tabs.length - 1]
+                            ? 'Finish'
+                            : 'Update'
+                        "
+                      >
+                      </breeze-button>
                     </template>
                   </student-footer-area>
                 </template>
@@ -105,10 +116,8 @@ export default {
       user: this.$attrs.auth.user,
       settings: this.$attrs.settings,
       breadcrumbs: this.$attrs.breadcrumbs,
-      currentTab: this.currentTab,
       tabs: this.tabs,
       isActiveTab: this.isActiveTab,
-      currentTabComponent: this.currentTabComponent,
     };
   },
 
@@ -123,6 +132,14 @@ export default {
 
       if (index != this.tabs.length - 1)
         this.$emitter.emit(this.$events.applicationTabChanged, next);
+    });
+
+    this.$emitter.on(this.$events.switchPrevTab, () => {
+      let index = this.tabs.findIndex((v) => v === this.currentTab);
+      let prev = this.tabs[index - 1];
+
+      if (index != 0)
+        this.$emitter.emit(this.$events.applicationTabChanged, prev);
     });
   },
 };

@@ -36,4 +36,4 @@ registerComponents(app);
 app.mount(el);
 
 // Set Inertia Progress Indicator
-InertiaProgress.init({ color: "#4B5563" });
+InertiaProgress.init({ color: "#eb2d33" });

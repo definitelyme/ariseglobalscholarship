@@ -83,17 +83,15 @@
           <input-field
             v-model:phone.unmask-phone.no-whitespace="form.phone"
             :value="form.phone"
+            model-name="phone"
             clazz="text-gray-700 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
             type="tel"
             name="phone"
             id="phone_number"
             autocomplete="phone"
-            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+            pattern="\([0-9]{3}\) [0-9]{3} [0-9]{4}"
             maxlength="14"
             v-mask="'(###) ### ####'"
-            @input="
-              $emitValue('update:phone', $event.target.value, phoneModifiers)
-            "
             required
           />
         </div>

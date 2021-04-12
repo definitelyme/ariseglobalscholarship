@@ -15,6 +15,10 @@
         </h5>
       </em>
     </h4>
+
+    <document-uploader />
+
+    <slot name="footer"></slot>
   </form>
 </template>
 

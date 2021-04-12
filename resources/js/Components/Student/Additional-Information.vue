@@ -48,13 +48,14 @@
           class="block text-sm font-medium text-gray-700"
           >Community / Hometown</label
         >
-        <input
-          class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-          type="text"
+
+        <input-field
+          v-model:hometown.trim.capitalize="form.hometown"
+          :value="form.hometown"
           name="hometown"
           id="hometown"
-          v-model="form.hometown"
           autocomplete="city"
+          model-name="hometown"
           required
         />
       </div>
@@ -74,13 +75,14 @@
         <label for="kinName" class="block text-sm font-medium text-gray-700"
           >Next of Kin</label
         >
-        <input
-          class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-          type="text"
+
+        <input-field
+          v-model:kinName.trim.capitalize="form.kinName"
+          :value="form.kinName"
           name="kinName"
           id="kinName"
-          v-model="form.kinName"
           autocomplete="name"
+          model-name="kinName"
           required
         />
       </div>
@@ -95,34 +97,36 @@
           >
             +234
           </span>
-          <input
-            class="text-gray-700 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+
+          <input-field
+            v-model:kinPhone.unmask-phone.no-whitespace="form.kinPhone"
+            :value="form.kinPhone"
+            model-name="kinPhone"
+            clazz="text-gray-700 focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
             type="tel"
             name="kinPhone"
-            id="kinPhone"
+            id="phone_number"
             autocomplete="phone"
             pattern="\([0-9]{3}\) [0-9]{3} [0-9]{4}"
             maxlength="14"
             v-mask="'(###) ### ####'"
-            v-model="form.kinPhone"
+            required
           />
         </div>
       </div>
 
-      <div class="col-span-12 md:col-span-6 lg:col-span-3 self-end">
+      <div class="col-span-12 md:col-span-6 lg:col-span-3 relative self-end">
         <label
           for="kinRelationship"
           class="block text-sm font-medium text-gray-700"
           >Relationship</label
         >
-        <input
-          class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-          type="text"
-          name="kinRelationship"
-          id="kinRelationship"
-          v-model="form.kinRelationship"
-          autocomplete="relationship"
-          required
+
+        <select-component
+          :options="relationships"
+          :value="form.kinRelationship"
+          @selection-changed-event="form.kinRelationship = $event"
+          positioned
         />
       </div>
     </div>
@@ -136,7 +140,7 @@
     </create-page-subtitle>
     <!--  -->
     <div class="grid grid-cols-12 gap-2 md:gap-2 lg:gap-3 xl:gap-3">
-      <div class="col-span-12 md:col-span-6 lg:col-span-3 self-end">
+      <div class="col-span-12 md:col-span-6 lg:col-span-4 self-end">
         <label
           for="hasBursary"
           class="block md:inline-flex text-sm font-medium text-gray-700"
@@ -181,6 +185,9 @@ export default {
 
   methods: {
     createOrUpdate() {
+      // Fix this --- it modifies the phone
+      this.form.kinPhone = `+234${this.form.kinPhone}`;
+
       this.form
         .transform((data) => ({
           ...data,
@@ -212,6 +219,20 @@ export default {
       set(val) {
         this.form.hasBursary = val;
       },
+    },
+
+    relationships() {
+      return [
+        "Brother",
+        "Sister",
+        "Mother",
+        "Father",
+        "Uncle",
+        "Aunt",
+        "Cousin",
+        "Nephew",
+        "Niece",
+      ];
     },
   },
 

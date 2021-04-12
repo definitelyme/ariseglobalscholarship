@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  inject: ["tabs", "isActiveTab", "currentTab", "currentTabComponent"],
+  inject: ["tabs", "isActiveTab"],
 
   emits: ["application-tab-changed"],
 

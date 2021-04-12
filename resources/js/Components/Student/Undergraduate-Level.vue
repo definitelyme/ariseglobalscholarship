@@ -159,6 +159,8 @@
 
 <script>
 export default {
+  inject: ["user"],
+
   data() {
     return {
       form: this.$inertia.form({
