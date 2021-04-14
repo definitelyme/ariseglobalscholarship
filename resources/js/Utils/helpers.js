@@ -92,6 +92,29 @@ const slugify = (str, seperator) => {
     return str;
 };
 
+const guid = () => {
+    let s4 = () => {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+    //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+    return (
+        s4() +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        "-" +
+        s4() +
+        s4() +
+        s4()
+    );
+};
+
 const replace = (str, glue, exp) => {
     RegExp.quote = function (str) {
         return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
@@ -140,6 +163,8 @@ const utils = {
         app.config.globalProperties.$replace = replace;
 
         app.config.globalProperties.$slugify = slugify;
+
+        app.config.globalProperties.$guid = guid;
 
         app.config.globalProperties.$logger = logger;
 

@@ -72,7 +72,7 @@
           <div
             class="ml-10 flex space-x-4 items-center content-center justify-center justify-self-center"
           >
-            <a
+            <inertia-link
               class="px-3 py-2.5 rounded-md text-sm font-medium"
               v-for="(menu, index) in menus"
               :key="index"
@@ -89,7 +89,7 @@
                   menu.name
                 ),
               }"
-            ></a>
+            ></inertia-link>
           </div>
         </div>
       </div>
@@ -178,10 +178,11 @@
           <!-- Profile dropdown -->
           <div class="ml-3 relative">
             <div>
-              <button
+              <a
                 type="button"
                 class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 id="user-menu"
+                href="#"
                 aria-expanded="false"
                 aria-haspopup="true"
                 @click.prevent="
@@ -197,7 +198,7 @@
                   :src="`${$asset_url}/user.png`"
                   :alt="user.first_name"
                 />
-              </button>
+              </a>
             </div>
 
             <div
@@ -210,18 +211,18 @@
                 hidden: !$parent.showingNavigationDropdown,
               }"
             >
-              <a
+              <inertia-link
                 href="#"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
-                >Your Profile</a
+                >Your Profile</inertia-link
               >
 
-              <a
+              <inertia-link
                 href="#"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
-                >Edit Profile</a
+                >Edit Profile</inertia-link
               >
 
               <a

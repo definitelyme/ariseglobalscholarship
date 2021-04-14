@@ -8,7 +8,7 @@
     }"
   >
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a
+      <inertia-link
         class="block px-3 py-2 rounded-md text-base font-medium"
         v-for="(menu, index) in menus"
         :key="index"
@@ -23,7 +23,7 @@
             menu.name
           ),
         }"
-      ></a>
+      ></inertia-link>
     </div>
 
     <div class="pt-4 pb-3 border-t border-gray-700">
@@ -69,16 +69,16 @@
       </div>
 
       <div class="mt-3 px-2 space-y-1">
-        <a
+        <inertia-link
           href="#"
           class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-          >Your Profile</a
+          >Your Profile</inertia-link
         >
 
-        <a
+        <inertia-link
           href="#"
           class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-          >Edit Profile</a
+          >Edit Profile</inertia-link
         >
 
         <a

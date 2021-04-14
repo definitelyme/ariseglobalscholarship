@@ -75,6 +75,14 @@ class HandleInertiaRequests extends Middleware
             'requirements' => setting('site.scholarship_requirements'),
             'max_passport_size' => setting('site.max_passport_size'),
             'max_upload_size' => setting('site.max_upload_size'),
+            'document_mimes' => [
+                "image/png",
+                "image/jpeg",
+                "image/jpg",
+                "application/pdf",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            ],
         ];
     }
 }

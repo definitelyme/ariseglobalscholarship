@@ -39,7 +39,7 @@ export default {
           ...data,
         }))
         .put(this.route(`scholarship.update`, this.user), {
-          onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+          onFinish: () => this.$inertia.get("/dashoard"),
         });
     },
   },
