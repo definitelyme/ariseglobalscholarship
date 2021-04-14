@@ -9,7 +9,7 @@
 
           <div class="logo-name">
             <h3 v-text="$app_name_short"></h3>
-            <span v-text="$parent.quote"></span>
+            <span v-text="settings.quote"></span>
           </div>
         </div>
 
@@ -52,21 +52,30 @@
           </li>
         </ul>
 
-        <div class="menu-btn" @click.prevent="emitter.emit($events.sidebar)">
+        <div class="menu-btn" @click.prevent="$emitter.emit($events.sidebar)">
           <a href="#"
             ><span
               class="bar1"
-              :class="{ 'bg-white': $parent._sidebarOpen }"
+              :class="{
+                'bg-white': $parent._sidebarOpen,
+                'bg-main-500': !$parent._sidebarOpen,
+              }"
             ></span>
 
             <span
               class="bar2"
-              :class="{ 'bg-white': $parent._sidebarOpen }"
+              :class="{
+                'bg-white': $parent._sidebarOpen,
+                'bg-main-500': !$parent._sidebarOpen,
+              }"
             ></span>
 
             <span
               class="bar3"
-              :class="{ 'bg-white': $parent._sidebarOpen }"
+              :class="{
+                'bg-white': $parent._sidebarOpen,
+                'bg-main-500': !$parent._sidebarOpen,
+              }"
             ></span
           ></a>
         </div>
@@ -94,7 +103,7 @@
               <span class="inline-flex rounded-md">
                 <button
                   type="button"
-                  class="max-w-sm bg-gray-800 rounded-full flex items-center text-sm"
+                  class="max-w-md bg-gray-600 rounded-full flex items-center text-sm"
                   id="user-menu"
                   aria-expanded="false"
                   aria-haspopup="true"
@@ -103,8 +112,8 @@
 
                   <img
                     class="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
+                    :src="`${$asset_url}/user.png`"
+                    :alt="user.first_name"
                   />
                 </button>
               </span>
@@ -181,7 +190,7 @@ export default {
   },
 
   mounted() {
-    this.emitter.on(
+    this.$emitter.on(
       this.$events.profileDropdown,
       (data) => (this.showingNavigationDropdown = data || false)
     );

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -33,9 +34,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        $user = $request->user();
+
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user != null ? $user->append([
+                    "first_name",
+                    "last_name",
+                    "full_name",
+                ]) : null,
             ],
             'breadcrumbs' => $request->segments(),
             'settings' => $this->settings($request),
@@ -46,6 +53,7 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             'show_quote' => true,
+            'quote' => 'Keep Learning..',
 
             'app_name' => setting('site.title'),
             'app_name_short' => setting('site.name_short'),
@@ -65,6 +73,16 @@ class HandleInertiaRequests extends Middleware
             'eligibility_1' => setting('site.scholarship_eligibility_1'),
             'eligibility_2' => setting('site.scholarship_eligibility_2'),
             'requirements' => setting('site.scholarship_requirements'),
+            'max_passport_size' => setting('site.max_passport_size'),
+            'max_upload_size' => setting('site.max_upload_size'),
+            'document_mimes' => [
+                "image/png",
+                "image/jpeg",
+                "image/jpg",
+                "application/pdf",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            ],
         ];
     }
 }
