@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-auto" id="document-uploader">
+  <main class="container mx-auto" style="margin-bottom: 60px">
     <!-- file upload modal -->
     <article
       aria-label="File Upload Modal"
@@ -34,7 +34,8 @@
       <!-- scroll area -->
       <section class="h-full w-full overflow-none flex flex-col">
         <header
-          class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center"
+          class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center cursor-pointer"
+          @click="$refs.hidden.click()"
         >
           <p
             class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center"
@@ -56,17 +57,21 @@
 
           <button
             id="button"
-            class="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none"
+            class="mt-2 rounded-sm px-3 py-1 text-white bg-gray-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none"
             ref="button"
             @click.prevent="$refs.hidden.click()"
           >
-            Upload a file
+            Choose documents
           </button>
         </header>
 
         <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
           To Upload
         </h1>
+
+        <ul class="text-gray-700 mb-3">
+          <li>1. Addmission Letter</li>
+        </ul>
 
         <ul
           id="gallery"
@@ -84,7 +89,7 @@
               :src="`${$asset_url}/upload-image-0.png`"
               alt="no data"
             />
-            <span class="text-small text-gray-500">No files selected</span>
+            <span class="text-small text-gray-500">No documents selected</span>
           </li>
 
           <li
@@ -104,21 +109,11 @@
 </template>
 
 <script>
-// const MimeType = {
-//   IMAGE: "image",
-//   PDF: "pdf",
-//   MSWORD: "msword",
-//   OFFICE_DOC: "officedocument",
-// };
-
 export default {
   inject: ["user", "settings"],
 
   data() {
     return {
-      // use to drag dragenter and dragleave events.
-      // this is to know if the outermost parent is dragged over
-      // without issues due to drag events on its children
       counter: 0,
       files: [],
       mimeTypes: {

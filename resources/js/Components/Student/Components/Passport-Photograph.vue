@@ -17,7 +17,7 @@
         <div
           class="flex justify-center border-2 border-gray-300 border-dashed rounded-md cursor-pointer object-contain max-h-80 md:w-80"
           :class="{ 'px-6 py-6': image == null, 'px-2 py-2.5': image != null }"
-          @click="selectPhoto"
+          @click.prevent="selectPhoto"
         >
           <div class="text-center" :class="{ 'space-y-2': image == null }">
             <span
