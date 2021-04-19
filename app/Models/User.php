@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -18,6 +19,7 @@ class User extends \TCG\Voyager\Models\User
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
         'password',
     ];
@@ -40,6 +42,21 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
+     * Get all of the scholarships for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scholarships(): HasMany
+    {
+        return $this->hasMany(Scholarship::class);
+    }
 
     /**
      * Get the user's first name.

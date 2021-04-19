@@ -36,6 +36,10 @@ class HandleInertiaRequests extends Middleware
     {
         $user = $request->user();
 
+        $scholarship = $user != null
+            ? $user->scholarships->where("version", "1.0.0")->first()
+            : null;
+
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $user != null ? $user->append([
@@ -44,6 +48,7 @@ class HandleInertiaRequests extends Middleware
                     "full_name",
                 ]) : null,
             ],
+            'scholarship' => $scholarship,
             'breadcrumbs' => $request->segments(),
             'settings' => $this->settings($request),
         ]);
@@ -75,6 +80,7 @@ class HandleInertiaRequests extends Middleware
             'requirements' => setting('site.scholarship_requirements'),
             'max_passport_size' => setting('site.max_passport_size'),
             'max_upload_size' => setting('site.max_upload_size'),
+            'version' => setting('site.scholarship_version'),
             'document_mimes' => [
                 "image/png",
                 "image/jpeg",

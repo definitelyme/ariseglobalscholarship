@@ -40,6 +40,7 @@ export default {
     return {
       user: this.$attrs.auth.user,
       settings: this.$attrs.settings,
+      scholarship: this.$attrs.scholarship,
     };
   },
 };

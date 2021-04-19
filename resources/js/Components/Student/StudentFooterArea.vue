@@ -23,8 +23,15 @@
     </div>
 
     <div class="col-span-4 justify-self-center self-center">
-      <slot name="second">
-        <breeze-button type="submit"> Update </breeze-button>
+      <slot
+        name="second"
+        v-bind:processing="
+          typeof $parent.form == 'undefined' ? null : $parent.form.processing
+        "
+      >
+        <breeze-button type="submit" :processing="processing">
+          Update
+        </breeze-button>
       </slot>
     </div>
 
@@ -54,6 +61,12 @@
 import BreezeButton from "@/Components/Button";
 
 export default {
+  data() {
+    return {
+      processing: false,
+    };
+  },
+
   emits: ["tab-changed"],
 
   props: {

@@ -47,7 +47,7 @@
                     :is-first-tab="currentTab == tabs[0]"
                     :is-last-tab="currentTab == tabs[tabs.length - 1]"
                   >
-                    <template #second>
+                    <template v-slot:second="props">
                       <breeze-button
                         type="submit"
                         v-text="
@@ -55,6 +55,7 @@
                             ? 'Finish'
                             : 'Update'
                         "
+                        :processing="props.processing"
                       >
                       </breeze-button>
                     </template>
@@ -76,7 +77,7 @@ import BreezeButton from "@/Components/Button";
 export default {
   data() {
     return {
-      currentTab: "Personal Information",
+      currentTab: "Additional Information",
       tabs: [
         "Personal Information",
         "Additional Information",
@@ -115,6 +116,8 @@ export default {
     return {
       user: this.$attrs.auth.user,
       settings: this.$attrs.settings,
+      scholarship: this.$attrs.scholarship,
+      toast: this.$toast,
       breadcrumbs: this.$attrs.breadcrumbs,
       tabs: this.tabs,
       isActiveTab: this.isActiveTab,

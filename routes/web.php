@@ -4,7 +4,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ScholarshipController;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,17 +11,17 @@ Route::get('/', [HomeController::class, "index"])->name('/');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'applicant'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
 Route::prefix("/scholarship/get-started")->group(function () {
     Route::get('/apply', [ScholarshipController::class, 'create'])
         ->name("scholarship.apply")
-        ->middleware('auth');
+        ->middleware(['auth', 'applicant']);
 });
 
-Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship")->group(function () {
+Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship/{scholarship}")->group(function () {
     Route::get('/', [ScholarshipController::class, 'index'])
         ->name("/");
 
@@ -32,19 +31,19 @@ Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarsh
     Route::post('/application/store', [ScholarshipController::class, 'store'])
         ->name("store");
 
-    Route::get('/{user}/application', [ScholarshipController::class, 'show'])
+    Route::get('/user/{user}/application', [ScholarshipController::class, 'show'])
         ->name("show");
 
-    Route::get('/{user}/application/edit', [ScholarshipController::class, 'edit'])
+    Route::get('/user/{user}/application/edit', [ScholarshipController::class, 'edit'])
         ->name("edit");
 
-    Route::put('/{user}/application', [ScholarshipController::class, 'update'])
+    Route::put('/user/{user}/application', [ScholarshipController::class, 'update'])
         ->name("update");
 
-    Route::delete('/{user}/application', [ScholarshipController::class, 'delete'])
+    Route::delete('/user/{user}/application', [ScholarshipController::class, 'delete'])
         ->name("delete");
 
-    Route::delete('/{user}/application/destroy', [ScholarshipController::class, 'destroy'])
+    Route::delete('/user/{user}/application/destroy', [ScholarshipController::class, 'destroy'])
         ->name("destroy");
 
     Route::get('/about', [ScholarshipController::class, 'about'])

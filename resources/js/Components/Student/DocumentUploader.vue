@@ -1,5 +1,5 @@
 <template>
-  <main class="container mx-auto" style="margin-bottom: 60px">
+  <main class="md:container mx-auto" style="margin-bottom: 60px">
     <!-- file upload modal -->
     <article
       aria-label="File Upload Modal"
@@ -53,13 +53,14 @@
             spellcheck="false"
             ref="hidden"
             @change="onChanged"
+            accept="image/png, image/jpeg, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           />
 
           <button
             id="button"
             class="mt-2 rounded-sm px-3 py-1 text-white bg-gray-400 hover:bg-gray-500 focus:shadow-outline focus:outline-none"
             ref="button"
-            @click.prevent="$refs.hidden.click()"
+            @click.prevent=""
           >
             Choose documents
           </button>
@@ -82,7 +83,7 @@
           <li
             id="empty"
             class="h-full w-full text-center flex flex-col items-center justify-center"
-            :class="{ hidden: files.length }"
+            :class="{ hidden: selected_files.length }"
           >
             <img
               class="mx-auto w-32"
@@ -94,13 +95,21 @@
 
           <li
             class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24"
-            v-for="(file, i) in files"
+            v-for="(file, i) in selected_files"
             :key="i"
             :id="file.id"
           >
-            <file-upload-template :file="file" :mimes="mimeTypes" />
+            <file-upload-template
+              :file="file"
+              :mimes="mimeTypes"
+              @delete-file="deleteFile"
+            />
 
-            <image-upload-template :file="file" :mimes="mimeTypes" />
+            <image-upload-template
+              :file="file"
+              :mimes="mimeTypes"
+              @delete-file="deleteFile"
+            />
           </li>
         </ul>
       </section>
@@ -115,7 +124,7 @@ export default {
   data() {
     return {
       counter: 0,
-      files: [],
+      selected_files: [],
       mimeTypes: {
         IMAGE: "image",
         PDF: "pdf",
@@ -123,10 +132,6 @@ export default {
         OFFICE_DOC: "officedocument",
       },
     };
-  },
-
-  computed: {
-    //
   },
 
   methods: {
@@ -141,10 +146,15 @@ export default {
             ? file.size > 1048576
               ? Math.round(file.size / 1048576) + "mb"
               : Math.round(file.size / 1024) + "kb"
-            : file.size + "b";
+            : file.size + "b",
+        getFile = (file) => {
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          return reader;
+        };
 
       if (isValidMime) {
-        this.files.push({
+        this.selected_files.push({
           fid: this.$guid(),
           isDocument: mimeType != this.mimeTypes.IMAGE,
           isImage: mimeType == this.mimeTypes.IMAGE,
@@ -153,6 +163,8 @@ export default {
           url: objectURL,
           size: fileSize,
         });
+
+        this.$parent.form.files.push(file);
       }
     },
 
@@ -199,6 +211,11 @@ export default {
       for (const file of e.target.files) {
         this.performActionAddFile(file);
       }
+    },
+
+    deleteFile(file) {
+      let index = this.selected_files.findIndex((i) => i.fid === file.fid);
+      this.selected_files.splice(index, 1);
     },
   },
 };

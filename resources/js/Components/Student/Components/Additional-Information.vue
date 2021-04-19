@@ -14,8 +14,8 @@
         >
         <select-component
           :options="['Nigeria']"
-          :value="form.country"
-          @selection-changed-event="form.country = $event"
+          :value="form.countryOrigin"
+          @selection-changed-event="form.countryOrigin = $event"
           select-first
         />
       </div>
@@ -26,8 +26,8 @@
         >
         <select-component
           :options="states"
-          :value="form.state"
-          @selection-changed-event="form.state = $event"
+          :value="form.stateOfOrigin"
+          @selection-changed-event="form.stateOfOrigin = $event"
         />
       </div>
 
@@ -37,8 +37,8 @@
         >
         <select-component
           :options="localGovtAreas"
-          :value="form.localGovtArea"
-          @selection-changed-event="form.localGovtArea = $event"
+          :value="form.lgaOfOrigin"
+          @selection-changed-event="form.lgaOfOrigin = $event"
         />
       </div>
 
@@ -83,7 +83,6 @@
           id="kinName"
           autocomplete="name"
           model-name="kinName"
-          required
         />
       </div>
 
@@ -164,16 +163,16 @@
 
 <script>
 export default {
-  inject: ["user"],
+  inject: ["user", "scholarship"],
 
   data() {
     return {
       states: this.$Province.getStates().names,
       localGovtAreas: [],
-      form: this.$inertia.form({
-        country: "",
-        state: "",
-        localGovtArea: "",
+      form: this.$inertia.form(`UpdateInfoForm:${this.user.id}`, {
+        countryOrigin: "",
+        stateOfOrigin: "",
+        lgaOfOrigin: "",
         hometown: "",
         kinName: "",
         kinPhone: "",
@@ -185,16 +184,21 @@ export default {
 
   methods: {
     createOrUpdate() {
-      // Fix this --- it modifies the phone
-      this.form.kinPhone = `+234${this.form.kinPhone}`;
-
       this.form
         .transform((data) => ({
           ...data,
+          kinPhone: `+234${data.kinPhone}`,
         }))
-        .put(this.route(`scholarship.update`, this.user), {
-          onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
-        });
+        .put(
+          this.route(`scholarship.update`, {
+            user: this.user,
+            scholarship: this.scholarship,
+          }),
+          {
+            onError: (error) => console.log(error),
+            onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+          }
+        );
     },
   },
 
@@ -202,7 +206,7 @@ export default {
     "form.state"() {
       try {
         this.localGovtAreas = this.$Province
-          .getLocalGovt(this.form.state)
+          .getLocalGovt(this.form.stateOfOrigin)
           .map((v) => v.name);
       } catch (_) {
         return [];

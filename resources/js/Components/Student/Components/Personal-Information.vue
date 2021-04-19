@@ -300,13 +300,13 @@
 
 <script>
 export default {
-  inject: ["user"],
+  inject: ["user", "scholarship"],
 
   data() {
     return {
       states: this.$Province.getStates().names,
       localGovtAreas: [],
-      form: this.$inertia.form({
+      form: this.$inertia.form(`UpdatePersonalInfo:${this.user.id}`, {
         firstName: this.user.first_name,
         lastName: this.user.last_name,
         otherNames: "",
@@ -327,19 +327,25 @@ export default {
 
   methods: {
     createOrUpdate() {
-      this.form.phone = `+234${this.form.phone}`;
-      this.form.age =
-        this.form.age == null || this.form.age == ""
-          ? this.$calculateAge(this.form.dob)
-          : this.form.age;
-
       this.form
         .transform((data) => ({
           ...data,
+          phone: `+234${data.phone}`,
+          age:
+            data.age == null || data.age == ""
+              ? this.$calculateAge(data.dob)
+              : data.age,
         }))
-        .put(this.route(`scholarship.update`, this.user), {
-          onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
-        });
+        .put(
+          this.route(`scholarship.update`, {
+            user: this.user,
+            scholarship: this.scholarship,
+          }),
+          {
+            onError: (error) => console.log(error),
+            onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+          }
+        );
     },
   },
 

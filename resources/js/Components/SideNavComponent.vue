@@ -12,7 +12,9 @@
         }"
       >
         <a
-          :href="route(menu.name)"
+          :href="
+            menu.param != null ? route(menu.name, menu.param) : route(menu.name)
+          "
           :title="menu.title"
           v-text="menu.title"
           v-if="!route().current(menu.name)"
@@ -68,7 +70,7 @@
 
 <script>
 export default {
-  inject: ["user"],
+  inject: ["user", "settings"],
 
   data() {
     return {
@@ -77,31 +79,37 @@ export default {
         {
           title: "Home",
           name: "/",
+          param: null,
         },
 
         {
           title: "Apply",
           name: "scholarship.apply",
+          param: null,
         },
 
         {
           title: "About Scholarship",
           name: "scholarship.about",
+          param: this.settings.version,
         },
 
         {
           title: "FAQ",
           name: "faq",
+          param: null,
         },
 
         {
           title: "About Us",
           name: "about",
+          param: null,
         },
 
         {
           title: "Contact Us",
           name: "contact",
+          param: null,
         },
       ],
     };

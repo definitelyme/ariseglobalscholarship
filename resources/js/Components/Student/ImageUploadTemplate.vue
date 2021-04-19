@@ -15,7 +15,7 @@
     >
       <h1 class="flex-1 text-black" v-text="file.name"></h1>
 
-      <div class="flex">
+      <div class="flex text-gray-800">
         <span class="p-1">
           <i>
             <svg
@@ -32,11 +32,11 @@
           </i>
         </span>
 
-        <p class="p-1 size text-xs" v-text="file.size"></p>
+        <p class="p-1 size text-xs text-black" v-text="file.size"></p>
 
         <button
-          class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md text-gray-800"
-          @click.prevent="deleteFile(file)"
+          class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md"
+          @click.prevent="$emit('delete-file', file)"
         >
           <svg
             class="pointer-events-none fill-current w-4 h-4 ml-auto"
@@ -61,12 +61,5 @@ export default {
   props: ["file", "mimes"],
 
   emits: ["delete-file"],
-
-  methods: {
-    deleteFile() {
-      let index = this.$parent.files.findIndex((i) => i.fid === this.file.fid);
-      this.$parent.files.splice(index, 1);
-    },
-  },
 };
 </script>

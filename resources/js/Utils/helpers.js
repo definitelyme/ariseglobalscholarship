@@ -1,24 +1,38 @@
-import { Inertia } from "@inertiajs/inertia";
 import Mixin from "./mixin";
 import mitt from "mitt";
 import Province from "./regional/index";
-import { reactive, toRefs } from "vue";
+// import { reactive, toRefs } from "vue";
 import kLists from "./lists";
 import directives from "./directives";
+import Swal from "sweetalert2";
+import Tracker from "@asayerio/tracker";
 
 import DeviceDetector from "mobile-device-detect";
 
 const emitter = mitt();
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+});
+
+// Setup tracker
+const tracker = new Tracker({
+    projectID: 7105153169947095,
+});
+// Start tracker
+tracker.start();
+
 window.onerror = () => {
     emitter.emit("error", () => location.reload());
 };
-
-Inertia.on("navigate", (event) => {
-    emitter.on("error", async () => {
-        console.log("Successfully made a visit to = " + event.detail.page.url);
-    });
-});
 
 const titleCase = (string) => {
     // Step 1. Lowercase the string
@@ -150,8 +164,6 @@ const utils = {
             openModal: "open-modal",
         };
 
-        app.config.globalProperties.$detector = DeviceDetector;
-
         app.config.globalProperties.$Province = Province;
 
         app.config.globalProperties.$kLists = kLists;
@@ -170,8 +182,11 @@ const utils = {
 
         app.config.globalProperties.$calculateAge = calculateAge;
 
-        // Deprecated!! Will be removed later use $emitter instead
-        // app.config.globalProperties.emitter = emitter;
+        app.config.globalProperties.$alert = Swal;
+
+        app.config.globalProperties.$toast = Toast;
+
+        app.config.globalProperties.$detector = DeviceDetector;
 
         app.config.globalProperties.$emitter = emitter;
 
@@ -181,9 +196,9 @@ const utils = {
         app.config.globalProperties.$off = (type, handler) =>
             emitter.off(type, handler);
 
-        app.config.globalProperties.$reactive = reactive;
+        // app.config.globalProperties.$reactive = reactive;
 
-        app.config.globalProperties.$toRefs = toRefs;
+        // app.config.globalProperties.$toRefs = toRefs;
 
         directives.clickOutside(app);
 

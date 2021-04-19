@@ -130,15 +130,15 @@
         class="flex col-span-12 md:col-span-12 lg:col-span-7 items-center space-x-5"
       >
         <label
-          for="expected_date_of_graduation"
+          for="expected_year_of_graduation"
           class="flex-1 text-sm font-medium text-gray-700 inline-flex"
-          >Expected Date of Graduation</label
+          >Expected Year of Graduation</label
         >
 
         <select
           class="flex-1 border bg-white rounded-md px-3 py-2 text-gray-700 outline-none inline-flex"
-          name="expected_date_of_graduation"
-          v-model="form.expectedDateOfGraduation"
+          name="expected_year_of_graduation"
+          v-model="form.expectedYearOfGraduation"
         >
           <option selected :value="null" disabled>-- Select --</option>
           <option
@@ -159,16 +159,16 @@
 
 <script>
 export default {
-  inject: ["user"],
+  inject: ["user", "scholarship"],
 
   data() {
     return {
-      form: this.$inertia.form({
+      form: this.$inertia.form(`UpdateSchoolInfoForm:${this.user.id}`, {
         courseOfStudy: null,
         courseDuration: null,
         currentLevel: null,
         yearOfAdmission: null,
-        expectedDateOfGraduation: null,
+        expectedYearOfGraduation: null,
       }),
     };
   },
@@ -179,9 +179,16 @@ export default {
         .transform((data) => ({
           ...data,
         }))
-        .put(this.route(`scholarship.update`, this.user), {
-          onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
-        });
+        .put(
+          this.route(`scholarship.update`, {
+            user: this.user,
+            scholarship: this.scholarship,
+          }),
+          {
+            onError: (error) => console.log(error),
+            onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+          }
+        );
     },
   },
 

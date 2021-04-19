@@ -79,7 +79,7 @@
                 <li><a :href="route('/')" title="">Home</a></li>
 
                 <li>
-                  <a :href="route('scholarship./')" title=""
+                  <a :href="route('scholarship./', settings.version)" title=""
                     >Apply for Scholarship</a
                   >
                 </li>

@@ -37,7 +37,7 @@
 
         <button
           class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md text-gray-800"
-          @click.prevent="deleteFile(file)"
+          @click.prevent="$emit('delete-file', file)"
         >
           <svg
             class="pointer-events-none fill-current w-4 h-4 ml-auto"
@@ -68,13 +68,6 @@ export default {
       return this.file.type == this.mimes.PDF
         ? `${this.$asset_url}/pdf-image.png`
         : `${this.$asset_url}/msword-image.jpg`;
-    },
-  },
-
-  methods: {
-    deleteFile() {
-      let index = this.$parent.files.findIndex((i) => i.fid === this.file.fid);
-      this.$parent.files.splice(index, 1);
     },
   },
 };

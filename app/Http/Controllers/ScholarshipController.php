@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ScholarshipRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Scholarship;
 use Illuminate\Support\Facades\Auth;
 
 class ScholarshipController extends Controller
@@ -11,6 +12,7 @@ class ScholarshipController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('applicant');
         $this->middleware('verified');
     }
 
@@ -25,7 +27,7 @@ class ScholarshipController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -47,22 +49,23 @@ class ScholarshipController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ScholarshipRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ScholarshipRequest $request)
     {
-        dd($request->all());
+        dd($request->other);
         return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Scholarship $scholarship, User $user)
     {
         return inertia("Student/ShowPage");
     }
@@ -70,10 +73,11 @@ class ScholarshipController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Scholarship $scholarship, User $user)
     {
         return inertia("Student/EditPage");
     }
@@ -81,37 +85,43 @@ class ScholarshipController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\ScholarshipRequest  $request
+     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ScholarshipRequest $request, Scholarship $scholarship, User $user)
     {
-        // dd($request->all());
+        // $file = $request->input('files')[0];
+        // dd(base64_encode(file_get_contents($file['url'])));
+        // dump($request->files);
+        dd($request->all());
         return redirect()->back();
     }
 
     /**
      * Soft-delete the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete(Scholarship $scholarship, User $user)
     {
-        dd($id);
+        dd($scholarship);
         return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Scholarship $scholarship, User $user)
     {
-        dd($id);
+        dd($scholarship);
         return redirect()->back();
     }
 }

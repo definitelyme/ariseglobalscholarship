@@ -17,7 +17,7 @@
         <div
           class="flex justify-center border-2 border-gray-300 border-dashed rounded-md cursor-pointer object-contain max-h-80 md:w-80"
           :class="{ 'px-6 py-6': image == null, 'px-2 py-2.5': image != null }"
-          @click.prevent="selectPhoto"
+          @click="selectPhoto"
         >
           <div class="text-center" :class="{ 'space-y-2': image == null }">
             <span
@@ -108,7 +108,55 @@
 </template>
 
 <script>
+import { useForm } from "@inertiajs/inertia-vue3";
+import { inject } from "vue";
+import { Inertia } from "@inertiajs/inertia";
+
 export default {
+  inject: ["user", "scholarship"],
+
+  setup() {
+    const user = inject("user");
+    const toast = inject("toast");
+    const scholarship = inject("scholarship");
+
+    const form = useForm(`UpdatePassportForm:${user.id}`, {
+      passport: {},
+    });
+
+    function createOrUpdate() {
+      Inertia.post(
+        route(`scholarship.update`, { user: user, scholarship: scholarship }),
+        {
+          _method: "put",
+          passport: form.passport,
+        },
+        {
+          forceFormData: true,
+          preserveScroll: true,
+          preserveState: true,
+          onProgress: (progress) => (form.progress = progress),
+          onSuccess: (page) => {
+            // form.reset("password");
+            toast.fire({
+              icon: "error",
+              title: "Signed in successfully",
+            });
+          },
+          onError: (errors) => {
+            console.log(errors);
+          },
+          onFinish: () => {
+            form.reset("progress");
+            // Inertia.get(route("dashboard"));
+          },
+        }
+      );
+    }
+
+    return { form, createOrUpdate };
+  },
+
   data() {
     return {
       image: null,
@@ -116,17 +164,6 @@ export default {
   },
 
   methods: {
-    createOrUpdate() {
-      console.log(this.image);
-      // this.form
-      //   .transform((data) => ({
-      //     ...data,
-      //   }))
-      //   .put(this.route(`scholarship.update`, this.user), {
-      //     onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
-      //   });
-    },
-
     selectPhoto() {
       let ref = this.$refs.file;
       ref.click();
@@ -140,12 +177,12 @@ export default {
     },
 
     createImage(file) {
-      var image = new Image();
       var reader = new FileReader();
       var vm = this;
 
       reader.onload = (e) => {
         vm.image = e.target.result;
+        vm.form.passport = file;
       };
       reader.readAsDataURL(file);
     },
