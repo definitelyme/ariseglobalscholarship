@@ -69,12 +69,14 @@
             "@php artisan migrate",
             "@php artisan optimize:clear",
             "@php artisan optimize",
-            "@composer du -o"
+            "@composer du -o",
+            "@npm update"
         ],
         "optimize-dev": [
             "@composer install",
             "@composer update",
-            "@php artisan optimize:clear"
+            "@php artisan optimize:clear",
+            "@npm update"
         ]
     },
     "repositories": {
