@@ -21,7 +21,7 @@ class CreateScholarshipsTable extends Migration
                 ->onDelete('cascade');
             $table->text('version');
             $table->text('other_names')->nullable();
-            $table->text('phone')->nullable()->unique();
+            $table->text('phone')->nullable();
             $table->text('dob')->nullable();
             $table->text('age')->nullable();
             $table->text('gender')->nullable();
