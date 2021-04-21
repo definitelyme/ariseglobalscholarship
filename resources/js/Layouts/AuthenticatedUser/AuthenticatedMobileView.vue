@@ -13,9 +13,9 @@
         v-for="(mobileMenu, index) in mobileMenus"
         :key="index"
         :href="
-          mobileMenu.param != null
-            ? route(mobileMenu.name, mobileMenu.param)
-            : route(mobileMenu.name)
+          mobileMenu.param == null
+            ? route(mobileMenu.name)
+            : route(mobileMenu.name, mobileMenu.param)
         "
         :title="mobileMenu.title"
         v-text="mobileMenu.title"
@@ -113,13 +113,13 @@ export default {
         {
           title: "Dashboard",
           name: "dashboard",
-          param: {},
+          param: null,
         },
 
         {
           title: "Apply for Scholarship",
           name: "scholarship.apply",
-          param: {},
+          param: null,
         },
 
         {
