@@ -27,7 +27,6 @@
         "vue-loader": "^16.2.0"
     },
     "dependencies": {
-        "@asayerio/tracker": "^5.6.8",
         "jquery": "^3.5.1",
         "mitt": "^2.1.0",
         "mobile-device-detect": "^0.4.3",
