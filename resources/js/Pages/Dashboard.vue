@@ -19,6 +19,7 @@ export default {
   provide() {
     return {
       user: this.$attrs.auth.user,
+      scholarship: this.$attrs.scholarship,
     };
   },
 

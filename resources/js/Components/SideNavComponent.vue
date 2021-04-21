@@ -6,13 +6,15 @@
         :key="index"
         :class="{
           'bg-white': route().current(menu.name),
-          'px-2': route().current(menu.name),
-          'p-1': route().current(menu.name),
+          'px-3.5': route().current(menu.name),
+          'p-2.5': route().current(menu.name),
           'rounded-md': route().current(menu.name),
         }"
       >
         <a
-          :href="route(menu.name)"
+          :href="
+            menu.param != null ? route(menu.name, menu.param) : route(menu.name)
+          "
           :title="menu.title"
           v-text="menu.title"
           v-if="!route().current(menu.name)"
@@ -21,6 +23,7 @@
         <span
           v-else
           v-text="menu.title"
+          class="text-gray-700"
           :class="{
             active: route().current(menu.name),
             'text-main': route().current(menu.name),
@@ -67,7 +70,7 @@
 
 <script>
 export default {
-  inject: ["user"],
+  inject: ["user", "settings"],
 
   data() {
     return {
@@ -76,31 +79,37 @@ export default {
         {
           title: "Home",
           name: "/",
+          param: null,
         },
 
         {
           title: "Apply",
           name: "scholarship.apply",
+          param: null,
         },
 
         {
           title: "About Scholarship",
           name: "scholarship.about",
+          param: this.settings.version,
         },
 
         {
           title: "FAQ",
           name: "faq",
+          param: null,
         },
 
         {
           title: "About Us",
           name: "about",
+          param: null,
         },
 
         {
           title: "Contact Us",
           name: "contact",
+          param: null,
         },
       ],
     };
@@ -127,7 +136,11 @@ export default {
 
 <style>
 ul.side-nav-links > li:nth-last-child(2) {
-  margin-bottom: 0px !important;
+  /* margin-bottom: 0px !important; */
+}
+
+.auth-section > li:nth-child(2) {
+  margin-top: 30px;
 }
 
 hr.rounded {

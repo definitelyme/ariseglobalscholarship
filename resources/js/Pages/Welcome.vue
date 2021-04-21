@@ -20,9 +20,9 @@
 
     <requirement-component />
 
-    <faq />
+    <faq-tabs :questions="$attrs.faqs" :with-title="true" />
 
-    <news-letter-component />
+    <!-- <news-letter-component /> -->
 
     <footer-component />
   </div>
@@ -40,6 +40,7 @@ export default {
     return {
       user: this.$attrs.auth.user,
       settings: this.$attrs.settings,
+      scholarship: this.$attrs.scholarship,
     };
   },
 };
