@@ -12,11 +12,7 @@
         class="block px-3 py-2 rounded-md text-base font-medium"
         v-for="(mobileMenu, index) in mobileMenus"
         :key="index"
-        :href="
-          mobileMenu.param == null
-            ? route(mobileMenu.name)
-            : route(mobileMenu.name, mobileMenu.param)
-        "
+        :href="'#'"
         :title="mobileMenu.title"
         v-text="mobileMenu.title"
         :class="{
@@ -132,6 +128,11 @@ export default {
         },
       ],
     };
+  },
+
+  mounted() {
+    console.log(this.user);
+    console.log(this.scholarship);
   },
 };
 </script>
