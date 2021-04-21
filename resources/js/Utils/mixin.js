@@ -45,6 +45,27 @@ const mixin = {
     // },
 
     methods: {
+        $emitValue(event, value, modifier) {
+            let val = value;
+            if (modifier) {
+                if (modifier.capitalize) {
+                    val = val.charAt(0).toUpperCase() + val.slice(1);
+                }
+                if (modifier["no-whitespace"]) {
+                    val = val.replace(/\s/g, "");
+                }
+                if (modifier["unmask-phone"]) {
+                    val = val.replace(/[^0-9.]/g, "").trim();
+                }
+                if (modifier.sentence) {
+                    val = this.$titleCase(val);
+                }
+            }
+
+            if (typeof event == "string") this.$emit(event, val);
+
+            return event;
+        },
         $visit({
             url,
             method,
@@ -80,6 +101,10 @@ const mixin = {
                 onFinish: onFinish,
             });
         },
+    },
+
+    mounted() {
+        //
     },
 };
 

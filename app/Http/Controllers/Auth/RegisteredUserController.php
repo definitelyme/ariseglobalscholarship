@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Scholarship;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -46,6 +47,11 @@ class RegisteredUserController extends Controller
         ]));
 
         event(new Registered($user));
+
+        // Create Scholarship for registered user
+        $scholarship = new Scholarship;
+        $scholarship->version = setting('site.scholarship_version');
+        $user->scholarships()->save($scholarship);
 
         return redirect(RouteServiceProvider::HOME);
     }
