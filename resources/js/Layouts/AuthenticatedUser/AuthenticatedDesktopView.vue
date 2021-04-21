@@ -272,8 +272,8 @@ export default {
           title: "Application Status",
           name: "scholarship.show",
           param: {
-            user: this.user.slug,
-            scholarship: this.scholarship.version,
+            user: this.user,
+            scholarship: this.scholarship,
           },
         },
       ],

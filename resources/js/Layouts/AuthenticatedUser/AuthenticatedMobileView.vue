@@ -12,7 +12,11 @@
         class="block px-3 py-2 rounded-md text-base font-medium"
         v-for="(mobileMenu, index) in mobileMenus"
         :key="index"
-        :href="'#'"
+        :href="
+          mobileMenu.param == null
+            ? route(mobileMenu.name)
+            : route(mobileMenu.name, mobileMenu.param)
+        "
         :title="mobileMenu.title"
         v-text="mobileMenu.title"
         :class="{
@@ -122,8 +126,8 @@ export default {
           title: "Application Status",
           name: "scholarship.show",
           param: {
-            user: this.user.slug,
-            scholarship: this.scholarship.version,
+            user: this.user,
+            scholarship: this.scholarship,
           },
         },
       ],
