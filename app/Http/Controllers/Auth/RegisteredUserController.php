@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use \Illuminate\Support\Str;
 use App\Models\Scholarship;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -42,6 +43,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user = User::create([
             'name' => $request->name,
+            'slug' => Str::slug($request->name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]));
