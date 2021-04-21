@@ -15,8 +15,8 @@
         {{-- <title>{{ config('app.name', 'Arise Global Scholarship') }}</title> --}}
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ mix('css/private.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     </head>
     <body>
         <div class="wrapper">

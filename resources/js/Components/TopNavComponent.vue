@@ -23,7 +23,14 @@
             <a :href="route('scholarship.apply')" title="">Apply</a>
           </li>
           <li>
-            <a :href="route('scholarship.about')" title="">About Scholarship</a>
+            <a :href="route('scholarship.about', settings.version)" title=""
+              >Eligibility</a
+            >
+          </li>
+          <li>
+            <a :href="route('scholarship.about', settings.version)" title=""
+              >Requirements</a
+            >
           </li>
         </ul>
       </li>
@@ -48,7 +55,7 @@
 
       <li>
         <a
-          :href="route('about')"
+          :href="route('about', settings.version)"
           title=""
           :class="{ active: route().current().includes('about') }"
           >About</a
@@ -69,6 +76,8 @@
 
 <script>
 export default {
+  inject: ["settings"],
+
   data() {
     return {
       //
