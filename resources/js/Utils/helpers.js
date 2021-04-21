@@ -5,7 +5,7 @@ import Province from "./regional/index";
 import kLists from "./lists";
 import directives from "./directives";
 import Swal from "sweetalert2";
-import Tracker from "@asayerio/tracker";
+//import Tracker from "@asayerio/tracker";
 
 import DeviceDetector from "mobile-device-detect";
 
@@ -24,11 +24,12 @@ const Toast = Swal.mixin({
 });
 
 // Setup tracker
-const tracker = new Tracker({
-    projectID: 7105153169947095,
-});
+//const tracker = new Tracker({
+//    projectID: 7105153169947095,
+//});
+
 // Start tracker
-tracker.start();
+//tracker.start();
 
 window.onerror = () => {
     emitter.emit("error", () => location.reload());
