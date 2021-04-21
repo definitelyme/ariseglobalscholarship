@@ -38,7 +38,7 @@
         <select-component
           :options="localGovtAreas"
           :value="form.lgaOfOrigin"
-          @selection-changed-event="form.lgaOfOrigin = $event"
+          @selection-changed-event="originLocalGovtAreaField = $event"
         />
       </div>
 
@@ -162,13 +162,16 @@
 </template>
 
 <script>
+const COUNTRY_CODE = "234";
+
 export default {
-  inject: ["user", "scholarship"],
+  inject: ["user", "scholarship", "toast"],
 
   data() {
     return {
       states: this.$Province.getStates().names,
       localGovtAreas: [],
+      errors: {},
       form: this.$inertia.form(`UpdateInfoForm:${this.user.id}`, {
         countryOrigin: "",
         stateOfOrigin: "",
@@ -187,7 +190,7 @@ export default {
       this.form
         .transform((data) => ({
           ...data,
-          kinPhone: `+234${data.kinPhone}`,
+          kinPhone: `+${COUNTRY_CODE}${data.kinPhone}`,
         }))
         .put(
           this.route(`scholarship.update`, {
@@ -195,19 +198,47 @@ export default {
             scholarship: this.scholarship,
           }),
           {
-            onError: (error) => console.log(error),
-            onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+            onSuccess: () => {
+              // Set errors to empty obj
+              this.errors = {};
+              // Fire Success Toast
+              this.toast.fire({
+                icon: "success",
+                title: "Updated successfully!",
+              });
+            },
+            onError: (errors) => {
+              // Set errors
+              this.errors = errors;
+              // Loop thru errors and show Swal
+              for (const err in errors) {
+                // Fire Error Toast
+                this.toast.fire({
+                  icon: "error",
+                  title: errors[err],
+                });
+              }
+            },
+            onFinish: () => {
+              // If errors object is empty, switch tab
+              if (this.$isEmptyObject(this.errors))
+                this.$emitter.emit(this.$events.switchNextTab);
+            },
           }
         );
+    },
+
+    populateLocalGovtAreas() {
+      this.localGovtAreas = this.$Province
+        .getLocalGovt(this.form.state)
+        .map((v) => v.name);
     },
   },
 
   watch: {
     "form.state"() {
       try {
-        this.localGovtAreas = this.$Province
-          .getLocalGovt(this.form.stateOfOrigin)
-          .map((v) => v.name);
+        this.populateLocalGovtAreas();
       } catch (_) {
         return [];
       }
@@ -237,6 +268,16 @@ export default {
         "Nephew",
         "Niece",
       ];
+    },
+
+    originLocalGovtAreaField: {
+      get() {
+        return this.form.lgaOfOrigin;
+      },
+      set(val) {
+        if (!this.localGovtAreas.length) this.populateLocalGovtAreas();
+        this.form.lgaOfOrigin = val;
+      },
     },
   },
 

@@ -92,10 +92,38 @@ class ScholarshipController extends Controller
      */
     public function update(ScholarshipRequest $request, Scholarship $scholarship, User $user)
     {
-        // $file = $request->input('files')[0];
-        // dd(base64_encode(file_get_contents($file['url'])));
-        // dump($request->files);
-        dd($request->all());
+        $scholarship = $user->scholarships
+            ->where("version", setting('site.scholarship_version'))
+            ->first();
+
+        $scholarship->update([
+            'other_names' => $request->otherNames ?? $scholarship->other_names,
+            'phone' => $request->phone ?? $scholarship->phone,
+            'dob' => $request->dob ?? $scholarship->dob,
+            'age' => $request->age ?? $scholarship->age,
+            'gender' => $request->gender ?? $scholarship->gender,
+            'marital_status' => $request->maritalStatus ?? $scholarship->marital_status,
+            'address_street' => $request->address ?? $scholarship->address_street,
+            'address_country' => $request->country ?? $scholarship->address_country,
+            'address_state' => $request->state ?? $scholarship->address_state,
+            'address_lga' => $request->localGovtArea ?? $scholarship->address_lga,
+            'address_city' => $request->city ?? $scholarship->address_city,
+            'origin_country' => $request->countryOrigin ?? $scholarship->origin_country,
+            'origin_state' => $request->stateOfOrigin ?? $scholarship->origin_state,
+            'origin_lga' => $request->lgaOfOrigin ?? $scholarship->origin_lga,
+            'origin_hometown' => $request->hometown ?? $scholarship->origin_hometown,
+            'kin_name' => $request->kinName ?? $scholarship->kin_name,
+            'kin_phone' => $request->kinPhone ?? $scholarship->kin_phone,
+            'kin_relationship' => $request->kinRelationship ?? $scholarship->kin_relationship,
+            'is_on_scholarship' => $request->hasBursary ?? $scholarship->is_on_scholarship,
+            // 'passport_photograph_url' => $request->otherNames,
+            // 'course_of_study' => $request->otherNames,
+            // 'year_of_admission' => $request->otherNames,
+            // 'course_duration' => $request->otherNames,
+            // 'current_level' => $request->otherNames,
+            // 'year_of_graduation' => $request->otherNames,
+        ]);
+        // dd($request->all());
         return redirect()->back();
     }
 

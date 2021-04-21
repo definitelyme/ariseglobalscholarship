@@ -133,10 +133,5 @@ export default {
       ],
     };
   },
-
-  mounted() {
-    console.log(this.user);
-    console.log(this.scholarship);
-  },
 };
 </script>

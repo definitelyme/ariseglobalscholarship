@@ -117,11 +117,20 @@ export default {
       user: this.$attrs.auth.user,
       settings: this.$attrs.settings,
       scholarship: this.$attrs.scholarship,
+      //   errors: this.$attrs.errors,
       toast: this.$toast,
       breadcrumbs: this.$attrs.breadcrumbs,
       tabs: this.tabs,
       isActiveTab: this.isActiveTab,
     };
+  },
+
+  watch: {
+    "$attrs.errors"() {
+      if (this.$isEmptyObject(this.errors))
+        this.$emitter.emit(this.$events.hasErrorsCanNavigate, true);
+      else this.$emitter.emit(this.$events.hasErrorsCanNavigate, false);
+    },
   },
 
   mounted() {

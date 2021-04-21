@@ -39,6 +39,8 @@
       <button
         class="p-0 w-16 h-16 md:w-12 md:h-12 bg-main-500 rounded-full hover:bg-main-600 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
         v-show="!isLastTab"
+        :class="{ 'opacity-25': !canNavigate || processing }"
+        :disabled="!canNavigate || processing"
       >
         <svg
           viewBox="0 0 30 30"
@@ -64,6 +66,7 @@ export default {
   data() {
     return {
       processing: false,
+      canNavigate: true,
     };
   },
 
@@ -91,12 +94,19 @@ export default {
 
     performAction() {
       if (typeof this.onClick == "undefined" || this.onClick == null) {
-        this.$emitter.emit(this.$events.switchNextTab);
+        if (this.canNavigate) this.$emitter.emit(this.$events.switchNextTab);
         return;
       }
 
       this.onClick();
     },
+  },
+
+  mounted() {
+    this.$on(
+      this.$events.hasErrorsCanNavigate,
+      (data) => (this.canNavigate = data)
+    );
   },
 };
 </script>

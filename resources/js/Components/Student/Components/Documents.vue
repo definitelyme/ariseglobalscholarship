@@ -68,10 +68,9 @@ export default {
           preserveState: true,
           onProgress: (progress) => (form.progress = progress),
           onSuccess: (page) => {
-            // form.reset("password");
             toast.fire({
-              icon: "error",
-              title: "Signed in successfully",
+              icon: "success",
+              title: "Updated successfully!",
             });
           },
           onError: (errors) => {

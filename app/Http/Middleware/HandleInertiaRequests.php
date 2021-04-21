@@ -37,7 +37,9 @@ class HandleInertiaRequests extends Middleware
         $user = $request->user();
 
         $scholarship = $user != null
-            ? $user->scholarships->where("version", "1.0.0")->first()
+            ? $user->scholarships
+            ->where("version", setting('site.scholarship_version'))
+            ->first()
             : null;
 
         return array_merge(parent::share($request), [
