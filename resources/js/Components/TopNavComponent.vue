@@ -22,16 +22,6 @@
           <li>
             <a :href="route('scholarship.apply')" title="">Apply</a>
           </li>
-          <li>
-            <a :href="route('scholarship.about', settings.version)" title=""
-              >Eligibility</a
-            >
-          </li>
-          <li>
-            <a :href="route('scholarship.about', settings.version)" title=""
-              >Requirements</a
-            >
-          </li>
         </ul>
       </li>
 
