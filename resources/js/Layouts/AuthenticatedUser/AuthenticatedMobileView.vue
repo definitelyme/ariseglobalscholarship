@@ -10,17 +10,19 @@
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       <inertia-link
         class="block px-3 py-2 rounded-md text-base font-medium"
-        v-for="(menu, index) in menus"
+        v-for="(mobileMenu, index) in mobileMenus"
         :key="index"
         :href="
-          menu.param != null ? route(menu.name, menu.param) : route(menu.name)
+          mobileMenu.param != null
+            ? route(mobileMenu.name, mobileMenu.param)
+            : route(mobileMenu.name)
         "
-        :title="menu.title"
-        v-text="menu.title"
+        :title="mobileMenu.title"
+        v-text="mobileMenu.title"
         :class="{
-          'bg-gray-900 text-white': route().current(menu.name),
+          'bg-gray-900 text-white': route().current(mobileMenu.name),
           'text-gray-300 hover:bg-gray-700 hover:text-white': !route().current(
-            menu.name
+            mobileMenu.name
           ),
         }"
       ></inertia-link>
@@ -107,7 +109,7 @@ export default {
 
   data() {
     return {
-      menus: [
+      mobileMenus: [
         {
           title: "Dashboard",
           name: "dashboard",
@@ -123,7 +125,10 @@ export default {
         {
           title: "Application Status",
           name: "scholarship.show",
-          param: { user: this.user, scholarship: this.scholarship },
+          param: {
+            user: this.user.slug,
+            scholarship: this.scholarship.version,
+          },
         },
       ],
     };
