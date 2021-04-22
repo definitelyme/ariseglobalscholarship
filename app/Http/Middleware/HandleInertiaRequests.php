@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\ScholarshipRun;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -34,23 +34,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        $user = $request->user();
-
-        $scholarship = $user != null
-            ? $user->scholarships
-            ->where("version", setting('site.scholarship_version'))
-            ->first()
-            : null;
-
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $user != null ? $user->append([
-                    "first_name",
-                    "last_name",
-                    "full_name",
-                ]) : null,
+                'user' => $request->user(),
             ],
-            'scholarship' => $scholarship,
+            'program' => ScholarshipRun::whereIsActive(true)->first(),
             'breadcrumbs' => $request->segments(),
             'settings' => $this->settings($request),
         ]);
@@ -82,7 +70,6 @@ class HandleInertiaRequests extends Middleware
             'requirements' => setting('site.scholarship_requirements'),
             'max_passport_size' => setting('site.max_passport_size'),
             'max_upload_size' => setting('site.max_upload_size'),
-            'version' => setting('site.scholarship_version'),
             'document_mimes' => [
                 "image/png",
                 "image/jpeg",

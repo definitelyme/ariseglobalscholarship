@@ -44,7 +44,7 @@ class ScholarshipRequest extends FormRequest
             'kinPhone' => 'string|min:10|max:14',
             'kinRelationship' => 'string|nullable',
             'hasBursary' => 'boolean',
-            'passport_photograph_url' => 'max:2048|mimes:image',
+            'passport' => 'file|mimes:jpg,jpeg,jfif,pjp,pjpeg,png|max:200',
             'courseOfStudy' => 'string|nullable',
             'yearOfAdmission' => 'string|nullable',
             'courseDuration' => 'string|nullable',

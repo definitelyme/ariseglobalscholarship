@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Traits\UploadTraits;
 use App\Http\Requests\ScholarshipRequest;
 use App\Models\User;
-use App\Models\Scholarship;
+use App\Models\ScholarshipRun;
 use Illuminate\Support\Facades\Auth;
 
 class ScholarshipController extends Controller
 {
+    use UploadTraits;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -31,9 +34,20 @@ class ScholarshipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ScholarshipRun $program = null)
     {
-        return inertia("Student/IndexPage");
+        $user = User::whereId(Auth::user()->id)->first();
+
+        $scholarships = null;
+        $scholarship = null;
+
+        if ($program == null) $scholarships = $user->scholarships;
+        else $scholarship = $user->scholarship->with('run:version_id,is_active')->first();
+
+        return inertia('Dashboard', [
+            'scholarships' => $scholarships,
+            'scholarship' => $scholarship,
+        ]);
     }
 
     /**
@@ -61,11 +75,11 @@ class ScholarshipController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\ScholarshipRun  $scholarship
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Scholarship $scholarship, User $user)
+    public function show(ScholarshipRun $program, User $user)
     {
         return inertia("Student/ShowPage");
     }
@@ -73,29 +87,35 @@ class ScholarshipController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\ScholarshipRun  $scholarship
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Scholarship $scholarship, User $user)
+    public function edit(ScholarshipRun $program, User $user)
     {
-        return inertia("Student/EditPage");
+        return inertia("Student/CreatePage");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\ScholarshipRequest  $request
-     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\ScholarshipRun  $scholarship
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(ScholarshipRequest $request, Scholarship $scholarship, User $user)
+    public function update(ScholarshipRequest $request, ScholarshipRun $program, User $user)
     {
-        $scholarship = $user->scholarships
-            ->where("version", setting('site.scholarship_version'))
-            ->first();
+        // Update user's name if first_name and last_name is defined
+        // Else use original user's name
+        if (!empty($request->firstName) || !empty($request->lastName))
+            $user->update([
+                'name' => "{$request->firstName} {$request->lastName}"
+            ]);
 
+        $scholarship = $user->scholarship;
+
+        // Update scholarship information
         $scholarship->update([
             'other_names' => $request->otherNames ?? $scholarship->other_names,
             'phone' => $request->phone ?? $scholarship->phone,
@@ -116,40 +136,44 @@ class ScholarshipController extends Controller
             'kin_phone' => $request->kinPhone ?? $scholarship->kin_phone,
             'kin_relationship' => $request->kinRelationship ?? $scholarship->kin_relationship,
             'is_on_scholarship' => $request->hasBursary ?? $scholarship->is_on_scholarship,
-            // 'passport_photograph_url' => $request->otherNames,
-            // 'course_of_study' => $request->otherNames,
-            // 'year_of_admission' => $request->otherNames,
-            // 'course_duration' => $request->otherNames,
-            // 'current_level' => $request->otherNames,
-            // 'year_of_graduation' => $request->otherNames,
+            'course_of_study' => $request->courseOfStudy ?? $scholarship->course_of_study,
+            'year_of_admission' => $request->yearOfAdmission ?? $scholarship->year_of_admission,
+            'course_duration' => $request->courseDuration ?? $scholarship->course_duration,
+            'current_level' => $request->currentLevel ?? $scholarship->current_level,
+            'year_of_graduation' => $request->expectedYearOfGraduation ?? $scholarship->year_of_graduation,
         ]);
-        // dd($request->all());
+
+        if ($request->hasFile('passport')) $this->uploadPassport($request->passport, $user);
+
+        if ($request->hasFile('documents')) $this->uploadDocuments($user, $scholarship, ...$request->documents);
+
+        // Reload user and associate relationships
+        $user->refresh();
+
         return redirect()->back();
     }
 
     /**
      * Soft-delete the specified resource.
      *
-     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\ScholarshipRun  $scholarship
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function delete(Scholarship $scholarship, User $user)
+    public function delete(ScholarshipRun $program, User $user)
     {
-        dd($scholarship);
         return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Scholarship  $scholarship
+     * @param  \App\Models\ScholarshipRun  $scholarship
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Scholarship $scholarship, User $user)
+    public function destroy(ScholarshipRun $program, User $user)
     {
-        dd($scholarship);
         return redirect()->back();
     }
 }

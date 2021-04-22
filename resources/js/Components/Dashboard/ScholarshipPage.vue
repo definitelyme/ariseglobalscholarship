@@ -48,7 +48,7 @@
 
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-gray-900">
-                    Arise Global Scholarship 1.0
+                    Arise Global Scholarship {{ scholarship.version }}
                   </div>
                   <div class="text-sm text-gray-500"><em>Under Review</em></div>
                 </td>
@@ -60,8 +60,16 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                    v-if="scholarship.run.is_active == 1"
+                    v-text="'Active'"
                   >
-                    Active
+                  </span>
+
+                  <span
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-500 text-white"
+                    v-if="scholarship.run.is_active == 0"
+                    v-text="'Inactive'"
+                  >
                   </span>
                 </td>
 
@@ -69,7 +77,12 @@
                   class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-5"
                 >
                   <inertia-link
-                    href="#"
+                    :href="
+                      route('scholarship.edit', {
+                        program: scholarship.run,
+                        user: user,
+                      })
+                    "
                     class="text-indigo-600 hover:text-indigo-900"
                     as="button"
                     preserve-scroll
@@ -80,7 +93,12 @@
                       ></path></svg
                   ></inertia-link>
                   <inertia-link
-                    href="#"
+                    :href="
+                      route('scholarship.delete', {
+                        program: scholarship.run,
+                        user: user,
+                      })
+                    "
                     class="text-red-600 hover:text-red-900"
                     as="button"
                     preserve-scroll
@@ -102,7 +120,7 @@
 
 <script>
 export default {
-  inject: ["user", "scholarships", "scholarship"],
+  inject: ["user", "scholarship"],
 
   props: {
     headers: {

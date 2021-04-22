@@ -165,7 +165,7 @@
 const COUNTRY_CODE = "234";
 
 export default {
-  inject: ["user", "scholarship", "toast"],
+  inject: ["user", "program"],
 
   data() {
     return {
@@ -173,14 +173,14 @@ export default {
       localGovtAreas: [],
       errors: {},
       form: this.$inertia.form(`UpdateInfoForm:${this.user.id}`, {
-        countryOrigin: "",
-        stateOfOrigin: "",
-        lgaOfOrigin: "",
-        hometown: "",
-        kinName: "",
-        kinPhone: "",
-        kinRelationship: "",
-        hasBursary: false,
+        countryOrigin: this.user.scholarship.origin_country,
+        stateOfOrigin: this.user.scholarship.origin_state,
+        lgaOfOrigin: this.user.scholarship.origin_lga,
+        hometown: this.user.scholarship.origin_hometown,
+        kinName: this.user.scholarship.kin_name,
+        kinPhone: this.user.scholarship.kin_phone?.replace(COUNTRY_CODE, ""),
+        kinRelationship: this.user.scholarship.kin_relationship,
+        hasBursary: this.user.scholarship.is_on_scholarship == 1,
       }),
     };
   },
@@ -195,14 +195,14 @@ export default {
         .put(
           this.route(`scholarship.update`, {
             user: this.user,
-            scholarship: this.scholarship,
+            program: this.program,
           }),
           {
             onSuccess: () => {
               // Set errors to empty obj
               this.errors = {};
               // Fire Success Toast
-              this.toast.fire({
+              this.$toast.fire({
                 icon: "success",
                 title: "Updated successfully!",
               });
@@ -213,7 +213,7 @@ export default {
               // Loop thru errors and show Swal
               for (const err in errors) {
                 // Fire Error Toast
-                this.toast.fire({
+                this.$toast.fire({
                   icon: "error",
                   title: errors[err],
                 });
@@ -230,13 +230,13 @@ export default {
 
     populateLocalGovtAreas() {
       this.localGovtAreas = this.$Province
-        .getLocalGovt(this.form.state)
+        .getLocalGovt(this.form.stateOfOrigin)
         .map((v) => v.name);
     },
   },
 
   watch: {
-    "form.state"() {
+    "form.stateOfOrigin"() {
       try {
         this.populateLocalGovtAreas();
       } catch (_) {

@@ -100,7 +100,7 @@ import BreezeApplicationLogo from "@/Components/ApplicationLogo";
 import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
 export default {
-  inject: ["user", "scholarship"],
+  inject: ["user", "program"],
 
   components: {
     BreezeApplicationLogo,
@@ -127,7 +127,7 @@ export default {
           name: "scholarship.show",
           param: {
             user: this.user,
-            scholarship: this.scholarship,
+            program: this.program,
           },
         },
       ],

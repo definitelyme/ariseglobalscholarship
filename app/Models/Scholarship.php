@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Scholarship extends Model
 {
@@ -16,12 +18,12 @@ class Scholarship extends Model
      * @var array
      */
     protected $fillable = [
-        'version',
         'other_names',
         'phone',
         'dob',
         'age',
         'gender',
+        'status',
         'marital_status',
         'address_street',
         'address_country',
@@ -62,10 +64,12 @@ class Scholarship extends Model
         'dob' => 'datetime',
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'version';
-    }
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [];
 
     /**
      * Get the user that owns the Scholarship
@@ -75,6 +79,26 @@ class Scholarship extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the Scholarship Run associated with the Scholarship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function run(): HasOne
+    {
+        return $this->hasOne(ScholarshipRun::class, 'version_id', 'version');
+    }
+
+    /**
+     * Get all of the documents for the Scholarship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function documents(): HasMany
+    {
+        return $this->hasMany(FileDocument::class);
     }
 
     /**

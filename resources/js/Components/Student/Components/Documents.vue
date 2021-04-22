@@ -18,16 +18,25 @@
       </em>
     </h4>
 
-    <div class="md:container" v-if="form.progress">
+    <div
+      class="md:container"
+      v-if="form.progress && form.progress.percentage < 100"
+    >
       <div class="grid grid-cols-12 gap-2">
         <div
           class="col-span-12 justify-self-end md:justify-self-start items-center space-x-4 md:space-x-3"
         >
-          <label for="file" class="text-gray-700">Uploading... </label>
+          <label
+            for="file"
+            class="text-gray-700"
+            v-text="`${form.progress.percentage}% Uploaded`"
+          ></label>
 
-          <progress :value="form.progress.percentage" max="100">
-            {{ form.progress.percentage }}%
-          </progress>
+          <progress
+            :value="form.progress.percentage"
+            max="100"
+            v-text="`${form.progress.percentage}%`"
+          ></progress>
         </div>
       </div>
     </div>
@@ -44,37 +53,53 @@ import { inject } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
-  inject: ["user", "scholarship"],
+  inject: ["user", "program"],
 
   setup() {
     const user = inject("user");
-    const toast = inject("toast");
-    const scholarship = inject("scholarship");
+    const program = inject("program");
+    const toast = inject("$$toast");
 
     const form = useForm(`UpdateDocumentsForm:${user.id}`, {
-      files: [],
+      documents: [],
     });
 
     function createOrUpdate() {
+      //   console.log(user.slug);
       Inertia.post(
-        route(`scholarship.update`, { user: user, scholarship: scholarship }),
+        route(`scholarship.update`, {
+          program: program,
+          user: user,
+        }),
         {
           _method: "put",
-          ...form.files,
+          documents: form.documents,
         },
         {
           forceFormData: true,
           preserveScroll: true,
           preserveState: true,
           onProgress: (progress) => (form.progress = progress),
-          onSuccess: (page) => {
+          onSuccess: (_) => {
+            // Set errors to empty obj
+            form.errors = {};
+            // Fire Success Toast
             toast.fire({
               icon: "success",
               title: "Updated successfully!",
             });
           },
           onError: (errors) => {
-            console.log(errors);
+            // Set errors
+            form.errors = errors;
+            // Loop thru errors and show Swal
+            for (const err in errors) {
+              // Fire Error Toast
+              toast.fire({
+                icon: "error",
+                title: errors[err],
+              });
+            }
           },
           onFinish: () => {
             form.reset("progress");

@@ -167,23 +167,7 @@ const utils = {
 
         app.config.globalProperties.$calculateAge = calculateAge;
 
-        // app.config.globalProperties.$alert = Swal;
-
-        // app.config.globalProperties.$toast = Toast;
-
         app.config.globalProperties.$detector = DeviceDetector;
-
-        // app.config.globalProperties.$emitter = emitter;
-
-        // app.config.globalProperties.$on = (type, handler) =>
-        //     emitter.on(type, handler);
-
-        // app.config.globalProperties.$off = (type, handler) =>
-        //     emitter.off(type, handler);
-
-        // app.config.globalProperties.$reactive = reactive;
-
-        // app.config.globalProperties.$toRefs = toRefs;
 
         directives.clickOutside(app);
 

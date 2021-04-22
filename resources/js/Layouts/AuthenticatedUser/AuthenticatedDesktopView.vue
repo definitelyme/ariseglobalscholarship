@@ -246,7 +246,7 @@ import BreezeApplicationLogo from "@/Components/ApplicationLogo";
 import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
 export default {
-  inject: ["user", "scholarship"],
+  inject: ["user", "program"],
 
   components: {
     BreezeApplicationLogo,
@@ -255,7 +255,7 @@ export default {
 
   data() {
     return {
-      desktopMenu: [
+      desktopMenus: [
         {
           title: "Dashboard",
           name: "dashboard",
@@ -273,7 +273,7 @@ export default {
           name: "scholarship.show",
           param: {
             user: this.user,
-            scholarship: this.scholarship,
+            program: this.program,
           },
         },
       ],

@@ -39,8 +39,8 @@
       <button
         class="p-0 w-16 h-16 md:w-12 md:h-12 bg-main-500 rounded-full hover:bg-main-600 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
         v-show="!isLastTab"
-        :class="{ 'opacity-25': !canNavigate || processing }"
-        :disabled="!canNavigate || processing"
+        :class="{ 'opacity-25': disabled }"
+        :disabled="disabled"
       >
         <svg
           viewBox="0 0 30 30"
@@ -83,8 +83,21 @@ export default {
     },
   },
 
+  computed: {
+    disabled() {
+      return this.canNavigate == false || this.processing == true;
+    },
+  },
+
   components: {
     BreezeButton,
+  },
+
+  watch: {
+    "$parent.errors"() {
+      // Watch Parent errors property
+      this.canNavigate = this.$isEmptyObject(this.$parent.errors);
+    },
   },
 
   methods: {
@@ -103,10 +116,12 @@ export default {
   },
 
   mounted() {
-    this.$on(
-      this.$events.hasErrorsCanNavigate,
-      (data) => (this.canNavigate = data)
-    );
+    // Listen to $events.hasErrorsCanNavigate events
+    // Update this.canNavigate property
+    // this.$on(this.$events.hasErrorsCanNavigate, (value) => {
+    //   console.log("Can navigate " + value);
+    //   this.canNavigate = value;
+    // });
   },
 };
 </script>

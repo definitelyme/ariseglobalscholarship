@@ -18,6 +18,7 @@
           id="first_name"
           autocomplete="given-name"
           model-name="firstName"
+          required
         />
       </div>
 
@@ -33,6 +34,7 @@
           id="last_name"
           autocomplete="family-name"
           model-name="lastName"
+          required
         />
       </div>
 
@@ -64,6 +66,9 @@
           id="email_address"
           autocomplete="email"
           model-name="email"
+          class="opacity-70 bg-gray-300 cursor-not-allowed"
+          disabled
+          aria-disabled=""
         />
       </div>
 
@@ -303,7 +308,7 @@
 const COUNTRY_CODE = "234";
 
 export default {
-  inject: ["user", "scholarship", "toast"],
+  inject: ["user", "program"],
 
   data() {
     return {
@@ -313,18 +318,18 @@ export default {
       form: this.$inertia.form(`UpdatePersonalInfo:${this.user.id}`, {
         firstName: this.user.first_name,
         lastName: this.user.last_name,
-        otherNames: this.scholarship.other_names,
+        otherNames: this.user.scholarship.other_names,
         email: this.user.email,
-        phone: this.scholarship.phone?.replace(COUNTRY_CODE, ""),
-        dob: this.$moment(this.scholarship.dob).format("YYYY-MM-DD"),
-        age: this.scholarship.age,
-        gender: this.scholarship.gender,
-        maritalStatus: this.scholarship.marital_status,
-        address: this.scholarship.address_street,
-        country: this.scholarship.address_country,
-        state: this.scholarship.address_state,
-        localGovtArea: this.scholarship.address_lga,
-        city: this.scholarship.address_city,
+        phone: this.user.scholarship.phone?.replace(COUNTRY_CODE, ""),
+        dob: this.$moment(this.user.scholarship.dob).format("YYYY-MM-DD"),
+        age: this.user.scholarship.age,
+        gender: this.user.scholarship.gender,
+        maritalStatus: this.user.scholarship.marital_status,
+        address: this.user.scholarship.address_street,
+        country: this.user.scholarship.address_country,
+        state: this.user.scholarship.address_state,
+        localGovtArea: this.user.scholarship.address_lga,
+        city: this.user.scholarship.address_city,
       }),
     };
   },
@@ -340,14 +345,14 @@ export default {
         .put(
           this.route(`scholarship.update`, {
             user: this.user,
-            scholarship: this.scholarship,
+            program: this.program,
           }),
           {
             onSuccess: () => {
               // Set errors to empty obj
               this.errors = {};
               // Fire Success Toast
-              this.toast.fire({
+              this.$toast.fire({
                 icon: "success",
                 title: "Updated successfully!",
               });
@@ -358,7 +363,7 @@ export default {
               // Loop thru errors and show Swal
               for (const err in errors) {
                 // Fire Error Toast
-                this.toast.fire({
+                this.$toast.fire({
                   icon: "error",
                   title: errors[err],
                 });
@@ -401,11 +406,5 @@ export default {
       },
     },
   },
-
-  //   created() {
-  //     this.$on(this.$events.tester, (data) => {
-  //       console.log("received event!");
-  //     });
-  //   },
 };
 </script>
