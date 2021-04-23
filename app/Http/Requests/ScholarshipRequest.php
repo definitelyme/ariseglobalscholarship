@@ -27,8 +27,8 @@ class ScholarshipRequest extends FormRequest
         return [
             'otherNames' => 'string|nullable',
             'phone' => 'string|nullable|min:10|max:14',
-            'firstName' => 'string|required_with:phone',
-            'lastName' => 'string|required_with:phone',
+            'firstName' => 'string|min:2|required_with:phone',
+            'lastName' => 'string|min:2|required_with:phone',
             'dob' => 'date|nullable',
             'age' => 'numeric|nullable|min:16',
             'gender' => 'string|nullable',

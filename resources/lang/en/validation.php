@@ -131,8 +131,79 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'firstName' => [
+            'required' => 'Please provide your first name.',
+            'min' => 'First name must be more than 2 characters.',
+            'string' => 'First name must be a word'
+        ],
+        'lastName' => [
+            'required' => 'Please provide your last name.',
+            'min' => 'Last name must be more than 2 characters.',
+            'string' => 'Last name must be a word'
+        ],
+        'otherNames' => [
+            'string' => 'Other names contains invalid characters.'
+        ],
+        'phone' => [
+            'required' => 'Please provide your phone number.',
+            'min' => 'Phone number must be greater than :min digits',
+            'string' => 'Invalid Phone number!'
+        ],
+        'gender' => [
+            'string' => 'Gender contains invalid characters.'
+        ],
+        'maritalStatus' => [
+            'string' => 'Marital Status contains invalid characters.'
+        ],
+        'address' => [
+            'string' => 'Address contains invalid characters.'
+        ],
+        'country' => [
+            'string' => 'Country contains invalid characters.'
+        ],
+        'state' => [
+            'string' => 'State contains invalid characters.'
+        ],
+        'localGovtArea' => [
+            'string' => 'L.G.A contains invalid characters.'
+        ],
+        'city' => [
+            'string' => 'City contains invalid characters.'
+        ],
+        'countryOrigin' => [
+            'string' => 'Country of Origin contains invalid characters.'
+        ],
+        'stateOfOrigin' => [
+            'string' => 'State of Origin contains invalid characters.'
+        ],
+        'lgaOfOrigin' => [
+            'string' => 'L.G.A of Origin contains invalid characters.'
+        ],
+        'hometown' => [
+            'string' => 'Hometown contains invalid characters.'
+        ],
+        'kinName' => [
+            'string' => 'Kin name contains invalid characters.'
+        ],
+        'kinPhone' => [
+            'required' => 'Please provide your kin phone number.',
+            'min' => 'Kin phone number must be greater than :min digits',
+            'string' => 'Invalid kin phone number!'
+        ],
+        'kinRelationship'  => [
+            'string' => 'Kin Relationship contains invalid characters.'
+        ],
+        'courseOfStudy'  => [
+            'string' => 'Course of Study contains invalid characters.'
+        ],
+        'yearOfAdmission'  => [
+            'string' => 'Year of Admission contains invalid characters.'
+        ],
+        'courseDuration'  => [
+            'string' => 'Course Duration contains invalid characters.'
+        ],
+        'currentLevel'  => [
+            'string' => 'Current Level contains invalid characters.'
         ],
     ],
 
