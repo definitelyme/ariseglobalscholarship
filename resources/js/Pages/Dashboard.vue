@@ -7,7 +7,8 @@
     </template>
 
     <div class="px-2 py-8 md:px-3">
-      <scholarship-listing></scholarship-listing>
+      <scholarship-listing v-if="$attrs.scholarships"></scholarship-listing>
+      <scholarship-page v-else></scholarship-page>
     </div>
   </breeze-authenticated-layout>
 </template>
@@ -19,6 +20,8 @@ export default {
   provide() {
     return {
       user: this.$attrs.auth.user,
+      program: this.$attrs.program,
+      scholarships: this.$attrs.scholarships,
       scholarship: this.$attrs.scholarship,
     };
   },

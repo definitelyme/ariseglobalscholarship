@@ -70,7 +70,7 @@
 
 <script>
 export default {
-  inject: ["user", "settings"],
+  inject: ["user", "settings", "program"],
 
   data() {
     return {
@@ -91,7 +91,7 @@ export default {
         {
           title: "About Scholarship",
           name: "scholarship.about",
-          param: this.settings.version,
+          param: this.program,
         },
 
         {

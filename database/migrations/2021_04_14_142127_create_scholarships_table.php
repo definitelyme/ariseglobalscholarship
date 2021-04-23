@@ -19,12 +19,20 @@ class CreateScholarshipsTable extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->text('version');
+
             $table->text('other_names')->nullable();
+
+            $table->string('version');
+
+            $table->foreign('version')
+                ->references('version_id')
+                ->on('scholarship_runs');
+
             $table->text('phone')->nullable();
             $table->text('dob')->nullable();
             $table->text('age')->nullable();
             $table->text('gender')->nullable();
+            $table->string('status')->default("review");
             $table->text('marital_status')->nullable();
             $table->longText('address_street')->nullable();
             $table->text('address_country')->nullable();
@@ -39,7 +47,6 @@ class CreateScholarshipsTable extends Migration
             $table->text('kin_phone')->nullable();
             $table->text('kin_relationship')->nullable();
             $table->boolean('is_on_scholarship')->nullable()->default(false);
-            $table->text('passport_photograph_url')->nullable();
             $table->text('course_of_study')->nullable();
             $table->text('year_of_admission')->nullable();
             $table->text('course_duration')->nullable();

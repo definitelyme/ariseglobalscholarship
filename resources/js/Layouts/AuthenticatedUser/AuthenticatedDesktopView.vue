@@ -74,19 +74,19 @@
           >
             <inertia-link
               class="px-3 py-2.5 rounded-md text-sm font-medium"
-              v-for="(menu, index) in menus"
+              v-for="(desktopMenu, index) in desktopMenus"
               :key="index"
               :href="
-                menu.param != null
-                  ? route(menu.name, menu.param)
-                  : route(menu.name)
+                desktopMenu.param == null
+                  ? route(desktopMenu.name)
+                  : route(desktopMenu.name, desktopMenu.param)
               "
-              :title="menu.title"
-              v-text="menu.title"
+              :title="desktopMenu.title"
+              v-text="desktopMenu.title"
               :class="{
-                'bg-gray-900 text-white': route().current(menu.name),
+                'bg-gray-900 text-white': route().current(desktopMenu.name),
                 'text-gray-300 hover:bg-gray-700 hover:text-white': !route().current(
-                  menu.name
+                  desktopMenu.name
                 ),
               }"
             ></inertia-link>
@@ -246,7 +246,7 @@ import BreezeApplicationLogo from "@/Components/ApplicationLogo";
 import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink";
 
 export default {
-  inject: ["user", "scholarship"],
+  inject: ["user", "program"],
 
   components: {
     BreezeApplicationLogo,
@@ -255,7 +255,7 @@ export default {
 
   data() {
     return {
-      menus: [
+      desktopMenus: [
         {
           title: "Dashboard",
           name: "dashboard",
@@ -271,7 +271,10 @@ export default {
         {
           title: "Application Status",
           name: "scholarship.show",
-          param: { user: this.user, scholarship: this.scholarship },
+          param: {
+            user: this.user,
+            program: this.program,
+          },
         },
       ],
     };

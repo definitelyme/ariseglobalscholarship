@@ -164,7 +164,7 @@ export default {
           size: fileSize,
         });
 
-        this.$parent.form.files.push(file);
+        this.$parent.form.documents.push(file);
       }
     },
 
