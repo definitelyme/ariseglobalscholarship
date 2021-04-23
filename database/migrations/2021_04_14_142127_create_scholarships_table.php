@@ -32,7 +32,7 @@ class CreateScholarshipsTable extends Migration
             $table->text('dob')->nullable();
             $table->text('age')->nullable();
             $table->text('gender')->nullable();
-            $table->text('status')->nullable()->default("review");
+            $table->string('status')->default("review");
             $table->text('marital_status')->nullable();
             $table->longText('address_street')->nullable();
             $table->text('address_country')->nullable();

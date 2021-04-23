@@ -86,7 +86,9 @@ export default {
             // Fire Success Toast
             toast.fire({
               icon: "success",
-              title: "Updated successfully!",
+              title: "Thank you. You have successfully applied for Arise Global Scholarship. Wait for subsequent communications.",
+              timer: 7500,
+              timerProgressBar: false,
             });
           },
           onError: (errors) => {
@@ -103,7 +105,7 @@ export default {
           },
           onFinish: () => {
             form.reset("progress");
-            // Inertia.get(route("dashboard"));
+            Inertia.get(route("scholarship./", {program: program, user: user}));
           },
         }
       );

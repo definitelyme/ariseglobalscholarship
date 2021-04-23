@@ -31,6 +31,7 @@
         "mitt": "^2.1.0",
         "mobile-device-detect": "^0.4.3",
         "moment": "^2.29.1",
+        "moment-locales-webpack-plugin": "^1.2.0",
         "popper.js": "^1.16.1",
         "sweetalert2": "^10.16.2",
         "vue-screen": "^2.0.3-alpha.3",
