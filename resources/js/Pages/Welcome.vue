@@ -26,6 +26,10 @@
 
     <footer-component />
   </div>
+
+  <covid-bottom-banner />
+
+  <covid-modal-banner />
 </template>
 
 <script>

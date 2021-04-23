@@ -41,8 +41,10 @@ trait UploadTraits
             'name' => $name . $extension,
         ]);
 
+        // dd($passportPhoto->uploads()->get());
+
         // Create or Update uploadable
-        $passportPhoto->photo()->updateOrCreate([
+        $passportPhoto->uploads()->updateOrCreate([
             'url' => $path,
             'description' => "{$user->first_name}'s Passport Photograph.",
         ]);

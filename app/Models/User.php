@@ -56,6 +56,13 @@ class User extends VoyagerUser
         "scholarship"
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['passportPhoto'];
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -120,9 +127,12 @@ class User extends VoyagerUser
     {
         $program = ScholarshipRun::whereIsActive(true)->first();
 
-        return $this->scholarships()
+        // dd($this->passportPhoto()->get());
+
+        return $this
+            ->scholarships()
             ->whereVersion($program->version_id)
-            ->with('documents')
+            ->with(['documents'])
             ->first();
     }
 }

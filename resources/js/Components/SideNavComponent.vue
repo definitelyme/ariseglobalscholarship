@@ -88,11 +88,11 @@ export default {
           param: null,
         },
 
-        {
-          title: "About Scholarship",
-          name: "scholarship.about",
-          param: this.program,
-        },
+        // {
+        //   title: "About Scholarship",
+        //   name: "scholarship.about",
+        //   param: this.program,
+        // },
 
         {
           title: "FAQ",
@@ -135,10 +135,6 @@ export default {
 </script>
 
 <style>
-ul.side-nav-links > li:nth-last-child(2) {
-  /* margin-bottom: 0px !important; */
-}
-
 .auth-section > li:nth-child(2) {
   margin-top: 30px;
 }

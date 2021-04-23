@@ -216,6 +216,7 @@ export default {
     deleteFile(file) {
       let index = this.selected_files.findIndex((i) => i.fid === file.fid);
       this.selected_files.splice(index, 1);
+      this.$parent.form?.documents?.splice(index, 1);
     },
   },
 };

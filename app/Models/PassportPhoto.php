@@ -34,7 +34,7 @@ class PassportPhoto extends Model
     /**
      * Get the uploaded user's passport photograph.
      */
-    public function photo(): MorphOne
+    public function uploads(): MorphOne
     {
         return $this->morphOne(Upload::class, 'uploadable');
     }

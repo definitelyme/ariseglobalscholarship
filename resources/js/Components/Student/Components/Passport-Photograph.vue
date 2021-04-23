@@ -133,19 +133,19 @@
 
 <script>
 import { useForm } from "@inertiajs/inertia-vue3";
-import { inject } from "vue";
+import { inject, reactive } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
   inject: ["user", "program"],
 
-  setup() {
+  setup(props, { attrs, slots, emit }) {
     const user = inject("user");
     const program = inject("program");
     const events = inject("$$events");
     const toast = inject("$$toast");
     const isEmptyObject = inject("$$isEmptyObject");
-    const emit = inject("$$emit");
+    const emitter = inject("$$emit");
 
     const form = useForm(`UpdatePassportForm:${user.id}`, {
       errors: {},
@@ -193,7 +193,7 @@ export default {
             form.reset("progress");
 
             // If errors object is empty, switch tab
-            if (isEmptyObject(form.errors)) emit(events.switchNextTab);
+            if (isEmptyObject(form.errors)) emitter(events.switchNextTab);
           },
         }
       );
@@ -204,15 +204,12 @@ export default {
 
   data() {
     return {
-      form: this.form,
-      image: null,
+      image: `${
+        this.$passport_photos_url
+      }/${this.user?.first_name?.toLowerCase()}/${
+        this.user?.passport_photo?.name
+      }`,
     };
-  },
-
-  computed: {
-    errors() {
-      return this.form.errors;
-    },
   },
 
   methods: {

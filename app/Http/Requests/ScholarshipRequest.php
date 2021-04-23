@@ -27,6 +27,8 @@ class ScholarshipRequest extends FormRequest
         return [
             'otherNames' => 'string|nullable',
             'phone' => 'string|nullable|min:10|max:14',
+            'firstName' => 'string|required_with:phone',
+            'lastName' => 'string|required_with:phone',
             'dob' => 'date|nullable',
             'age' => 'numeric|nullable|min:16',
             'gender' => 'string|nullable',
@@ -50,8 +52,7 @@ class ScholarshipRequest extends FormRequest
             'courseDuration' => 'string|nullable',
             'currentLevel' => 'string|nullable',
             'expectedYearOfGraduation' => 'string|nullable',
-            // 'documents' => 'max:2048|mimes:image,pdf,doc,docx,csv,xlx',
-            // 'documents' => 'max:2048',
+            'documents.*' => 'mimes:jpg,jpeg,jfif,pjp,pjpeg,png,pdf,doc,docx|max:4096'
         ];
     }
 }
