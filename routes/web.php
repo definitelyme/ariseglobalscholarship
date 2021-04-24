@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileDocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ScholarshipController;
@@ -49,6 +50,10 @@ Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarsh
     Route::get('/about', [ScholarshipController::class, 'about'])
         ->name("about");
 });
+
+// Route::resource('/uploaded/documents', FileDocumentController::class);
+Route::delete('/uploaded/{fileDocument?}/document', [FileDocumentController::class, 'destroy'])
+    ->name('documents.destroy');
 
 Route::prefix("/support")->group(function () {
     Route::get('/', function () {

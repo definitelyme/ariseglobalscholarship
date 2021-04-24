@@ -288,7 +288,7 @@
           >City</label
         >
         <input-field
-          v-model:city.capitalize.no-whitespace="form.city"
+          v-model:city.capitalize="form.city"
           :value="form.city"
           model-name="city"
           class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"

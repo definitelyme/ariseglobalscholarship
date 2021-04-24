@@ -50,6 +50,10 @@ const isEmptyObject = (obj) => {
     return JSON.stringify(obj) === JSON.stringify({});
 };
 
+const isA = (compare, instance) => {
+    return compare instanceof instance;
+};
+
 const find = (array, predicate, ctx) => {
     var result = null;
     array.some((el, i) => {
@@ -160,6 +164,8 @@ const utils = {
         app.config.globalProperties.$slugify = slugify;
 
         app.config.globalProperties.$isEmptyObject = isEmptyObject;
+
+        app.config.globalProperties.$isA = isA;
 
         app.config.globalProperties.$guid = guid;
 

@@ -55,6 +55,9 @@ class CreateScholarshipsTable extends Migration
             $table->text('course_duration')->nullable();
             $table->text('current_level')->nullable();
             $table->text('year_of_graduation')->nullable();
+
+            $table->boolean('declined')->nullable()->default(false);
+
             $table->timestamps();
             $table->softDeletes();
         });

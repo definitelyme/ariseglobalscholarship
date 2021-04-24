@@ -133,12 +133,12 @@ return [
     'custom' => [
         'firstName' => [
             'required' => 'Please provide your first name.',
-            'min' => 'First name must be more than 2 characters.',
+            'min' => 'First name must be more than :min characters.',
             'string' => 'First name must be a word'
         ],
         'lastName' => [
             'required' => 'Please provide your last name.',
-            'min' => 'Last name must be more than 2 characters.',
+            'min' => 'Last name must be more than :min characters.',
             'string' => 'Last name must be a word'
         ],
         'otherNames' => [
@@ -146,64 +146,103 @@ return [
         ],
         'phone' => [
             'required' => 'Please provide your phone number.',
-            'min' => 'Phone number must be greater than :min digits',
+            'min' => 'Phone number can not be less than :min digits',
+            'max' => 'Phone number can not be more than :max digits.',
             'string' => 'Invalid Phone number!'
         ],
+        'age' => [
+            'required' => 'Please select your age.',
+            'numeric' => 'Age must be a number from 16 - 45',
+            'min' => 'You must at least :minyears to apply for this scholarship.'
+        ],
         'gender' => [
-            'string' => 'Gender contains invalid characters.'
+            'required' => 'Gender is required!',
+            'string' => 'Gender can be only Male or Female.'
         ],
         'maritalStatus' => [
-            'string' => 'Marital Status contains invalid characters.'
+            'required' => 'Marital Status is required!',
+            'string' => 'Marital Status is invalid.'
         ],
         'address' => [
+            'required' => 'Please provide your Home address.',
             'string' => 'Address contains invalid characters.'
         ],
         'country' => [
+            'required' => 'The country field id required!',
             'string' => 'Country contains invalid characters.'
         ],
         'state' => [
+            'required' => 'Please select your State.',
             'string' => 'State contains invalid characters.'
         ],
         'localGovtArea' => [
+            'required' => 'Please select Local Govt. Area',
             'string' => 'L.G.A contains invalid characters.'
         ],
         'city' => [
             'string' => 'City contains invalid characters.'
         ],
         'countryOrigin' => [
+            'required' => 'Country field is required!',
             'string' => 'Country of Origin contains invalid characters.'
         ],
         'stateOfOrigin' => [
+            'required' => 'State of origin is required!',
             'string' => 'State of Origin contains invalid characters.'
         ],
         'lgaOfOrigin' => [
+            'required' => 'L.G.A of origin is required!',
             'string' => 'L.G.A of Origin contains invalid characters.'
         ],
         'hometown' => [
+            'required' => 'Please specify your hometown',
             'string' => 'Hometown contains invalid characters.'
         ],
         'kinName' => [
-            'string' => 'Kin name contains invalid characters.'
+            'required' => 'Please provide your Kin\'s name.',
+            'string' => 'Kin name is invalid.'
         ],
         'kinPhone' => [
-            'required' => 'Please provide your kin phone number.',
-            'min' => 'Kin phone number must be greater than :min digits',
+            'required' => 'Kindly provide your kin\'s phone number.',
+            'min' => 'Kin\'s phone number can not be less than :min digits.',
+            'max' => 'Kin\'s phone number can not be more than :max digits.',
             'string' => 'Invalid kin phone number!'
         ],
+        'hasBursary' => [
+            'required' => 'Are you on an existing scholarship / bursary?',
+            // 'accepted' => 'Are you on a Bursary? True or False.'
+        ],
+        'passport' => [
+            'required' => 'Please upload a recent passport photograph.',
+            'file' => 'Uploaded Passport must be an Image',
+            'mimes' => 'Photo must either be .jpg or .jpeg format',
+            'max' => 'Photo must be less than :maxkb in size.',
+        ],
         'kinRelationship'  => [
-            'string' => 'Kin Relationship contains invalid characters.'
+            'required' => 'Kin relationship is required!',
+            'string' => 'Kin Relationship is invalid.'
         ],
         'courseOfStudy'  => [
-            'string' => 'Course of Study contains invalid characters.'
+            'required' => 'Course of study field is required!',
+            'string' => 'Course of Study is invalid.'
         ],
         'yearOfAdmission'  => [
-            'string' => 'Year of Admission contains invalid characters.'
+            'required' => 'Please select your Year of admission!',
+            'string' => 'Year of Admission is invalid.'
         ],
         'courseDuration'  => [
-            'string' => 'Course Duration contains invalid characters.'
+            'required' => 'Please select the Course Duration.',
+            'string' => 'Course Duration is invalid.'
         ],
         'currentLevel'  => [
-            'string' => 'Current Level contains invalid characters.'
+            'required' => 'Please select your current level.',
+            'string' => 'Current Level is invalid.'
+        ],
+        'documents.*' => [
+            'required' => 'You must upload at lease one document from the List.',
+            'file' => 'Uploaded Document must be a valid file.',
+            'mimes' => 'Accepted document formats are: .jpg, .jpeg, .png, .pdf, .doc, .docx',
+            'max' => 'Documents can not be more than :maxkb in size.',
         ],
     ],
 

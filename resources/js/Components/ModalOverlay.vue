@@ -52,9 +52,19 @@ export default {
     };
   },
 
+  props: ["modalId"],
+
   mounted() {
-    this.$emitter.on(this.$events.closeModal, () => (this._showModal = false));
-    this.$emitter.on(this.$events.openModal, () => (this._showModal = true));
+    this.$emitter.on(this.$events.closeModal, (id) => {
+      if (this.modalId == id) {
+        this._showModal = false;
+        return;
+      }
+      this._showModal = false;
+    });
+    this.$emitter.on(this.$events.openModal, (id) => {
+      if (this.modalId == id) this._showModal = true;
+    });
   },
 };
 </script>

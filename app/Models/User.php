@@ -127,12 +127,9 @@ class User extends VoyagerUser
     {
         $program = ScholarshipRun::whereIsActive(true)->first();
 
-        // dd($this->passportPhoto()->get());
-
         return $this
             ->scholarships()
             ->whereVersion($program->version_id)
-            ->with(['documents'])
             ->first();
     }
 }

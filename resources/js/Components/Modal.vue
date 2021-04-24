@@ -1,6 +1,6 @@
 <template>
   <div
-    class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+    class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
   >
     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
       <div class="sm:flex sm:items-start">
@@ -23,8 +23,7 @@
     </div>
 
     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-      <slot name="modal_cancel"></slot>
-      <slot name="modal_ok">
+      <slot name="modal_cancel">
         <button
           type="button"
           @click="$emitter.emit($events.closeModal)"
@@ -33,6 +32,7 @@
           Close
         </button>
       </slot>
+      <slot name="modal_ok"> </slot>
     </div>
   </div>
 </template>

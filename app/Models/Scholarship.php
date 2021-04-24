@@ -44,6 +44,7 @@ class Scholarship extends Model
         'course_duration',
         'current_level',
         'year_of_graduation',
+        'declined',
     ];
 
     /**
@@ -70,6 +71,13 @@ class Scholarship extends Model
      * @var array
      */
     protected $appends = [];
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['run', 'documents'];
 
     /**
      * Get the user that owns the Scholarship

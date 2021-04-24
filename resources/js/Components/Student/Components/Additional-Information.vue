@@ -77,7 +77,7 @@
         >
 
         <input-field
-          v-model:kinName.trim.capitalize="form.kinName"
+          v-model:kinName.capitalize="form.kinName"
           :value="form.kinName"
           name="kinName"
           id="kinName"

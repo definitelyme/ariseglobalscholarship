@@ -13,7 +13,7 @@
       <em>
         <h5 class="text-gray-700 text-sm">
           Documents are expected to be either JPEG, MS Word (*.doc or *.docx) or
-          PDF format and no larger than 500kb in size.
+          PDF format and no larger than 3mb in size.
         </h5>
       </em>
     </h4>
@@ -86,7 +86,8 @@ export default {
             // Fire Success Toast
             toast.fire({
               icon: "success",
-              title: "Thank you. You have successfully applied for Arise Global Scholarship. Wait for subsequent communications.",
+              title:
+                "Thank you. You have successfully applied for Arise Global Scholarship. Wait for subsequent communications.",
               timer: 7500,
               timerProgressBar: false,
             });
@@ -105,7 +106,7 @@ export default {
           },
           onFinish: () => {
             form.reset("progress");
-            Inertia.get(route("scholarship./", {program: program, user: user}));
+            Inertia.get(route("scholarship./", { program: program }));
           },
         }
       );

@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class FileDocumentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verified');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -78,8 +84,9 @@ class FileDocumentController extends Controller
      * @param  \App\Models\FileDocument  $fileDocument
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FileDocument $fileDocument)
+    public function destroy($fileDocument = null)
     {
-        //
+        dd($fileDocument);
+        redirect()->back();
     }
 }

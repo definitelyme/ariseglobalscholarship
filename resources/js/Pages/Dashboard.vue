@@ -2,7 +2,11 @@
   <breeze-authenticated-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        My Applications
+        {{
+          $attrs.scholarships
+            ? "My Applications"
+            : `${$app_name} ${$attrs.scholarship.run.version_id}`
+        }}
       </h2>
     </template>
 
