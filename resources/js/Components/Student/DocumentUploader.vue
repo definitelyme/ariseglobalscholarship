@@ -10,6 +10,22 @@
       @dragenter.prevent="dragEnterHandler"
     >
       <!-- overlay -->
+      <div class="grid grid-cols-12 gap-3 mb-4">
+        <div class="col-span-7 block">
+          <span class="text-gray-700" v-show="uploaded.length"
+            >DOCUMENTS UPLOADED: {{ uploaded.length }}
+          </span>
+        </div>
+        <div
+          class="col-span-5 block justify-self-end"
+          @click="$emitter.emit($events.openModal, 'document-uploader')"
+        >
+          <a href="#" class="text-main-500 hover:text-main-700"
+            >View documents</a
+          >
+        </div>
+      </div>
+
       <div
         id="overlay"
         class="w-full h-full absolute top-0 left-0 pointer-events-none z-50 flex flex-col items-center justify-center rounded-md"
@@ -71,7 +87,7 @@
         </h1>
 
         <ul class="text-gray-700 mb-3">
-          <li>1. Addmission Letter</li>
+          <li>1. Admission Letter</li>
         </ul>
 
         <ul
@@ -115,6 +131,47 @@
       </section>
     </article>
   </main>
+
+  <teleport to="body">
+    <modal-overlay modal-id="document-uploader">
+      <modal>
+        <!--  -->
+        <template #modal_header>
+          <h3
+            class="text-lg leading-6 font-medium text-gray-900"
+            id="modal-title"
+          >
+            My Uploaded Documents
+          </h3>
+        </template>
+        <!--  -->
+        <template #modal_body>
+          <ul class="flex flex-1 flex-wrap -m-1">
+            <li
+              class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24"
+              v-for="(file, i) in uploaded"
+              :key="i"
+              :id="file.id"
+            >
+              <file-upload-template
+                :file="file"
+                :mimes="mimeTypes"
+                @delete-file="deleteFile(file, true)"
+                downloadable
+              />
+
+              <image-upload-template
+                :file="file"
+                :mimes="mimeTypes"
+                @delete-file="deleteFile(file, true)"
+                downloadable
+              />
+            </li>
+          </ul>
+        </template>
+      </modal>
+    </modal-overlay>
+  </teleport>
 </template>
 
 <script>
@@ -125,6 +182,7 @@ export default {
     return {
       counter: 0,
       selected_files: [],
+      uploaded: [],
       mimeTypes: {
         IMAGE: "image",
         PDF: "pdf",
@@ -132,6 +190,12 @@ export default {
         OFFICE_DOC: "officedocument",
       },
     };
+  },
+
+  watch: {
+    selected_files() {
+      this.$parent.form.documents = this.selected_files;
+    },
   },
 
   methods: {
@@ -164,7 +228,7 @@ export default {
           size: fileSize,
         });
 
-        this.$parent.form.files.push(file);
+        // this.$parent.form.documents.push(file);
       }
     },
 
@@ -213,10 +277,44 @@ export default {
       }
     },
 
-    deleteFile(file) {
+    deleteFile(file, deleteFromServer = false) {
+      if (deleteFromServer) {
+        // console.log(file);
+        // this.$inertia.delete(
+        //   route("documents.destroy"),
+        //   { fileDocument: file.id },
+        //   {
+        //     onBefore: () =>
+        //       confirm("Are you sure you want to delete this user?"),
+        //   }
+        // );
+        return;
+      }
       let index = this.selected_files.findIndex((i) => i.fid === file.fid);
       this.selected_files.splice(index, 1);
+      //   this.$parent.form?.documents?.splice(index, 1);
     },
+  },
+
+  mounted() {
+    this.uploaded = this.user.scholarship.documents.map((file) => {
+      const mimeType = file.name.includes(".pdf")
+        ? this.mimeTypes.PDF
+        : file.name.includes(".doc")
+        ? this.mimeTypes.MSWORD
+        : this.mimeTypes.IMAGE;
+
+      return {
+        ...file,
+        isDocument: mimeType != this.mimeTypes.IMAGE,
+        isImage: mimeType == this.mimeTypes.IMAGE,
+        type: mimeType,
+        url: `${this.$documents_url}/${this.user?.first_name?.toLowerCase()}/${
+          file.name
+        }`,
+        // size: fileSize,
+      };
+    });
   },
 };
 </script>

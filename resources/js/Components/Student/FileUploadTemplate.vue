@@ -16,7 +16,17 @@
       <h1
         class="flex-1 group-hover:text-blue-800 text-black"
         v-text="file.name"
+        v-show="!downloadable"
       ></h1>
+
+      <a
+        :href="`${$documents_url}/${user?.first_name?.toLowerCase()}/${
+          file.name
+        }`"
+        class="flex-1 text-black hover:text-main-600 hover:underline"
+        v-show="downloadable"
+        v-text="file.name"
+      ></a>
 
       <div class="flex">
         <span class="p-1 text-blue-800">
@@ -59,7 +69,13 @@
 
 <script>
 export default {
-  props: ["file", "mimes"],
+  inject: ["user"],
+
+  props: {
+    file: Object,
+    mimes: Object,
+    downloadable: Boolean,
+  },
 
   emits: ["delete-file"],
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use \Illuminate\Support\Str;
 use App\Models\Scholarship;
+use App\Models\ScholarshipRun;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -42,16 +44,21 @@ class RegisteredUserController extends Controller
 
         Auth::login($user = User::create([
             'name' => $request->name,
+            'slug' => Str::slug($request->name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]));
 
         event(new Registered($user));
 
+        $scholarship_run = ScholarshipRun::whereIsActive(true)->first();
+
         // Create Scholarship for registered user
         $scholarship = new Scholarship;
-        $scholarship->version = setting('site.scholarship_version');
-        $user->scholarships()->save($scholarship);
+        $association = $scholarship->user()->associate($user);
+        $scholarship_run->scholarships()->save($association);
+
+        $user->refresh();
 
         return redirect(RouteServiceProvider::HOME);
     }

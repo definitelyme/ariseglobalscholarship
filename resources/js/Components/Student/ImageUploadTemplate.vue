@@ -13,7 +13,20 @@
     <section
       class="flex flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3"
     >
-      <h1 class="flex-1 text-black" v-text="file.name"></h1>
+      <h1
+        class="flex-1 text-black"
+        v-show="!downloadable"
+        v-text="file.name"
+      ></h1>
+
+      <a
+        :href="`${$documents_url}/${user?.first_name?.toLowerCase()}/${
+          file?.name
+        }`"
+        v-show="downloadable"
+        class="flex-1 text-black hover:text-main-600 hover:underline"
+        v-text="file.name"
+      ></a>
 
       <div class="flex text-gray-800">
         <span class="p-1">
@@ -58,7 +71,13 @@
 
 <script>
 export default {
-  props: ["file", "mimes"],
+  inject: ["user"],
+
+  props: {
+    file: Object,
+    mimes: Object,
+    downloadable: Boolean,
+  },
 
   emits: ["delete-file"],
 };
