@@ -77,7 +77,7 @@ import BreezeButton from "@/Components/Button";
 export default {
   data() {
     return {
-      currentTab: "Additional Information",
+      currentTab: "Personal Information",
       tabs: [
         "Personal Information",
         "Additional Information",
@@ -116,27 +116,36 @@ export default {
     return {
       user: this.$attrs.auth.user,
       settings: this.$attrs.settings,
-      scholarship: this.$attrs.scholarship,
-      toast: this.$toast,
+      program: this.$attrs.program,
       breadcrumbs: this.$attrs.breadcrumbs,
       tabs: this.tabs,
       isActiveTab: this.isActiveTab,
+      $$toast: this.$toast,
+      $$events: this.$events,
+      $$emit: this.$emitter.emit,
+      $$isEmptyObject: this.$isEmptyObject,
     };
   },
 
   mounted() {
+    // On [event] listen, update the current tab from incoming
     this.$emitter.on(this.$events.applicationTabChanged, (incoming) => {
       this.currentTab = incoming;
     });
 
+    // On [event] listen, go to next Tab
     this.$emitter.on(this.$events.switchNextTab, () => {
       let index = this.tabs.findIndex((v) => v === this.currentTab);
       let next = this.tabs[index + 1];
+
+      //   console.log("Current Tab => " + this.currentTab);
+      //   console.log("Next Tab => " + next);
 
       if (index != this.tabs.length - 1)
         this.$emitter.emit(this.$events.applicationTabChanged, next);
     });
 
+    // On [event] listen, go to previous Tab
     this.$emitter.on(this.$events.switchPrevTab, () => {
       let index = this.tabs.findIndex((v) => v === this.currentTab);
       let prev = this.tabs[index - 1];

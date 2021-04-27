@@ -18,6 +18,7 @@
           id="first_name"
           autocomplete="given-name"
           model-name="firstName"
+          required
         />
       </div>
 
@@ -33,6 +34,7 @@
           id="last_name"
           autocomplete="family-name"
           model-name="lastName"
+          required
         />
       </div>
 
@@ -64,6 +66,9 @@
           id="email_address"
           autocomplete="email"
           model-name="email"
+          class="opacity-70 bg-gray-300 cursor-not-allowed"
+          disabled
+          aria-disabled=""
         />
       </div>
 
@@ -108,7 +113,7 @@
         >
 
         <input-field
-          v-model:dob.no-whitespace="form.dob"
+          v-model:dob="form.dob"
           :value="form.dob"
           model-name="dob"
           v-if="!$detector.isSafari"
@@ -117,7 +122,6 @@
           id="dob"
           autocomplete="birthday"
           pattern="\d{4}-\d{2}-\d{2}"
-          v-model="form.dob"
           required
         />
 
@@ -163,6 +167,7 @@
               class="focus:ring-main-400 self-center h-4 w-4 text-main-600 border-gray-300"
               value="male"
               @input="form.gender = $event.target.value"
+              :checked="form.gender == 'male'"
               required
             />
 
@@ -181,6 +186,7 @@
               class="focus:ring-main-400 self-center h-4 w-4 text-main-600 border-gray-300"
               value="female"
               @input="form.gender = $event.target.value"
+              :checked="form.gender == 'female'"
               required
             />
 
@@ -272,7 +278,7 @@
         <select-component
           :options="localGovtAreas"
           :value="form.localGovtArea"
-          @selection-changed-event="form.localGovtArea = $event"
+          @selection-changed-event="localGovtAreaField = $event"
           positioned
         />
       </div>
@@ -282,7 +288,7 @@
           >City</label
         >
         <input-field
-          v-model:city.capitalize.no-whitespace="form.city"
+          v-model:city.capitalize="form.city"
           :value="form.city"
           model-name="city"
           class="text-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -299,28 +305,31 @@
 </template>
 
 <script>
+const COUNTRY_CODE = "234";
+
 export default {
-  inject: ["user", "scholarship"],
+  inject: ["user", "program"],
 
   data() {
     return {
       states: this.$Province.getStates().names,
       localGovtAreas: [],
+      errors: {},
       form: this.$inertia.form(`UpdatePersonalInfo:${this.user.id}`, {
         firstName: this.user.first_name,
         lastName: this.user.last_name,
-        otherNames: "",
+        otherNames: this.user.scholarship.other_names,
         email: this.user.email,
-        phone: "",
-        dob: "",
-        age: "",
-        gender: "",
-        maritalStatus: "",
-        address: "",
-        country: "",
-        state: "",
-        localGovtArea: "",
-        city: "",
+        phone: this.user.scholarship.phone?.replace(COUNTRY_CODE, ""),
+        dob: this.$moment(this.user.scholarship.dob).format("YYYY-MM-DD"),
+        age: this.user.scholarship.age,
+        gender: this.user.scholarship.gender,
+        maritalStatus: this.user.scholarship.marital_status,
+        address: this.user.scholarship.address_street,
+        country: this.user.scholarship.address_country,
+        state: this.user.scholarship.address_state,
+        localGovtArea: this.user.scholarship.address_lga,
+        city: this.user.scholarship.address_city,
       }),
     };
   },
@@ -330,41 +339,72 @@ export default {
       this.form
         .transform((data) => ({
           ...data,
-          phone: `+234${data.phone}`,
-          age:
-            data.age == null || data.age == ""
-              ? this.$calculateAge(data.dob)
-              : data.age,
+          phone: `+${COUNTRY_CODE}${data.phone}`,
+          age: data.dob ? this.$calculateAge(data.dob) : data.age,
         }))
         .put(
           this.route(`scholarship.update`, {
             user: this.user,
-            scholarship: this.scholarship,
+            program: this.program,
           }),
           {
-            onError: (error) => console.log(error),
-            onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+            onSuccess: () => {
+              // Set errors to empty obj
+              this.errors = {};
+              // Fire Success Toast
+              this.$toast.fire({
+                icon: "success",
+                title: "Updated successfully!",
+              });
+            },
+            onError: (errors) => {
+              // Set errors
+              this.errors = errors;
+              // Loop thru errors and show Swal
+              for (const err in errors) {
+                // Fire Error Toast
+                this.$toast.fire({
+                  icon: "error",
+                  title: errors[err],
+                });
+              }
+            },
+            onFinish: () => {
+              // If errors object is empty, switch tab
+              if (this.$isEmptyObject(this.errors))
+                this.$emitter.emit(this.$events.switchNextTab);
+            },
           }
         );
+    },
+
+    populateLocalGovtAreas() {
+      this.localGovtAreas = this.$Province
+        .getLocalGovt(this.form.state)
+        .map((v) => v.name);
     },
   },
 
   watch: {
     "form.state"() {
       try {
-        this.localGovtAreas = this.$Province
-          .getLocalGovt(this.form.state)
-          .map((v) => v.name);
+        this.populateLocalGovtAreas();
       } catch (_) {
         return [];
       }
     },
   },
 
-  created() {
-    this.$on(this.$events.tester, (data) => {
-      console.log("received event!");
-    });
+  computed: {
+    localGovtAreaField: {
+      get() {
+        return this.form.localGovtArea;
+      },
+      set(val) {
+        if (!this.localGovtAreas.length) this.populateLocalGovtAreas();
+        this.form.localGovtArea = val;
+      },
+    },
   },
 };
 </script>

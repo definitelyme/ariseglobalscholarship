@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
+use TCG\Voyager\Models\User as VoyagerUser;
 
-class User extends \TCG\Voyager\Models\User
+class User extends VoyagerUser
 {
     use HasFactory, Notifiable;
 
@@ -43,6 +44,25 @@ class User extends \TCG\Voyager\Models\User
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        "first_name",
+        "last_name",
+        "full_name",
+        "scholarship"
+    ];
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['passportPhoto'];
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -56,6 +76,16 @@ class User extends \TCG\Voyager\Models\User
     public function scholarships(): HasMany
     {
         return $this->hasMany(Scholarship::class);
+    }
+
+    /**
+     * Get the Passport Photo associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function passportPhoto(): HasOne
+    {
+        return $this->hasOne(PassportPhoto::class);
     }
 
     /**
@@ -86,5 +116,20 @@ class User extends \TCG\Voyager\Models\User
     public function getFullNameAttribute()
     {
         return $this->name;
+    }
+
+    /**
+     * Get the active scholarship for the user.
+     *
+     * @return string
+     */
+    public function getScholarshipAttribute()
+    {
+        $program = ScholarshipRun::whereIsActive(true)->first();
+
+        return $this
+            ->scholarships()
+            ->whereVersion($program->version_id)
+            ->first();
     }
 }
