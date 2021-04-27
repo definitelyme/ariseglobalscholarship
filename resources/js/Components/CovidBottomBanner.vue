@@ -1,11 +1,11 @@
 <template>
   <div class="covid-banner" v-show="show">
     <div>
-      <p>
-        {{ settings.covidSafetySM }}
+      <span>
+        <span v-html="settings.covidSafetySM"></span>
         <!-- <a class="banner-more" href="#">Learn More</a> -->
         <a class="banner-dismiss" href="#" @click.prevent="dismiss">Dismiss</a>
-      </p>
+      </span>
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@ export default {
   margin: 0;
   font-family: Inter, sans-serif;
 }
-.covid-banner p {
+.covid-banner span {
   margin: 0;
   color: #000;
   text-align: center;
