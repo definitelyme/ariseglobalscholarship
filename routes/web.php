@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileDocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ScholarshipController;
@@ -9,9 +10,9 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, "index"])->name('/');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', 'applicant'])->name('dashboard');
+Route::get('/dashboard', [ScholarshipController::class, 'index'])
+    ->middleware(['auth', 'verified', 'applicant'])
+    ->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
@@ -21,7 +22,7 @@ Route::prefix("/scholarship/get-started")->group(function () {
         ->middleware(['auth', 'applicant']);
 });
 
-Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship/{scholarship}")->group(function () {
+Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship/{program}")->group(function () {
     Route::get('/', [ScholarshipController::class, 'index'])
         ->name("/");
 
@@ -49,6 +50,10 @@ Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarsh
     Route::get('/about', [ScholarshipController::class, 'about'])
         ->name("about");
 });
+
+// Route::resource('/uploaded/documents', FileDocumentController::class);
+Route::delete('/uploaded/{fileDocument?}/document', [FileDocumentController::class, 'destroy'])
+    ->name('documents.destroy');
 
 Route::prefix("/support")->group(function () {
     Route::get('/', function () {

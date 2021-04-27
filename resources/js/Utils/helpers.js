@@ -1,39 +1,10 @@
 import Mixin from "./mixin";
-import mitt from "mitt";
 import Province from "./regional/index";
-// import { reactive, toRefs } from "vue";
 import kLists from "./lists";
 import directives from "./directives";
-import Swal from "sweetalert2";
-//import Tracker from "@asayerio/tracker";
+import Plugins from "./plugins";
 
 import DeviceDetector from "mobile-device-detect";
-
-const emitter = mitt();
-
-const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-});
-
-// Setup tracker
-//const tracker = new Tracker({
-//    projectID: 7105153169947095,
-//});
-
-// Start tracker
-//tracker.start();
-
-window.onerror = () => {
-    emitter.emit("error", () => location.reload());
-};
 
 const titleCase = (string) => {
     // Step 1. Lowercase the string
@@ -67,6 +38,20 @@ const titleCase = (string) => {
     }
     // Step 4. Return the output
     return string.join(" "); // ["I'm", "A", "Little", "Tea", "Pot"].join(' ') => "I'm A Little Tea Pot"
+};
+
+const isEmptyObject = (obj) => {
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+            return false;
+        }
+    }
+
+    return JSON.stringify(obj) === JSON.stringify({});
+};
+
+const isA = (compare, instance) => {
+    return compare instanceof instance;
 };
 
 const find = (array, predicate, ctx) => {
@@ -163,6 +148,7 @@ const utils = {
             switchPrevTab: "switch-prev-tab",
             closeModal: "close-modal",
             openModal: "open-modal",
+            hasErrorsCanNavigate: "form-has-errors-should-user-navigate",
         };
 
         app.config.globalProperties.$Province = Province;
@@ -177,29 +163,17 @@ const utils = {
 
         app.config.globalProperties.$slugify = slugify;
 
+        app.config.globalProperties.$isEmptyObject = isEmptyObject;
+
+        app.config.globalProperties.$isA = isA;
+
         app.config.globalProperties.$guid = guid;
 
         app.config.globalProperties.$logger = logger;
 
         app.config.globalProperties.$calculateAge = calculateAge;
 
-        app.config.globalProperties.$alert = Swal;
-
-        app.config.globalProperties.$toast = Toast;
-
         app.config.globalProperties.$detector = DeviceDetector;
-
-        app.config.globalProperties.$emitter = emitter;
-
-        app.config.globalProperties.$on = (type, handler) =>
-            emitter.on(type, handler);
-
-        app.config.globalProperties.$off = (type, handler) =>
-            emitter.off(type, handler);
-
-        // app.config.globalProperties.$reactive = reactive;
-
-        // app.config.globalProperties.$toRefs = toRefs;
 
         directives.clickOutside(app);
 
@@ -208,7 +182,9 @@ const utils = {
         directives.switchColor(app);
 
         app.mixin(Mixin);
+
+        app.use(Plugins(app));
     },
 };
 
-export { titleCase, find, slugify, replace, emitter, utils };
+export { titleCase, find, slugify, replace, isEmptyObject, utils };
