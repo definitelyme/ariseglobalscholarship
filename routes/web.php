@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\FileDocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MailableController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ScholarshipController;
-use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,6 +21,30 @@ Route::prefix("/scholarship/get-started")->group(function () {
     Route::get('/apply', [ScholarshipController::class, 'create'])
         ->name("scholarship.apply")
         ->middleware(['auth', 'applicant']);
+});
+
+// Route::get('/send/mailable', function () {
+//     $user = \App\Models\User::find(4);
+//     $run = \App\Models\ScholarshipRun::whereIsActive(true)->first();
+
+//     // dd($user);
+
+//     $mailable =
+//         new \App\Mail\SendInformation(
+//             $user,
+//             $run,
+//             "Email subject goes here",
+//             "This is the awesome body",
+//             false,
+//             route('scholarship.edit', [$user->scholarship->version, $user])
+//         );
+
+//     return $mailable;
+// })->middleware(['auth']);
+
+Route::middleware(['auth', 'admin'])->prefix('mailable')->name('mail.')->group(function () {
+    Route::get('/', [MailableController::class, 'index'])->name('index');
+    Route::post('/send', [MailableController::class, 'store'])->name('store');
 });
 
 Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship/{program}")->group(function () {

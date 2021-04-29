@@ -134,7 +134,7 @@
 
   <teleport to="body">
     <modal-overlay modal-id="document-uploader">
-      <modal>
+      <modal modal-id="document-uploader">
         <!--  -->
         <template #modal_header>
           <h3
@@ -228,7 +228,7 @@ export default {
           size: fileSize,
         });
 
-        // this.$parent.form.documents.push(file);
+        this.$parent.form.documents.push(file);
       }
     },
 

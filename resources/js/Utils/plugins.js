@@ -1,6 +1,7 @@
 import moment from "moment";
 import Swal from "sweetalert2";
 import mitt from "mitt";
+// import MultiSelect from "@vueform/multiselect";
 // import { reactive, toRefs } from "vue";
 
 const emitter = mitt();
@@ -46,7 +47,7 @@ const plugins = (app) => {
 
     app.config.globalProperties.$moment = moment;
 
-    // app.use(moment);
+    // app.use(MultiSelect);
 };
 
 export default plugins;

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
+    class="h-full inline-block md:align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
   >
     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
       <div class="sm:flex sm:items-start">
@@ -26,7 +26,7 @@
       <slot name="modal_cancel">
         <button
           type="button"
-          @click="$emitter.emit($events.closeModal)"
+          @click="$emitter.emit($events.closeModal, modalId)"
           class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
         >
           Close
@@ -39,6 +39,7 @@
 
 <script>
 export default {
+  props: ["modalId"],
   mounted() {
     //
   },

@@ -20,7 +20,7 @@
         <div
           class="fixed inset-0 bg-gray-400 bg-opacity-75 transition-opacity"
           aria-hidden="true"
-          @click="_showModal = false"
+          @click="dismissible ? (_showModal = false) : null"
         />
 
         <span
@@ -52,15 +52,20 @@ export default {
     };
   },
 
-  props: ["modalId"],
+  props: {
+    modalId: String,
+    dismissible: {
+      type: Boolean,
+      required: false,
+      default: () => true,
+    },
+  },
 
   mounted() {
     this.$emitter.on(this.$events.closeModal, (id) => {
       if (this.modalId == id) {
         this._showModal = false;
-        return;
       }
-      this._showModal = false;
     });
     this.$emitter.on(this.$events.openModal, (id) => {
       if (this.modalId == id) this._showModal = true;

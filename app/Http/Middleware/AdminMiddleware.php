@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class ApplicantMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,9 @@ class ApplicantMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!$request->user()->hasRole('admin')) {
-            return $next($request);
+            return redirect()->back();
         }
 
-        return redirect()->back()->with('error', 'Admins are not allowed to register!');
+        return $next($request);
     }
 }
