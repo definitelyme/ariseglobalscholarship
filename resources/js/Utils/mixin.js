@@ -29,6 +29,15 @@ const mixin = {
         $asset_url_import() {
             return `${process.env.MIX_ASSET_URL_IMPORT}`;
         },
+        $storage_url() {
+            return `${process.env.MIX_APP_URL}/storage`;
+        },
+        $documents_url() {
+            return `${this.$storage_url}/documents`;
+        },
+        $passport_photos_url() {
+            return `${this.$storage_url}/photos`;
+        },
     },
 
     // provide() {

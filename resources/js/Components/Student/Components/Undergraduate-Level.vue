@@ -159,16 +159,17 @@
 
 <script>
 export default {
-  inject: ["user", "scholarship"],
+  inject: ["user", "program"],
 
   data() {
     return {
+      errors: {},
       form: this.$inertia.form(`UpdateSchoolInfoForm:${this.user.id}`, {
-        courseOfStudy: null,
-        courseDuration: null,
-        currentLevel: null,
-        yearOfAdmission: null,
-        expectedYearOfGraduation: null,
+        courseOfStudy: this.user.scholarship.course_of_study,
+        courseDuration: this.user.scholarship.course_duration,
+        currentLevel: this.user.scholarship.current_level,
+        yearOfAdmission: this.user.scholarship.year_of_admission,
+        expectedYearOfGraduation: this.user.scholarship.year_of_graduation,
       }),
     };
   },
@@ -182,11 +183,35 @@ export default {
         .put(
           this.route(`scholarship.update`, {
             user: this.user,
-            scholarship: this.scholarship,
+            program: this.program,
           }),
           {
-            onError: (error) => console.log(error),
-            onFinish: () => this.$emitter.emit(this.$events.switchNextTab),
+            onSuccess: () => {
+              // Set errors to empty obj
+              this.errors = {};
+              // Fire Success Toast
+              this.$toast.fire({
+                icon: "success",
+                title: "Updated successfully!",
+              });
+            },
+            onError: (errors) => {
+              // Set errors
+              this.errors = errors;
+              // Loop thru errors and show Swal
+              for (const err in errors) {
+                // Fire Error Toast
+                this.$toast.fire({
+                  icon: "error",
+                  title: errors[err],
+                });
+              }
+            },
+            onFinish: () => {
+              // If errors object is empty, switch tab
+              if (this.$isEmptyObject(this.errors))
+                this.$emitter.emit(this.$events.switchNextTab);
+            },
           }
         );
     },

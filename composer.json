@@ -64,13 +64,12 @@
             "@php artisan key:generate --ansi"
         ],
         "optimize-prod": [
-            "@composer install --optimize-autoloader --no-dev",
             "@composer update",
+            "@composer install --optimize-autoloader --no-dev",
             "@php artisan migrate",
             "@php artisan optimize:clear",
             "@php artisan optimize",
-            "@composer du -o",
-            "@npm update"
+            "@composer du -o"
         ],
         "optimize-dev": [
             "@composer install",

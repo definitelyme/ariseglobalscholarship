@@ -1,17 +1,19 @@
 <?php
 
+use App\Http\Controllers\FileDocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MailableController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ScholarshipController;
-use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, "index"])->name('/');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', 'applicant'])->name('dashboard');
+Route::get('/dashboard', [ScholarshipController::class, 'index'])
+    ->middleware(['auth', 'verified', 'applicant'])
+    ->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
@@ -21,7 +23,31 @@ Route::prefix("/scholarship/get-started")->group(function () {
         ->middleware(['auth', 'applicant']);
 });
 
-Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship/{scholarship}")->group(function () {
+// Route::get('/send/mailable', function () {
+//     $user = \App\Models\User::find(4);
+//     $run = \App\Models\ScholarshipRun::whereIsActive(true)->first();
+
+//     // dd($user);
+
+//     $mailable =
+//         new \App\Mail\SendInformation(
+//             $user,
+//             $run,
+//             "Email subject goes here",
+//             "This is the awesome body",
+//             false,
+//             route('scholarship.edit', [$user->scholarship->version, $user])
+//         );
+
+//     return $mailable;
+// })->middleware(['auth']);
+
+Route::middleware(['auth', 'admin'])->prefix('mailable')->name('mail.')->group(function () {
+    Route::get('/', [MailableController::class, 'index'])->name('index');
+    Route::post('/send', [MailableController::class, 'store'])->name('store');
+});
+
+Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship/{program}")->group(function () {
     Route::get('/', [ScholarshipController::class, 'index'])
         ->name("/");
 
@@ -49,6 +75,10 @@ Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarsh
     Route::get('/about', [ScholarshipController::class, 'about'])
         ->name("about");
 });
+
+// Route::resource('/uploaded/documents', FileDocumentController::class);
+Route::delete('/uploaded/{fileDocument?}/document', [FileDocumentController::class, 'destroy'])
+    ->name('documents.destroy');
 
 Route::prefix("/support")->group(function () {
     Route::get('/', function () {
