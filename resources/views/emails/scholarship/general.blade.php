@@ -1,7 +1,9 @@
 @component('mail::message')
 ## Hi {{ $user->first_name }},
 
+<span style="text-align: justify; text-justify: inter-word;">
 {{ $body }}
+<span>
 
 @if ($has_action_button)
     @component('mail::button', ['url' => $route])
