@@ -20,9 +20,6 @@ class ApplicantMiddleware
             return $next($request);
         }
 
-        return inertia('Error404', [
-            'error' => 'This account belongs to an admin!',
-            'redirect' => route('voyager.dashboard'),
-        ]);
+        return redirect()->back()->with('error', 'Admins are not allowed to register!');
     }
 }

@@ -79,7 +79,7 @@
                 <li><a :href="route('/')" title="">Home</a></li>
 
                 <li>
-                  <a :href="route('scholarship./', settings.version)" title=""
+                  <a :href="route('scholarship./', program)" title=""
                     >Apply for Scholarship</a
                   >
                 </li>
@@ -134,7 +134,7 @@
 
 <script>
 export default {
-  inject: ["settings"],
+  inject: ["settings", "program"],
 
   data() {
     return {
