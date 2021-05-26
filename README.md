@@ -3,7 +3,7 @@ Arise Global Scholarship
 </a></p>
 
 <p align="center">
-[![Release CI/CD](https://github.com/f0rx/ariseglobalscholarship/actions/workflows/patch-workflow.yaml/badge.svg)](https://github.com/f0rx/ariseglobalscholarship/actions/workflows/patch-workflow.yaml)
+[![Release CI/CD]](https://github.com/f0rx/ariseglobalscholarship/actions/workflows/patch-workflow.yaml)
 </p>
 
 ## About Arise Global Scholarship
