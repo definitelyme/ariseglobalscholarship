@@ -2,6 +2,7 @@
   <form
     class="px-6 py-6 md:px-4 md:pt-5 bg-white space-y-4 md:space-y-6 h-screen overflow-y-auto no-scrollbar"
     :class="`border-indigo-500 border-solid border-t md:border-transparent md:border-none`"
+    enctype="multipart/form-data"
     @submit.prevent="createOrUpdate"
   >
     <create-page-subtitle> Passport Photograph </create-page-subtitle>
@@ -11,6 +12,29 @@
       <strong>JPEG</strong> format and no larger than <strong>200kb</strong> in
       size.
     </h4>
+
+    <div
+      class="md:container"
+      v-if="form.progress && form.progress.percentage < 100"
+    >
+      <div class="grid grid-cols-12 gap-2">
+        <div
+          class="col-span-12 justify-self-end md:justify-self-start items-center space-x-4 md:space-x-3"
+        >
+          <label
+            for="file"
+            class="text-gray-700"
+            v-text="`${form.progress.percentage}% Uploaded`"
+          ></label>
+
+          <progress
+            :value="form.progress.percentage"
+            max="100"
+            v-text="`${form.progress.percentage}%`"
+          ></progress>
+        </div>
+      </div>
+    </div>
 
     <div class="grid grid-cols-12 gap-5">
       <div class="col-span-12 md:col-span-5">
@@ -109,24 +133,31 @@
 
 <script>
 import { useForm } from "@inertiajs/inertia-vue3";
-import { inject } from "vue";
+import { inject, reactive } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
-  inject: ["user", "scholarship"],
+  inject: ["user", "program"],
 
-  setup() {
+  setup(props, { attrs, slots, emit }) {
     const user = inject("user");
-    const toast = inject("toast");
-    const scholarship = inject("scholarship");
+    const program = inject("program");
+    const events = inject("$$events");
+    const toast = inject("$$toast");
+    const isEmptyObject = inject("$$isEmptyObject");
+    const emitter = inject("$$emit");
 
     const form = useForm(`UpdatePassportForm:${user.id}`, {
+      errors: {},
       passport: {},
     });
 
     function createOrUpdate() {
       Inertia.post(
-        route(`scholarship.update`, { user: user, scholarship: scholarship }),
+        route(`scholarship.update`, {
+          user: user,
+          program: program,
+        }),
         {
           _method: "put",
           passport: form.passport,
@@ -137,18 +168,32 @@ export default {
           preserveState: true,
           onProgress: (progress) => (form.progress = progress),
           onSuccess: (page) => {
-            // form.reset("password");
+            // Set errors to empty obj
+            form.errors = {};
+            // Fire Success Toast
             toast.fire({
-              icon: "error",
-              title: "Signed in successfully",
+              icon: "success",
+              title: "Updated successfully!",
             });
           },
           onError: (errors) => {
-            console.log(errors);
+            // Set errors
+            form.errors = errors;
+            // Loop thru errors and show Swal
+            for (const err in errors) {
+              // Fire Error Toast
+              toast.fire({
+                icon: "error",
+                title: errors[err],
+              });
+            }
           },
           onFinish: () => {
+            // Reset progress bar
             form.reset("progress");
-            // Inertia.get(route("dashboard"));
+
+            // If errors object is empty, switch tab
+            if (isEmptyObject(form.errors)) emitter(events.switchNextTab);
           },
         }
       );
@@ -159,7 +204,11 @@ export default {
 
   data() {
     return {
-      image: null,
+      image: `${
+        this.$passport_photos_url
+      }/${this.user?.first_name?.toLowerCase()}/${
+        this.user?.passport_photo?.name
+      }`,
     };
   },
 

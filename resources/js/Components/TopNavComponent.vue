@@ -22,7 +22,7 @@
           <li>
             <a :href="route('scholarship.apply')" title="">Apply</a>
           </li>
-          <li>
+          <!-- <li>
             <a :href="route('scholarship.about', settings.version)" title=""
               >Eligibility</a
             >
@@ -31,7 +31,7 @@
             <a :href="route('scholarship.about', settings.version)" title=""
               >Requirements</a
             >
-          </li>
+          </li> -->
         </ul>
       </li>
 
@@ -55,7 +55,7 @@
 
       <li>
         <a
-          :href="route('about', settings.version)"
+          :href="route('about')"
           title=""
           :class="{ active: route().current().includes('about') }"
           >About</a

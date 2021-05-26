@@ -54,7 +54,7 @@
   </div>
 
   <teleport to="body">
-    <modal-overlay>
+    <modal-overlay modal-id="add-new-institution">
       <modal>
         <!--  -->
         <template #modal_header>
@@ -137,7 +137,7 @@
         <template #modal_cancel>
           <button
             type="button"
-            @click="$emitter.emit($events.closeModal)"
+            @click="$emitter.emit($events.closeModal, 'add-new-institution')"
             class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:ml-3 sm:w-auto sm:text-sm"
           >
             Cancel

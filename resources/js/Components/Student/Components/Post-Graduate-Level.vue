@@ -16,7 +16,7 @@
     <!-- Start Add institution -->
     <breeze-button
       type="button"
-      @click="$emitter.emit($events.openModal)"
+      @click="$emitter.emit($events.openModal, 'add-new-institution')"
       class="bg-main-600 hover:bg-main-800 shadow-sm capitalize"
     >
       Add Institution
