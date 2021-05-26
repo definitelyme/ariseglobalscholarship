@@ -31,7 +31,7 @@ Route::middleware(['auth', 'applicant'])
     });
 
 // Route::get('/send/mailable', function () {
-//     $user = \App\Models\User::find(4);
+//     $user = \App\Models\User::latest()->first();
 //     $run = \App\Models\ScholarshipRun::whereIsActive(true)->first();
 
 //     // dd($user);
