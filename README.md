@@ -20,4 +20,4 @@ If you discover a security vulnerability or a bug, please send an e-mail to Bren
 
 ## License
 
-This website was built with Laravel & Vue.js Frameworks. Thee Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project was built with the Laravel & Vue.js Frameworks. Thee Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
