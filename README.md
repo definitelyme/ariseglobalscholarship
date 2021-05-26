@@ -8,7 +8,7 @@ A scholarship program funded by ARISE GLOBAL foundation, an initiative of well-m
 
 ## Contributing
 
-Thank you for considering contributing to the Scholarship! The contribution guide can be found in the [Project Repository](https://laravel.com/docs/contributions).
+Thank you for considering contributing to the Scholarship! The contribution guide can be found in the [Project Repository](https://github.com/f0rx/ariseglobalscholarship).
 
 ## Code of Conduct
 
