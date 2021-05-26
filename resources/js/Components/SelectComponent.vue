@@ -43,6 +43,8 @@
 </template>
 
 <script>
+const DEFAULT = "--  Select  --";
+
 export default {
   data() {
     return {
@@ -63,7 +65,7 @@ export default {
 
   computed: {
     selected() {
-      let initial = { value: "--  Select  --" };
+      let initial = { value: DEFAULT };
 
       return typeof this.items == "undefined" ||
         this.items == null ||
@@ -77,6 +79,11 @@ export default {
     selected() {
       this.$emit(this.$events.onSelectionChanged, this.selected);
     },
+
+    // value() {
+    //   this.$emit(this.$events.onSelectionChanged, this.selected);
+    // },
+
     options() {
       this.mapOptionsToItems();
     },
@@ -111,7 +118,7 @@ export default {
     mapOptionsToItems() {
       this.items = this.options.map((i) => ({
         value: i,
-        isSelected: this.selectFirst ? this.options[0] == i : false,
+        isSelected: this.selectFirst ? this.options[0] == i : this.value == i,
       }));
     },
     toggle() {
@@ -130,6 +137,10 @@ export default {
   mounted() {
     if (this.options && this.options.length) {
       this.mapOptionsToItems();
+    }
+
+    if (this.value && !this.value.includes(DEFAULT)) {
+      this.$emit(this.$events.onSelectionChanged, this.value);
     }
   },
 };

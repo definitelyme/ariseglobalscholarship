@@ -143,6 +143,10 @@
   <!-- <news-letter-component /> -->
 
   <footer-component />
+
+  <covid-bottom-banner />
+
+  <covid-modal-banner />
 </template>
 
 <script>
@@ -196,6 +200,7 @@ export default {
       user: this.$attrs.auth.user,
       settings: this.$attrs.settings,
       breadcrumbs: this.$attrs.breadcrumbs,
+      program: this.$attrs.program,
     };
   },
 };

@@ -60,6 +60,8 @@ jobs:
                 echo "Already up to date! Merge not in progress."
             fi
             composer run-script optimize-prod
+            npm install
+            npm update
             npm run prod
 
       - name: Bump version and push tag
