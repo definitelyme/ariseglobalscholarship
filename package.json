@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@vueform/multiselect": "^1.5.0",
+        "flutterwave-vue-v3": "^1.0.5",
         "jquery": "^3.5.1",
         "mitt": "^2.1.0",
         "mobile-device-detect": "^0.4.3",
