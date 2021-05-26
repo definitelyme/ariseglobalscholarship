@@ -28,7 +28,7 @@
             <option selected :value="null" disabled>-- Select --</option>
             <option
               class="py-1 text-gray-700"
-              v-for="(course, index) in $kLists.courses"
+              v-for="(course, index) in $kLists.courses.sort()"
               :key="index"
               v-text="course"
             ></option>
