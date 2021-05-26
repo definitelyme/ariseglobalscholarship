@@ -279,6 +279,10 @@
           <a class="text-lg font-normal antialiased text-center" :href="route('/')">
               Home
           </a>
+          <span class="text-xl font-bold" v-show="user != null">  |  </span>
+          <a class="text-lg font-normal antialiased text-center" :href="route('dashboard')" v-show="user != null">
+              Dashboard
+          </a>
           <span class="text-xl font-bold">  |  </span>
           <a class="text-lg font-normal antialiased text-center" :href="route('contact')">
               Contact Us
@@ -294,7 +298,7 @@
 export default {
   data() {
     return {
-      //
+      user: this.$attrs.auth.user
     };
   },
 };
