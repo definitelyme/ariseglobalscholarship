@@ -16,40 +16,21 @@
           </template>
           <!--  -->
           <template #modal_body>
-            <!-- I'll enable this after i fix it -->
             <Multiselect
-              disabled
               v-model="form.emails"
-              mode="multiple"
-              placeholder="Select applicants"
+              mode="tags"
               :searchable="true"
-              :filterResults="true"
-              :minChars="1"
-              :resolveOnLoad="true"
-              :delay="0"
-              :options="
-                async function (query) {
-                  return typeof query === 'undefined' || query == null
-                    ? $attrs.applicants
-                    : $attrs.applicants.find((i) =>
-                        i.name.toLowerCase().includes(query.toLowerCase())
-                      );
-                }
-              "
+              :createTag="true"
+              placeholder="Search applicants by name..."
+              :options="applicants"
               noResultsText="No user found"
             >
-              <template v-slot:option="option">
-                <span v-for="(opt, i) in option" :key="i">
-                  {{ opt?.email }}
-                </span>
-              </template>
-
               <template v-slot:multiplelabel="{ values }">
                 <div class="multiselect-multiple-label">
                   {{ values.length }} user selected
                 </div>
-              </template>
-            </Multiselect>
+              </template></Multiselect
+            >
 
             <div class="col-span-12 md:auto-cols-min mt-6">
               <div class="flex flex-grow-0 space-x-2">
@@ -74,6 +55,13 @@
           <template #modal_ok>
             <button
               type="button"
+              :disabled="noEmailSelected"
+              :class="{ 'opacity-25': noEmailSelected }"
+              :title="
+                noEmailSelected
+                  ? 'Select at least 1 applicant to proceed!'
+                  : 'Click to continue.'
+              "
               class="sm:mt-0 mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
               @click.prevent="next"
             >
@@ -192,13 +180,20 @@ export default {
     return {
       selectedAll: false,
       errors: {},
+      applicants: [],
       form: this.$inertia.form({
-        emails: null,
+        emails: [],
         subject: null,
         message: null,
         hasActionButton: false,
       }),
     };
+  },
+
+  computed: {
+    noEmailSelected() {
+      return !this.form.emails || !this.form.emails.length;
+    },
   },
 
   watch: {
@@ -220,6 +215,14 @@ export default {
       }
 
       this.$emitter.emit(this.$events.openModal, "composer");
+    },
+
+    async filterOptions(query) {
+      return typeof query === "undefined" || query == null
+        ? this.applicants
+        : this.applicants.filter((i) =>
+            i.label.toLowerCase().includes(query.toLowerCase())
+          );
     },
 
     send() {
@@ -269,6 +272,13 @@ export default {
 
   mounted() {
     this.$emitter.emit(this.$events.openModal, "mailer");
+  },
+
+  created() {
+    this.applicants = this.$attrs.applicants.map((e) => ({
+      value: e.email,
+      label: e.name,
+    }));
   },
 };
 </script>

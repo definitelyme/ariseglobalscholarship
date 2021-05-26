@@ -178,7 +178,10 @@ export default {
         lgaOfOrigin: this.user.scholarship.origin_lga,
         hometown: this.user.scholarship.origin_hometown,
         kinName: this.user.scholarship.kin_name,
-        kinPhone: this.user.scholarship.kin_phone?.replace(COUNTRY_CODE, ""),
+        kinPhone: this.$formatPhoneNumber(
+          this.user?.scholarship?.kin_phone,
+          COUNTRY_CODE
+        ),
         kinRelationship: this.user.scholarship.kin_relationship,
         hasBursary: this.user.scholarship.is_on_scholarship == 1,
       }),

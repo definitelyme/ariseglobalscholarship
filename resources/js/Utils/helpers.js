@@ -128,6 +128,11 @@ const replace = (str, glue, exp) => {
     return string;
 };
 
+const formatPhoneNumber = (str, postalCode, replacement = "") => {
+    if (str == null) return str;
+    return str.replace(postalCode, replacement);
+};
+
 const logger = (msg) => {
     console.log(msg);
 };
@@ -174,6 +179,8 @@ const utils = {
         app.config.globalProperties.$calculateAge = calculateAge;
 
         app.config.globalProperties.$detector = DeviceDetector;
+
+        app.config.globalProperties.$formatPhoneNumber = formatPhoneNumber;
 
         directives.clickOutside(app);
 
