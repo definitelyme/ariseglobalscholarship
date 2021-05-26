@@ -43,6 +43,7 @@ export default {
   provide() {
     return {
       user: this.$attrs.auth.user,
+      isAdmin: this.$attrs.auth.is_admin,
       settings: this.$attrs.settings,
       program: this.$attrs.program,
     };

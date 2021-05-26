@@ -149,9 +149,16 @@ class User extends VoyagerUser
         // return the scholarship model
         // that matches the active above
         // Else null meaning user has not applied for that active scholarship
-        return $program != null ? $this
+        $var = $program != null ? $this
             ->scholarships()
             ->whereVersion($program->version_id)
             ->first() : null;
+        // dd($var);
+        return $var;
+    }
+
+    public function getActiveScholarshipAttribute()
+    {
+        dd("Return value");
     }
 }

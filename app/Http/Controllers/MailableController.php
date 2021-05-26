@@ -57,7 +57,7 @@ class MailableController extends Controller
                 $request->subject,
                 $request->message,
                 $request->hasActionButton,
-                route('scholarship.edit', [$user->scholarship->version, $user])
+                route('scholarship.apply')
             ));
         }
 

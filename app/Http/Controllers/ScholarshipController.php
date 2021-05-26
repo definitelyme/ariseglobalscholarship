@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\UploadTraits;
 use App\Http\Requests\ScholarshipRequest;
+use App\Models\Scholarship;
 use App\Models\User;
 use App\Models\ScholarshipRun;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ScholarshipController extends Controller
@@ -54,19 +56,24 @@ class ScholarshipController extends Controller
             if ($program == null) $scholarships = $this->user->scholarships;
             // If the "else" block throws an exception, it means
             // the user has not applied for the currently active scholarship
-            else $scholarship = $this->user->scholarship
-                ->with('run:version_id,is_active')
-                ->first();
+            else $scholarship = $this->user->scholarship;
         } catch (\Throwable $th) {
             // If scholarship is closed
             if ($program->isClosed()) return inertia('ScholarshipClosed');
             // If scholarship is open & user has not applied for scholarship
             else if (!$program->isClosed() && !$this->user->hasAppliedForProgram($program))
-                return redirect()->route('scholarship.reapply', ['program' => $program]);
+                return redirect()->route('dashboard', ['program' => $program]);
         }
+
+        $program = ScholarshipRun::whereIsActive(true)->first();
+
+        if ($program != null)
+            $userAlreadyApplied = $this->user->hasAppliedForProgram($program);
+        else $userAlreadyApplied = false;
 
         return inertia('Dashboard', [
             'scholarships' => $scholarships,
+            'unapplied' => !$userAlreadyApplied ? $program : null,
             'scholarship' => $scholarship,
         ]);
     }
@@ -94,7 +101,17 @@ class ScholarshipController extends Controller
      */
     public function store(ScholarshipRequest $request)
     {
-        dd($request->other);
+        // Create new scholarship
+        $scholarship = new Scholarship;
+        // Associate scholarship with user
+        $association = $scholarship->user()->associate($this->user);
+
+        $program = ScholarshipRun::find($request->program['id']);
+        // Save associated scholarship run (program)
+        $program->scholarships()->save($association);
+        // Refresh user
+        $this->user->refresh();
+
         return redirect()->back();
     }
 
@@ -124,7 +141,7 @@ class ScholarshipController extends Controller
             return inertia('ScholarshipClosed');
         // If scholarship is open & user has not applied for scholarship
         else if (!$program->isClosed() && !$user->hasAppliedForProgram($program))
-            return redirect()->route('scholarship.reapply', ['program' => $program]);
+            return redirect()->route('dashboard', ['program' => $program]);
         // if scholarship is closed and user has not applied for scholarship
         else if ($program->isClosed() && !$user->hasAppliedForProgram($program))
             return inertia('ScholarshipClosed');
@@ -140,7 +157,8 @@ class ScholarshipController extends Controller
      */
     public function reapply(ScholarshipRun $program)
     {
-        dd($program);
+        dd(null);
+        return redirect()->route('dashboard');
     }
 
     /**
