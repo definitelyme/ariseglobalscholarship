@@ -3,7 +3,7 @@
 
   <div>
     <teleport to="body">
-      <modal-overlay modal-id="mailer">
+      <modal-overlay modal-id="mailer" :dismissible="false">
         <modal class="h-44" modal-id="mailer">
           <!--  -->
           <template #modal_header>
