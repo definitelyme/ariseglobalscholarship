@@ -17,15 +17,18 @@ Route::get('/dashboard', [ScholarshipController::class, 'index'])
 
 require __DIR__ . '/auth.php';
 
-Route::prefix("/scholarship/get-started")->group(function () {
-    Route::get('/apply', [ScholarshipController::class, 'create'])
-        ->name("scholarship.apply")
-        ->middleware(['auth', 'applicant']);
+Route::middleware(['auth', 'applicant'])
+    ->prefix("/scholarship/get-started")
+    ->group(function () {
+        Route::get('/apply', [ScholarshipController::class, 'create'])
+            ->name("scholarship.apply");
 
-    Route::get('/apply/{program}', [ScholarshipController::class, 'reapply'])
-        ->name("scholarship.reapply")
-        ->middleware(['auth', 'applicant']);
-});
+        // Route::get('/apply/{program}', [ScholarshipController::class, 'reapply'])
+        //     ->name("scholarship.reapply");
+
+        Route::post('/apply', [ScholarshipController::class, 'store'])
+            ->name("scholarship.reapply.store");
+    });
 
 // Route::get('/send/mailable', function () {
 //     $user = \App\Models\User::find(4);
