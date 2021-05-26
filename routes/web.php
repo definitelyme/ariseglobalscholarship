@@ -23,9 +23,6 @@ Route::middleware(['auth', 'applicant'])
         Route::get('/apply', [ScholarshipController::class, 'create'])
             ->name("scholarship.apply");
 
-        // Route::get('/apply/{program}', [ScholarshipController::class, 'reapply'])
-        //     ->name("scholarship.reapply");
-
         Route::post('/apply', [ScholarshipController::class, 'store'])
             ->name("scholarship.reapply.store");
     });
