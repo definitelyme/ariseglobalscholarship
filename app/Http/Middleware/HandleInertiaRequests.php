@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'program' => ScholarshipRun::whereIsActive(true)->first(),
+            'program' => ScholarshipRun::whereIsActive(true)->first() ?? null,
             'breadcrumbs' => $request->segments(),
             'settings' => $this->settings($request),
         ]);

@@ -126,8 +126,7 @@ export default {
           title: "Application Status",
           name: "scholarship./",
           param: {
-            // user: this.user,
-            program: this.program,
+            program: this.program ?? "",
           },
         },
       ],

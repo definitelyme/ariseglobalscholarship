@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
+use phpDocumentor\Reflection\Types\Boolean;
 use TCG\Voyager\Models\User as VoyagerUser;
 
 class User extends VoyagerUser
@@ -69,6 +70,23 @@ class User extends VoyagerUser
     }
 
     /**
+     * Checks if the user has applied for the scholarship
+     * @param \App\Models\ScholarshipRun $program
+     *
+     * @return bool
+     */
+    public function hasAppliedForProgram(ScholarshipRun $program): bool
+    {
+        if ($program == null) return false;
+
+        $scholarship = $this->scholarships()
+            ->whereVersion($program->version_id)
+            ->first();
+
+        return $scholarship !== null;
+    }
+
+    /**
      * Get all of the scholarships for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -125,11 +143,15 @@ class User extends VoyagerUser
      */
     public function getScholarshipAttribute()
     {
+        // Get the current active scholarship
         $program = ScholarshipRun::whereIsActive(true)->first();
 
-        return $this
+        // return the scholarship model
+        // that matches the active above
+        // Else null meaning user has not applied for that active scholarship
+        return $program != null ? $this
             ->scholarships()
             ->whereVersion($program->version_id)
-            ->first();
+            ->first() : null;
     }
 }

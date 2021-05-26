@@ -273,7 +273,7 @@ export default {
           name: "scholarship./",
           param: {
             // user: this.user,
-            program: this.program,
+            program: this.program ?? "",
           },
         },
       ],

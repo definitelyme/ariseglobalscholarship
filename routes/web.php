@@ -21,6 +21,10 @@ Route::prefix("/scholarship/get-started")->group(function () {
     Route::get('/apply', [ScholarshipController::class, 'create'])
         ->name("scholarship.apply")
         ->middleware(['auth', 'applicant']);
+
+    Route::get('/apply/{program}', [ScholarshipController::class, 'reapply'])
+        ->name("scholarship.reapply")
+        ->middleware(['auth', 'applicant']);
 });
 
 // Route::get('/send/mailable', function () {
@@ -46,6 +50,8 @@ Route::middleware(['auth', 'admin'])->prefix('mailable')->name('mail.')->group(f
     Route::get('/', [MailableController::class, 'index'])->name('index');
     Route::post('/send', [MailableController::class, 'store'])->name('store');
 });
+
+Route::redirect('/scholarship', '/dashboard', 307);
 
 Route::middleware(['auth', 'verified'])->name("scholarship.")->prefix("scholarship/{program}")->group(function () {
     Route::get('/', [ScholarshipController::class, 'index'])

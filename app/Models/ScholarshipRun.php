@@ -26,6 +26,16 @@ class ScholarshipRun extends Model
         return 'version_id';
     }
 
+    /**
+     * Returns true if the current program is closed else false
+     *
+     * @return bool
+     */
+    public function isClosed(): bool
+    {
+        return $this->is_active == 0 || $this->is_active == false;
+    }
+
     public function getCurrentAttribute()
     {
         return $this->is_active;
