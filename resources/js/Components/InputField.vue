@@ -36,14 +36,25 @@ export default {
       required: true,
     },
 
+    id: {
+      type: String,
+      required: false,
+    },
+
     type: {
       type: String,
-      required: true,
+      required: false,
       default: () => "text",
     },
 
     required: {
       type: Boolean,
+      required: false,
+      default: () => false,
+    },
+
+    autocomplete: {
+      type: [Boolean, String],
       required: false,
       default: () => false,
     },

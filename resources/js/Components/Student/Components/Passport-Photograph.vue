@@ -204,11 +204,11 @@ export default {
 
   data() {
     return {
-      image: `${
+      image: this.user.passport_photo != null ? `${
         this.$passport_photos_url
       }/${this.user?.first_name?.toLowerCase()}/${
         this.user?.passport_photo?.name
-      }`,
+      }` : null,
     };
   },
 

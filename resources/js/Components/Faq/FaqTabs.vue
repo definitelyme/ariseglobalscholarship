@@ -38,7 +38,7 @@
 export default {
   props: {
     questions: {
-      type: String,
+      type: Array,
       required: true,
     },
 

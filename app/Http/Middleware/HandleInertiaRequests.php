@@ -37,6 +37,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+                'is_admin' => $request->user() != null && $request->user()->role_id == 1,
             ],
             'program' => ScholarshipRun::whereIsActive(true)->first() ?? null,
             'breadcrumbs' => $request->segments(),

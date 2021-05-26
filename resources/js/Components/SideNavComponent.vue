@@ -53,9 +53,13 @@
         </li>
 
         <li v-if="user">
-          <nav-link-component :href="route('dashboard')">
+          <nav-link-component :href="route('dashboard')" v-if="!isAdmin">
             Dashboard
           </nav-link-component>
+
+          <a :href="route('voyager.dashboard')" v-if="isAdmin">
+            Admin Dashboard</a
+          >
         </li>
 
         <li v-if="user">
@@ -70,11 +74,11 @@
 
 <script>
 export default {
-  inject: ["user", "settings", "program"],
+  inject: ["user", "settings", "program", "isAdmin"],
 
   data() {
     return {
-      form: this.$inertia.form({}),
+      logoutForm: this.$inertia.form({}),
       menus: [
         {
           title: "Home",
@@ -117,7 +121,7 @@ export default {
 
   methods: {
     submit() {
-      this.form.post(this.route("logout"), {
+      this.logoutForm.post(this.route("logout"), {
         onFinish: () => location.assign("/"),
       });
     },
