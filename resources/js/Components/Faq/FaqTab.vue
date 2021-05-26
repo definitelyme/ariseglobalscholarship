@@ -27,7 +27,10 @@
 
 <script>
 export default {
-  props: ["question", "withTitle"],
+  props: {
+    question: { type: Object, required: true },
+    withTitle: { type: Boolean, required: false, default: () => false },
+  },
 
   data() {
     return {
