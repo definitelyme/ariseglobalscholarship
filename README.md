@@ -1,6 +1,4 @@
-<p align="center" style="font-size: 20px"><a href="https://laravel.com" target="_blank">
-Arise Global Scholarship
-</a></p>
+# [Arise Global Scholarship](https://ariseglobalscholarship.org)
 
 [![Release CI/CD](https://github.com/f0rx/ariseglobalscholarship/actions/workflows/patch-workflow.yaml/badge.svg)](https://github.com/f0rx/ariseglobalscholarship/actions/workflows/patch-workflow.yaml)
 
