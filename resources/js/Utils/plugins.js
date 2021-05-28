@@ -1,9 +1,7 @@
 import moment from "moment";
 import Swal from "sweetalert2";
 import mitt from "mitt";
-import Flutterwave from "flutterwave-vue-v3";
-
-// import MultiSelect from "@vueform/multiselect";
+// import Clipboard from "v-clipboard";
 // import { reactive, toRefs } from "vue";
 
 const emitter = mitt();
@@ -49,13 +47,7 @@ const plugins = (app) => {
 
     app.config.globalProperties.$moment = moment;
 
-    // app.use(MultiSelect);
-    // Public Key ===> FLWPUBK-e8d040940b9fcbc0ec44bc2fbb936641-X
-    // Secret Key ===> FLWSECK-8a8dd5afa211ae139db6fcb0039a6984-X
-    // Encryption Key ===> 8a8dd5afa211a1d4d62aade9
-    app.use(Flutterwave, {
-        publicKey: "FLWPUBK-e8d040940b9fcbc0ec44bc2fbb936641-X",
-    });
+    // app.use(Clipboard);
 };
 
 export default plugins;

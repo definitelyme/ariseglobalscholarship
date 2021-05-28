@@ -3,6 +3,7 @@
 use App\Http\Controllers\FileDocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailableController;
+use App\Http\Controllers\PaymentReceiptController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ScholarshipController;
 use Illuminate\Support\Facades\Mail;
@@ -27,24 +28,13 @@ Route::middleware(['auth', 'applicant'])
             ->name("scholarship.reapply.store");
     });
 
-// Route::get('/send/mailable', function () {
-//     $user = \App\Models\User::latest()->first();
-//     $run = \App\Models\ScholarshipRun::whereIsActive(true)->first();
+Route::middleware(['auth', 'applicant'])->prefix('payment')->name('payment.')->group(function () {
+    Route::post('/successful', [PaymentReceiptController::class, 'store'])
+        ->name('successful.store');
 
-//     // dd($user);
-
-//     $mailable =
-//         new \App\Mail\SendInformation(
-//             $user,
-//             $run,
-//             "Email subject goes here",
-//             "This is the awesome body",
-//             false,
-//             route('scholarship.edit', [$user->scholarship->version, $user])
-//         );
-
-//     return $mailable;
-// })->middleware(['auth']);
+    Route::get('/generate/pin', [PaymentReceiptController::class, 'index'])
+        ->name('generate.pin');
+});
 
 Route::middleware(['auth', 'admin'])->prefix('mailable')->name('mail.')->group(function () {
     Route::get('/', [MailableController::class, 'index'])->name('index');

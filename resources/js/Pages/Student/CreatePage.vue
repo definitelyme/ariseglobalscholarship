@@ -49,6 +49,7 @@
                   >
                     <template v-slot:second="props">
                       <breeze-button
+                        class="bg-gray-800 hover:bg-gray-700"
                         type="submit"
                         v-text="
                           currentTab == tabs[tabs.length - 1]
