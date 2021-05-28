@@ -76,7 +76,7 @@
   <div>
     <teleport to="body">
       <modal-overlay modal-id="composer" :dismissible="!form.processing">
-        <modal class="h-44" modal-id="composer">
+        <modal class="h-200" modal-id="composer">
           <!--  -->
           <template #modal_header>
             <h3
