@@ -29,7 +29,11 @@
           typeof $parent.form == 'undefined' ? null : $parent.form.processing
         "
       >
-        <breeze-button type="submit" :processing="processing">
+        <breeze-button
+          class="bg-gray-800 hover:bg-gray-700"
+          type="submit"
+          :processing="processing"
+        >
           Update
         </breeze-button>
       </slot>

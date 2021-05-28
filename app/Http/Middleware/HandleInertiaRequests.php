@@ -39,6 +39,13 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'is_admin' => $request->user() != null && $request->user()->role_id == 1,
             ],
+            'flash' => function () use ($request) {
+                return [
+                    'status' => $request->session()->get('status'),
+                    'message' => $request->session()->get('message'),
+                    'success' => $request->session()->get('success'),
+                ];
+            },
             'program' => ScholarshipRun::whereIsActive(true)->first() ?? null,
             'breadcrumbs' => $request->segments(),
             'settings' => $this->settings($request),

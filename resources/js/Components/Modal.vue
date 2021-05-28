@@ -1,8 +1,8 @@
 <template>
   <div
-    class="h-full inline-block md:align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
+    class="inline-block md:align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl max-w-lg"
   >
-    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+    <div class="bg-white">
       <div class="sm:flex sm:items-start">
         <div
           class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
@@ -11,18 +11,25 @@
           <slot name="modal_icon" />
         </div>
         <div class="text-center sm:mt-0 sm:text-left min-w-full text-gray-700">
-          <span v-if="$slots.modal_header">
-            <slot name="modal_header" />
-          </span>
+          <div :class="[headerPadding, headerGap]">
+            <span v-if="$slots.modal_header">
+              <slot name="modal_header" />
+            </span>
+          </div>
 
-          <div class="mt-2" v-if="$slots.modal_body">
-            <slot name="modal_body" />
+          <div :class="[bodyPadding, bodyGap]">
+            <div class="mt-2" v-if="$slots.modal_body">
+              <slot name="modal_body" />
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+    <div
+      class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"
+      v-if="$slots.modal_cancel || $slots.modal_ok"
+    >
       <slot name="modal_cancel">
         <button
           type="button"
@@ -39,7 +46,29 @@
 
 <script>
 export default {
-  props: ["modalId"],
+  props: {
+    modalId: String,
+    headerGap: {
+      type: String,
+      required: false,
+      default: () => "",
+    },
+    headerPadding: {
+      type: String,
+      required: false,
+      default: () => "pl-4 pr-4 pt-4 sm:pt-6",
+    },
+    bodyGap: {
+      type: String,
+      required: false,
+      default: () => "",
+    },
+    bodyPadding: {
+      type: String,
+      required: false,
+      default: () => "pl-4 pr-4 pb-4",
+    },
+  },
   mounted() {
     //
   },
