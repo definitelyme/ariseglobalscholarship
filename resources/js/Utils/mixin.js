@@ -38,6 +38,12 @@ const mixin = {
         $passport_photos_url() {
             return `${this.$storage_url}/photos`;
         },
+        $flutter_wave_publicKey() {
+            return `${process.env.MIX_FLUTTER_WAVE_PUBLIC_KEY}`;
+        },
+        $flutter_wave_secretKey() {
+            return `${process.env.MIX_FLUTTER_WAVE_SECRET_KEY}`;
+        },
     },
 
     // provide() {

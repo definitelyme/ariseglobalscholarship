@@ -24,6 +24,7 @@
   <form @submit.prevent="submit">
     <div class="mt-4 flex items-center justify-between">
       <breeze-button
+        class="bg-gray-800 hover:bg-gray-700"
         :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
       >
