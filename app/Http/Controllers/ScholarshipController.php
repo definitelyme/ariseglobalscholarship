@@ -116,7 +116,7 @@ class ScholarshipController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.user
      *
      * @param  \App\Models\ScholarshipRun  $scholarship
      * @param  \App\Models\User  $user

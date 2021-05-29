@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
-use phpDocumentor\Reflection\Types\Boolean;
 use TCG\Voyager\Models\User as VoyagerUser;
 
 class User extends VoyagerUser
@@ -54,7 +53,8 @@ class User extends VoyagerUser
         "first_name",
         "last_name",
         "full_name",
-        "scholarship"
+        "scholarship",
+        "last_active_scholarship"
     ];
 
     /**
@@ -104,6 +104,16 @@ class User extends VoyagerUser
     public function passportPhoto(): HasOne
     {
         return $this->hasOne(PassportPhoto::class);
+    }
+
+    /**
+     * Get aa Payments for this user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany(PaymentReceipt::class);
     }
 
     /**
@@ -157,8 +167,9 @@ class User extends VoyagerUser
         return $var;
     }
 
-    public function getActiveScholarshipAttribute()
+    public function getLastActiveScholarshipAttribute()
     {
-        dd("Return value");
+        $scholarship = $this->scholarships()->latest()->first();
+        return $scholarship;
     }
 }
