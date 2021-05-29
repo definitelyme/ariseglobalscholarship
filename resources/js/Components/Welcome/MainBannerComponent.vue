@@ -31,7 +31,7 @@
                 :callback="callback"
                 :close="close"
                 :scholarship="user.last_active_scholarship"
-                >Obtain Exam pin</payment-button
+                >Generate Aptitude Test Pin</payment-button
               >
             </span>
           </div>
