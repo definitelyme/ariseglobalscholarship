@@ -6,13 +6,16 @@
 <span>
 
 @if ($has_action_button)
-    @component('mail::button', ['url' => $route])
-        Attach Documents
-    @endcomponent
+@component('mail::button', ['url' => $route])
+  Take Action
+@endcomponent
 
-    If you're having trouble clicking the "Attach Documents" button, copy and paste the URL below into your web browser: [{{ $route }}]({{ $route }})
+If you're having trouble clicking the button, copy and paste the URL below into your web browser: [{{ $route }}]({{ $route }})
 @endif
 
-Thanks,<br>
+
+
+Thanks,
+
 {{ config('app.name') }}
 @endcomponent

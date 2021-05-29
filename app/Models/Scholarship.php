@@ -90,6 +90,16 @@ class Scholarship extends Model
     }
 
     /**
+     * Get the Scholarship Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany(PaymentReceipt::class);
+    }
+
+    /**
      * Get the Scholarship Run associated with the Scholarship
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
