@@ -43,6 +43,7 @@
 
     <div class="flex items-center justify-end mt-4">
       <breeze-button
+      class="bg-gray-800 hover:bg-gray-700"
         :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
       >
