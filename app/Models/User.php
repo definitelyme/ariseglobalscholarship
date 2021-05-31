@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use TCG\Voyager\Models\User as VoyagerUser;
 
-class User extends VoyagerUser
+class User extends VoyagerUser implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 

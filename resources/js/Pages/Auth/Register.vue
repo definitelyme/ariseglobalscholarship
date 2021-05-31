@@ -9,6 +9,7 @@
       <breeze-input
         id="name"
         type="text"
+        name="name"
         class="mt-1 block w-full"
         v-model="form.name"
         required
@@ -22,6 +23,7 @@
       <breeze-input
         id="email"
         type="email"
+        name="email"
         class="mt-1 block w-full"
         v-model="form.email"
         required
@@ -30,10 +32,24 @@
     </div>
 
     <div class="mt-4">
+      <breeze-label for="phone" value="Phone Number" />
+      <breeze-input
+        id="phone"
+        name="phone"
+        type="text"
+        class="mt-1 block w-full"
+        v-model="form.phone"
+        required
+        autocomplete="phone"
+      />
+    </div>
+
+    <div class="mt-4">
       <breeze-label for="password" value="Password" />
       <breeze-input
         id="password"
         type="password"
+        name="password"
         class="mt-1 block w-full"
         v-model="form.password"
         required
@@ -99,6 +115,7 @@ export default {
       form: this.$inertia.form({
         name: "",
         email: "",
+        phone: "",
         password: "",
         password_confirmation: "",
         terms: false,
