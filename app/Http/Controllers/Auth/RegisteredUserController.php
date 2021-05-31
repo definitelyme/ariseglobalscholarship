@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|string|max:11',
             'password' => 'required|string|confirmed|min:8',
         ]);
 
@@ -46,12 +47,16 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]));
 
         event(new Registered($user));
 
         $scholarship_run = ScholarshipRun::whereIsActive(true)->first();
+
+        if ($scholarship_run == null)
+            $scholarship_run = ScholarshipRun::latest()->first();
 
         // Create Scholarship for registered user
         $scholarship = new Scholarship;
