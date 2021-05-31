@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\DispatchEmailJob;
 use App\Mail\SendInformation;
-use App\Models\ScholarshipRun;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use TCG\Voyager\Models\Role;
 
 class MailableController extends Controller
@@ -50,13 +49,16 @@ class MailableController extends Controller
         foreach ($request->emails as $recipient) {
             $user = User::whereEmail($recipient)->first();
 
-            Mail::to($recipient)->send(new SendInformation(
+            dispatch(new DispatchEmailJob(
                 $user,
-                $user->last_active_scholarship->run,
-                $request->subject,
-                $request->message,
-                $request->hasActionButton,
-                route('scholarship.apply')
+                new SendInformation(
+                    $user,
+                    $user->last_active_scholarship->run,
+                    $request->subject,
+                    $request->message,
+                    $request->hasActionButton,
+                    route('scholarship.apply')
+                )
             ));
         }
 

@@ -71,6 +71,12 @@ export default {
         this.route("payment.successful.store"),
         this.$inertia.form({
           ...response,
+          //   amount: 2000,
+          //   currency: "NGN",
+          //   flw_ref: "some-ref-" + Math.random(),
+          //   status: "successful",
+          //   transaction_id: Math.random() + "--transaction-id",
+          //   tx_ref: "transaction_ref-" + Math.random(),
         }),
         {
           onSuccess: () => {
