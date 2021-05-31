@@ -6,6 +6,8 @@ use App\Jobs\DispatchEmailJob;
 use App\Mail\SendPaymentSuccessEmail;
 use App\Models\PaymentReceipt;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class PaymentReceiptController extends Controller
@@ -74,6 +76,7 @@ class PaymentReceiptController extends Controller
         $receipt->status = $request->status;
         $receipt->transaction_id = $request->transaction_id;
         $receipt->transaction_reference = $request->tx_ref;
+        $receipt->email_sent_at = Carbon::now()->toDateString();
 
         $receipt->user()->associate($this->user);
         $receipt->scholarship()->associate($latestScholarship);
