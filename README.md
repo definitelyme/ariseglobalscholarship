@@ -12,7 +12,7 @@ Thank you for considering contributing to the Scholarship! The contribution guid
 
 ## Code of Conduct
 
-Please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Please review and abide by the [Code of Conduct](https://github.com/f0rx/ariseglobalscholarship/CODE_OF_CONDUCT.md).
 
 ## Security Vulnerabilities
 
