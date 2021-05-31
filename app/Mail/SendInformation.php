@@ -9,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Translation\HasLocalePreference;
-use PhpParser\Node\Expr\Cast\Bool_;
 
 class SendInformation extends Mailable implements ShouldQueue, HasLocalePreference
 {
