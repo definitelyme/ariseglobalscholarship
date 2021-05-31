@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\DispatchEmailJob;
+use App\Mail\SendPaymentSuccessEmail;
 use App\Models\PaymentReceipt;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class PaymentReceiptController extends Controller
@@ -72,11 +76,26 @@ class PaymentReceiptController extends Controller
         $receipt->status = $request->status;
         $receipt->transaction_id = $request->transaction_id;
         $receipt->transaction_reference = $request->tx_ref;
+        $receipt->email_sent_at = Carbon::now()->toDateString();
 
         $receipt->user()->associate($this->user);
         $receipt->scholarship()->associate($latestScholarship);
 
         $receipt->save();
+
+        dispatch(new DispatchEmailJob(
+            $this->user,
+            new SendPaymentSuccessEmail(
+                $this->user,
+                $latestScholarship,
+                $receipt,
+                "Aptitude Test E-PIN",
+                "Your payment was successful and a unique E-Pin has been generated for you.
+                Please copy it down somewhere safe; you will need it for the Aptitude Test."
+            )
+        ));
+
+        // Mail::to($this->user)->send();
 
         return redirect()->back()->with([
             "success" => $request->status == 'successful'

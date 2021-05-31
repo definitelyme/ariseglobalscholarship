@@ -2,17 +2,25 @@
 
 namespace App\Mail;
 
-use App\Models\ScholarshipRun;
+use App\Models\PaymentReceipt;
+use App\Models\Scholarship;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Translation\HasLocalePreference;
 
-class SendInformation extends Mailable implements ShouldQueue, HasLocalePreference
+class SendPaymentSuccessEmail extends Mailable implements ShouldQueue, HasLocalePreference
 {
     use Queueable, SerializesModels;
+
+    /**
+     * The theme to use for sending this mailable
+     *
+     * @var mixed
+     */
+    public $theme = "custom";
 
     /**
      * The user to receive mailable.
@@ -22,14 +30,21 @@ class SendInformation extends Mailable implements ShouldQueue, HasLocalePreferen
     public $user;
 
     /**
-     * The current scholarship run.
+     * The related scholarship
+     *
+     * @var \App\Models\Scholarship
+     */
+    public $scholarship;
+
+    /**
+     * The payment receipt
      *
      * @var \App\Models\ScholarshipRun
      */
-    public $scholarship_run;
+    public $receipt;
 
     /**
-     * The Subject.
+     * The Mailable Subject.
      *
      * @var String
      */
@@ -43,38 +58,22 @@ class SendInformation extends Mailable implements ShouldQueue, HasLocalePreferen
     public $body;
 
     /**
-     * Whether to display action button.
-     *
-     * @var Boolean
-     */
-    public $has_action_button;
-
-    /**
-     * The link for button.
-     *
-     * @var String
-     */
-    public $route;
-
-    /**
      * Create a new message instance.
      *
      * @return void
      */
     public function __construct(
         User $user,
-        ScholarshipRun $run,
+        Scholarship $scholarship,
+        PaymentReceipt $paymentReceipt,
         String $subject,
-        String $body,
-        Bool $has_action_button,
-        String $route
+        String $body
     ) {
         $this->user = $user;
-        $this->scholarship_run = $run;
+        $this->scholarship = $scholarship;
+        $this->receipt = $paymentReceipt;
         $this->subject = $subject;
         $this->body = $body;
-        $this->has_action_button = $has_action_button;
-        $this->route = $route;
     }
 
     /**
@@ -94,8 +93,8 @@ class SendInformation extends Mailable implements ShouldQueue, HasLocalePreferen
      */
     public function build()
     {
-        return $this->from("no-reply@ariseglobalscholarship.org", "Arise Global Scholarship")
+        return $this->from("ariseglobalscholarship@gmail.com", "Arise Global Scholarship")
             ->subject($this->subject)
-            ->markdown('emails.scholarship.general');
+            ->markdown('emails.scholarship.payment_successful');
     }
 }

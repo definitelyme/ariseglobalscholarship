@@ -29,6 +29,15 @@ class PaymentReceipt extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_sent_at' => 'datetime',
+    ];
+
+    /**
      * Get the User associated with this Payment
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
