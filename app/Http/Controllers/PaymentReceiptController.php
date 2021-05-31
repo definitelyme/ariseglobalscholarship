@@ -91,7 +91,8 @@ class PaymentReceiptController extends Controller
                 $receipt,
                 "Aptitude Test E-PIN",
                 "Your payment was successful and a unique E-Pin has been generated for you.
-                Please copy it down somewhere safe; you will need it for the Aptitude Test."
+                Please copy it down somewhere safe; you will need it for the Aptitude Test.\n\n
+                However, if you did not receive a Pin, kindly reply to this email or send an 'email' to ariseglobalscholarship@gmail.com"
             )
         ));
 
