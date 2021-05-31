@@ -47,13 +47,12 @@ class MailableController extends Controller
             ]
         );
 
-        $run = ScholarshipRun::whereIsActive(true)->first();
-
         foreach ($request->emails as $recipient) {
             $user = User::whereEmail($recipient)->first();
+
             Mail::to($recipient)->send(new SendInformation(
                 $user,
-                $run,
+                $user->last_active_scholarship->run,
                 $request->subject,
                 $request->message,
                 $request->hasActionButton,

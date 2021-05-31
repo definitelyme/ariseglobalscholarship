@@ -37,6 +37,7 @@ export default {
   props: {
     canLogin: Boolean,
     canRegister: Boolean,
+    flash: [String, Number, Boolean, Object, Array],
     quote: String,
   },
 

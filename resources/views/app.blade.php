@@ -16,6 +16,7 @@
     {{-- <title>{{ config('app.name', 'Arise Global Scholarship') }}</title> --}}
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/all.min.css">
     <link rel="stylesheet" href="{{ mix('css/private.css') }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
