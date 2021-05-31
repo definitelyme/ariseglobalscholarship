@@ -23,6 +23,7 @@ class User extends VoyagerUser implements MustVerifyEmail
         'slug',
         'email',
         'password',
+        'phone',
     ];
 
     /**
