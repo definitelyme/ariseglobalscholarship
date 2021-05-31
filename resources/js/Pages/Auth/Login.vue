@@ -13,6 +13,7 @@
       <breeze-input
         id="email"
         type="email"
+        name="email"
         class="mt-1 block w-full"
         v-model="form.email"
         required
@@ -26,6 +27,7 @@
       <breeze-input
         id="password"
         type="password"
+        name="password"
         class="mt-1 block w-full"
         v-model="form.password"
         required
